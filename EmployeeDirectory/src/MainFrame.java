@@ -1,21 +1,23 @@
 
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
-import java.util.Hashtable;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import java.util.regex.*;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import static jdk.nashorn.tools.ShellFunctions.input;
 import javax.swing.table.TableRowSorter;
 import javax.swing.RowFilter;
-import javax.swing.DefaultRowSorter;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 /*
  * 
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -29,6 +31,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 public class MainFrame extends javax.swing.JFrame {
 
     EmployeeDirectory emp;
+
     
     /**
      * 
@@ -81,6 +84,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        image = new javax.swing.JButton();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         employee_table = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -92,6 +96,13 @@ public class MainFrame extends javax.swing.JFrame {
         javax.swing.JButton clear = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         jLabel11.setText("jLabel11");
 
@@ -108,11 +119,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         Emp_delete.setBackground(new java.awt.Color(204, 204, 255));
+        Emp_delete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee (2).png"))); // NOI18N
         jLabel1.setText("Employee Management System");
+        Emp_delete.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 1383, 64));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Semibold", 1, 18))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(102, 0, 255));
@@ -131,7 +144,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Emploee ID");
         jLabel3.setMaximumSize(new java.awt.Dimension(90, 90));
 
-        Eid.setText("Enter Emp ID");
         Eid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EidActionPerformed(evt);
@@ -141,7 +153,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Age");
 
-        Eage.setText("Enter Age");
         Eage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EageActionPerformed(evt);
@@ -214,13 +225,20 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setText("     Phone Number");
+        jLabel12.setText("Phone Number");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel13.setText("Email");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel16.setText("Photo");
+
+        image.setText("Upload image");
+        image.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -232,6 +250,12 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(Emale)
+                                .addGap(18, 18, 18)
+                                .addComponent(Efemale))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,107 +263,100 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel9)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel8))
                                 .addGap(23, 23, 23)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(PositionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(Ename, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Eid, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Eage, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(StartDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Level, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Ename)
+                                    .addComponent(Eid)
+                                    .addComponent(Eage)
+                                    .addComponent(StartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Level, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                                    .addComponent(PositionTitle, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel13)
+                                        .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addGap(156, 156, 156)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 78, Short.MAX_VALUE))
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel16)))
+                        .addContainerGap(70, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(Emale)
-                        .addGap(18, 18, 18)
-                        .addComponent(Efemale)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(PhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(PhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10)
-                            .addComponent(jLabel16))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel12))
+                        .addGap(0, 83, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Ename, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ename, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Eid, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Eid, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Eage, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Eage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Emale)
-                        .addComponent(Efemale)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Emale)
+                    .addComponent(Efemale)
+                    .addComponent(jLabel5))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(StartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
-                    .addComponent(Level, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Level, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(jLabel8))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(PositionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                    .addComponent(PositionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12))
-                .addGap(28, 28, 28)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                    .addComponent(PhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(86, 86, 86))
         );
+
+        Emp_delete.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 630, 885));
 
         employee_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Employee", "Age", "Gender", "Start Date", "Level", "Team Info", "Position Title", "Cell Phone No", "Email id"
+                "Name", "Employee", "Age", "Gender", "Start Date", "Level", "Team Info", "Position Title", "Cell Phone No", "Email id", "Image"
             }
         ));
         employee_table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -348,6 +365,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(employee_table);
+
+        Emp_delete.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 980, 440));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -407,130 +426,65 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(empdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(empdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(empdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(empdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        Emp_delete.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 820, 770, 100));
+        jPanel1.getAccessibleContext().setAccessibleName("Operations");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
+        Emp_delete.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 760, 260, 40));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel15.setText("Search Box");
+        Emp_delete.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 770, 130, -1));
+        Emp_delete.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(1904, 112, 146, 197));
+        Emp_delete.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 100, 180, 180));
+        Emp_delete.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 100, 180, 180));
+        Emp_delete.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(1491, 146, -1, -1));
+        Emp_delete.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 100, 180, 180));
+        Emp_delete.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 100, 180, 180));
+        Emp_delete.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 100, 180, 180));
 
-        javax.swing.GroupLayout Emp_deleteLayout = new javax.swing.GroupLayout(Emp_delete);
-        Emp_delete.setLayout(Emp_deleteLayout);
-        Emp_deleteLayout.setHorizontalGroup(
-            Emp_deleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1383, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(Emp_deleteLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
-                .addGroup(Emp_deleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Emp_deleteLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        Emp_deleteLayout.setVerticalGroup(
-            Emp_deleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Emp_deleteLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(Emp_deleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(Emp_deleteLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addGroup(Emp_deleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Emp_deleteLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel15))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        jPanel1.getAccessibleContext().setAccessibleName("Operations");
-
-        getContentPane().add(Emp_delete, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(Emp_delete, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
+   
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-//        DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
-//        Vector<Vector> tableData = model.getDataVector();
-//        
-//        try{
-//            FileOutputStream file = new FileOutputStream("file.bn");
-//            ObjectOutputStream output = new ObjectOutputStream(file);
-//            
-//            output.writeObject(tableData);
-//            output.close();
-//            file.close();
-//        
-//        
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
+   
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-//      
-//        try{
-//            FileOutputStream file = new FileOutputStream("file.bn");
-//            ObjectOutputStream output = new ObjectOutputStream(file);
-//            
-//            
-//            Vector<Vector> tableData = (Vector<Vector>)input.readObject();
-//           
-//            output.close();
-//            file.close();
-//            
-//            DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
-//            for(int i =0; i<tableData.size(); i++){
-//                Vector row = tableData.get(i);
-//                model.addRow(new Object[]{row.get(0), row.get(1), row.get(2),row.get(3)});
-//                
-//            
-//            }
-//        
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
+        
 
 
 
@@ -566,22 +520,42 @@ public class MainFrame extends javax.swing.JFrame {
         Eid.setText("");
         Eage.setText("");
     }//GEN-LAST:event_clearActionPerformed
+    public void addTableHeader(){
+            DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
+            Object[] newIdentifiers = new Object[]{"Name", "Employee", "Age", "Gender", "Start Date", "Level", "Team Info", "Position Title", "Cell Phone No", "Email id", "Image" };
+            model.setColumnIdentifiers(newIdentifiers);
+            
+            employee_table.getColumnModel().getColumn(10).setCellRenderer(new MyTableCellRenderer());
 
+        }
     
+    class MyTableCellRenderer implements TableCellRenderer{
+        @Override
+        public Component getTableCellRendererComponent(JTable table,
+                                      Object value,
+                                      boolean isSelected,
+                                      boolean hasFocus,
+                                      int row,
+                                      int column) {
+            
+            TableColumn tb = employee_table.getColumnModel().getColumn(10);
+            tb.setMaxWidth(180);
+            tb.setMinWidth(180);
+
+            employee_table.setRowHeight(180);
+ 
+            return(Component) value;
+        } 
+ 
+    }
+    
+   
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-        // TODO add your handling code here:
-//        Search.AddRowToJtable(new Object[]{
-//                                            Ename.getText(),
-//                                            Eid.getText(),
-//                                            Eage.getText()
-//    
-//    
-//    });
-        
-        
+
         String name = Ename.getText();
         String id = Eid.getText();
-        String age = (Eage.getText());
+        String age = Eage.getText();
+   
         String gender ="";
         Date startdate = StartDate.getDate();
         String level = Level.getSelectedItem().toString();
@@ -590,91 +564,96 @@ public class MainFrame extends javax.swing.JFrame {
         String phone = PhoneNo.getText();
         String email = Email.getText();
         
-//        
-//        Employee es = emp.addnewEmployee();
-//        
-//        es.setName(name);
-//        es.setAge(age);
-//        es.setId(id);
-//        es.setGender(gender);
-//        es.setStartdate(startdate);
-//        es.setLevel(level);
-//        es.setTeaminfo(teaminfo);
-//        es.setPositiontitle(positiontitle);
-//        es.setPhone(phone);
-//        es.setEmail(email);
-//         
-//        
-//        
-        
-        
-        
-        
-        
-        
-        
-        if (Emale.isSelected()== true && Efemale.isSelected() == true ){
-            JOptionPane.showMessageDialog(this,
-                "Please select only one gender",
+       
+
+
+
+
+        Pattern ph = Pattern.compile("\\d{10}");
+        Matcher m3 = ph.matcher(phone);
+        Pattern e = Pattern.compile("^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[a-z]{2,4}$");
+        Matcher m2 = e.matcher(email);
+        Pattern ag = Pattern.compile("^[0-9].*$");
+        Matcher m1 = ag.matcher(age);
+   
+        if (m1.matches() == false){
+        JOptionPane.showMessageDialog(this,
+                "Enter valid age",
                 "Try again",
-                JoptionPane.ERROR_MESSAGE); 
+                JoptionPane.ERROR_MESSAGE);
         }
+        
         else if(Emale.isSelected() == true)
         {
             gender = "Male";
         }
         else if(Efemale.isSelected() == true){
             gender = "Female";
-
+         
         }
-        Pattern ph = Pattern.compile("\\d{10}");
-        Pattern e = Pattern.compile("^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[a-z]{2,4}$");
-        Matcher m1 = ph.matcher(phone);
-        Matcher m2 = e.matcher(email);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         
-        if (name.isEmpty() || id.isEmpty() || age.isEmpty() || gender == "" || teaminfo.isEmpty()  || phone.isEmpty()  || email.isEmpty()){
+        
+        else {if (name.isEmpty() || id.isEmpty()  || teaminfo.isEmpty()  || phone.isEmpty()  || email.isEmpty()){
             JOptionPane.showMessageDialog(this,
                 "Please fill all the fields in the form",
                 "Try again",
                 JoptionPane.ERROR_MESSAGE);
-        } else if(m1.matches() == false){
+          
+        } 
+
+        else if(m2.matches() == false){
         JOptionPane.showMessageDialog(this,
                 "Please enter a valid 10 digit number",
                 "Try again",
                 JoptionPane.ERROR_MESSAGE);
-
         }
-        else if(m2.matches() == false) {
+    
+        else if(m3.matches() == false) {
             JOptionPane.showMessageDialog(this,
                 "Please a valid email id",
                 "Try again",
                 JoptionPane.ERROR_MESSAGE);
         }
-        else {
-            //String gen2 = gender;
-//            new Search(name,id).setVisible(true);
-            
-//            s.AddRowToJtable(name,id,age,gender,startdate,level,teaminfo,positiontitle,phone,email);
-//            s.populateTable();
+        else{
             
             DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
-//            
-//            model.addRow(new Object[]{name,id,age,gender,startdate,level,teaminfo,positiontitle,phone,email});
-//           
-                   
+
+            addTableHeader();
             
-            model.addRow(new Object[]{name, id, age, gender, startdate, level, teaminfo, positiontitle, phone, email});    
+            int c = model.getRowCount();
+            switch (c) {
+                case 0:
+                    model.addRow(new Object[]{name, id, age, gender, startdate, level, teaminfo, positiontitle, phone, email, jLabel21});
+                    c++;
+                    break;
+                case 1:
+                    model.addRow(new Object[]{name, id, age, gender, startdate, level, teaminfo, positiontitle, phone, email, jLabel22});
+                    c++;
+                    break;
+                case 2:
+                    model.addRow(new Object[]{name, id, age, gender, startdate, level, teaminfo, positiontitle, phone, email, jLabel19});
+                    c++;
+                    break;
+                case 3:
+                    model.addRow(new Object[]{name, id, age, gender, startdate, level, teaminfo, positiontitle, phone, email, jLabel23});
+                    c++;
+                    break;
+                default:
+                    model.addRow(new Object[]{name, id, age, gender, startdate, level, teaminfo, positiontitle, phone, email,jLabel23});
+                    break;
+            }
             
-           
+
+            
             Ename.setText("");
             Eid.setText("");
             Eage.setText("");
-            gender = "";
-            StartDate.setDate(startdate); 
-            Level.setName("");
+            Emale.setSelected(false);
+            Efemale.setSelected(false);
+            StartDate.setCalendar(null); 
+            Level.setSelectedItem(level);
             TeamInfo.setText("");
-            PositionTitle.setName("");
+            PositionTitle.setSelectedItem(positiontitle);
             PhoneNo.setText("");
             Email.setText("");
             
@@ -683,10 +662,16 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void EfemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EfemaleActionPerformed
         // TODO add your handling code here:
+        if (Efemale.isSelected()){
+            Emale.setSelected(false);
+        }
     }//GEN-LAST:event_EfemaleActionPerformed
 
     private void EmaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmaleActionPerformed
         // TODO add your handling code here:
+        if (Emale.isSelected()){
+            Efemale.setSelected(false);
+        }
     }//GEN-LAST:event_EmaleActionPerformed
 
     private void EageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EageActionPerformed
@@ -705,25 +690,14 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_LevelActionPerformed
-
+// This code is to Search Desired elements.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            String query = jTextField1.getText();
+        
+        
+        String query = jTextField1.getText();
             filter(query);
     
-//    private void Populate(String name, String id){
-//        String rowData = (name,id);
-//        
-//    }
-//                    
 
-//   Search searchFrame = new Search();
-//        searchFrame.setVisible(true);
-//        searchFrame.pack();
-//        searchFrame.setLocationRelativeTo(null);
-//        searchFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        dispose();
-
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
         private void filter(String query)
@@ -741,6 +715,7 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    // This code is to Update rows in the table//
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
        DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
@@ -749,8 +724,14 @@ public class MainFrame extends javax.swing.JFrame {
             String name = Ename.getText();
             String id = Eid.getText();
             String age = Eage.getText();
-            
+            Date startdate = StartDate.getDate();
+            String level = Level.getSelectedItem().toString();
+            String team_info = TeamInfo.getText();
+            String position_title = PositionTitle.getSelectedItem().toString();
+            String phone = PhoneNo.getText();
+            String email = Email.getText();
             String gender = "";
+            
             if (Emale.isSelected()== true && Efemale.isSelected() == true ){
             JOptionPane.showMessageDialog(this,
                 "Please select only one gender",
@@ -768,9 +749,13 @@ public class MainFrame extends javax.swing.JFrame {
             model.setValueAt(name, employee_table.getSelectedRow(), 0);
             model.setValueAt(id, employee_table.getSelectedRow(), 1);
             model.setValueAt(age, employee_table.getSelectedRow(), 2);
-            model.setValueAt(gender, employee_table.getSelectedRow(), 3);
-            
-            
+            model.setValueAt(startdate, employee_table.getSelectedRow(), 4);
+            model.setValueAt(level, employee_table.getSelectedRow(), 5);
+            model.setValueAt(team_info, employee_table.getSelectedRow(), 6);
+            model.setValueAt(position_title, employee_table.getSelectedRow(), 7);
+            model.setValueAt(phone, employee_table.getSelectedRow(), 8);
+            model.setValueAt(email, employee_table.getSelectedRow(), 9);
+//            
 //           model.addRow(new Object[]{name, id, age});
            JOptionPane.showMessageDialog(this, "Field Updated Successfully");
        }
@@ -784,6 +769,8 @@ public class MainFrame extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_UpdateActionPerformed
 
+    
+    
     private void employee_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employee_tableMouseClicked
         // TODO add your handling code here:
          DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
@@ -791,13 +778,22 @@ public class MainFrame extends javax.swing.JFrame {
         String name = model.getValueAt(employee_table.getSelectedRow(), 0).toString();
         String id = model.getValueAt(employee_table.getSelectedRow(), 1).toString();
         String age = model.getValueAt(employee_table.getSelectedRow(), 2).toString();
-        String gender = model.getValueAt(employee_table.getSelectedRow(), 3).toString();
+        Date startDate = (Date) model.getValueAt(employee_table.getSelectedRow(), 4);
+        String level = model.getValueAt(employee_table.getSelectedRow(), 5).toString();
+        String team_info = model.getValueAt(employee_table.getSelectedRow(), 6).toString();
+        String position_title = model.getValueAt(employee_table.getSelectedRow(), 7).toString();
+        String phone = model.getValueAt(employee_table.getSelectedRow(), 8).toString();
+        String email = model.getValueAt(employee_table.getSelectedRow(), 9).toString();
         
-
         Ename.setText(name);
         Eid.setText(id);
         Eage.setText(age);
-        
+        StartDate.setDate(startDate);
+        Level.setSelectedItem(level);
+        TeamInfo.setText(team_info);
+        PositionTitle.setSelectedItem(position_title);
+        PhoneNo.setText(phone);
+        Email.setText(email);
 //        Level.setText(level);
 //        StartDate.setText(startdate);
 //        Ename.setText(name);
@@ -809,6 +805,90 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailActionPerformed
 
+    private void imageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageActionPerformed
+                // TODO add your handling code here:
+ 
+//            JFileChooser browseImageFile = new JFileChooser("C:\\Users\\Public\\Pictures\\Sample Pictures");
+//        //Filter image extensions
+//        FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+//        browseImageFile.addChoosableFileFilter(fnef);
+//        int showOpenDialogue = browseImageFile.showOpenDialog(null);
+//        Object arr[] = {jLabel17,jLabel18,jLabel19,jLabel20};
+        
+        DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
+        int c = model.getRowCount();
+        if(c == 0){
+            JFileChooser browseImageFile = new JFileChooser("C:\\Users\\Public\\Pictures\\Sample Pictures");
+        //Filter image extensions
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+        browseImageFile.addChoosableFileFilter(fnef);
+        int showOpenDialogue = browseImageFile.showOpenDialog(null);
+            if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+            File selectedImageFile = browseImageFile.getSelectedFile();
+            String selectedImagePath = selectedImageFile.getAbsolutePath();
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+            //Display image on jlable          
+            ImageIcon ii = new ImageIcon(selectedImagePath);
+            Image jfg = ii.getImage().getScaledInstance(jLabel21.getWidth(), jLabel21.getHeight(), Image.SCALE_SMOOTH);
+            jLabel21.setIcon(new ImageIcon(jfg));
+            c++;
+        }
+        }
+            else if (c == 1){
+                JFileChooser browseImageFile1 = new JFileChooser("C:\\Users\\Public\\Pictures\\Sample Pictures");
+        //Filter image extensions
+        FileNameExtensionFilter fnef1 = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+        browseImageFile1.addChoosableFileFilter(fnef1);
+        int showOpenDialogue = browseImageFile1.showOpenDialog(null);
+            if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+            File selectedImageFile = browseImageFile1.getSelectedFile();
+            String selectedImagePath = selectedImageFile.getAbsolutePath();
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+            //Display image on jlable          
+            ImageIcon ii = new ImageIcon(selectedImagePath);
+            Image jfg = ii.getImage().getScaledInstance(jLabel22.getWidth(), jLabel22.getHeight(), Image.SCALE_SMOOTH);
+            jLabel22.setIcon(new ImageIcon(jfg));
+            c++;
+            }
+            }
+            else if (c == 2) {
+                JFileChooser browseImageFile2 = new JFileChooser("C:\\Users\\Public\\Pictures\\Sample Pictures");
+        //Filter image extensions
+        FileNameExtensionFilter fnef2 = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+        browseImageFile2.addChoosableFileFilter(fnef2);
+        int showOpenDialogue = browseImageFile2.showOpenDialog(null);
+            if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+            File selectedImageFile = browseImageFile2.getSelectedFile();
+            String selectedImagePath = selectedImageFile.getAbsolutePath();
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+            //Display image on jlable          
+            ImageIcon ii = new ImageIcon(selectedImagePath);
+            Image jfg = ii.getImage().getScaledInstance(jLabel19.getWidth(), jLabel19.getHeight(), Image.SCALE_SMOOTH);
+            jLabel19.setIcon(new ImageIcon(jfg));
+            c++;
+            }
+            }
+            else{
+                JFileChooser browseImageFile3 = new JFileChooser("C:\\Users\\Public\\Pictures\\Sample Pictures");
+        //Filter image extensions
+        FileNameExtensionFilter fnef3 = new FileNameExtensionFilter("IMAGES", "png", "jpg", "jpeg");
+        browseImageFile3.addChoosableFileFilter(fnef3);
+        int showOpenDialogue = browseImageFile3.showOpenDialog(null);
+            if (showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+            File selectedImageFile = browseImageFile3.getSelectedFile();
+            String selectedImagePath = selectedImageFile.getAbsolutePath();
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+            //Display image on jlable          
+            ImageIcon ii = new ImageIcon(selectedImagePath);
+            Image jfg = ii.getImage().getScaledInstance(jLabel23.getWidth(), jLabel23.getHeight(), Image.SCALE_SMOOTH);
+            jLabel23.setIcon(new ImageIcon(jfg));
+            c++;
+  
+            }
+            
+        }
+    }//GEN-LAST:event_imageActionPerformed
+       
     /**
      * @param args the command line arguments
      */
@@ -858,6 +938,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea TeamInfo;
     private javax.swing.JButton Update;
     private javax.swing.JTable employee_table;
+    public javax.swing.JButton image;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -866,6 +947,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
