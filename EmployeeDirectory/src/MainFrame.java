@@ -553,7 +553,8 @@ public class MainFrame extends javax.swing.JFrame {
        
 
       
-
+        Pattern nm = Pattern.compile("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
+        Matcher m4 = nm.matcher(name);
 
         Pattern ph = Pattern.compile("\\d{10}");
         Matcher m3 = ph.matcher(phone);
@@ -561,8 +562,14 @@ public class MainFrame extends javax.swing.JFrame {
         Matcher m2 = e.matcher(email);
         Pattern ag = Pattern.compile("^[0-9].*$");
         Matcher m1 = ag.matcher(age);
-   
-        if (m1.matches() == false){
+        
+        if (m4.matches() == false){
+        JOptionPane.showMessageDialog(this,
+                "Enter valid name",
+                "Try again",
+                JoptionPane.ERROR_MESSAGE);
+        }
+        else if (m1.matches() == false){
         JOptionPane.showMessageDialog(this,
                 "Enter valid age",
                 "Try again",
