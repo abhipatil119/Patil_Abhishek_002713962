@@ -30,7 +30,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    EmployeeDirectory emp;
 
     
     /**
@@ -134,30 +133,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
         jLabel2.setText("Name");
 
-        Ename.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EnameActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Emploee ID");
         jLabel3.setMaximumSize(new java.awt.Dimension(90, 90));
 
-        Eid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EidActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Age");
-
-        Eage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EageActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Gender");
@@ -172,11 +153,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         Efemale.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Efemale.setText("Female");
-        Efemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EfemaleActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Start Date");
@@ -199,11 +175,6 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TeamInfo);
 
         Level.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8" }));
-        Level.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LevelActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("Position Title");
@@ -659,38 +630,8 @@ public class MainFrame extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_insertActionPerformed
-
-    private void EfemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EfemaleActionPerformed
-        // TODO add your handling code here:
-        if (Efemale.isSelected()){
-            Emale.setSelected(false);
-        }
-    }//GEN-LAST:event_EfemaleActionPerformed
-
-    private void EmaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmaleActionPerformed
-        // TODO add your handling code here:
-        if (Emale.isSelected()){
-            Efemale.setSelected(false);
-        }
-    }//GEN-LAST:event_EmaleActionPerformed
-
-    private void EageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EageActionPerformed
-
-    private void EidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EidActionPerformed
-
-    private void EnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EnameActionPerformed
-
-    private void LevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LevelActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_LevelActionPerformed
 // This code is to Search Desired elements.
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         
@@ -888,6 +829,10 @@ public class MainFrame extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_imageActionPerformed
+
+    private void EmaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmaleActionPerformed
        
     /**
      * @param args the command line arguments
