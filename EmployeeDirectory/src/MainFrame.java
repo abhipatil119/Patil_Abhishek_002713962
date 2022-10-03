@@ -153,6 +153,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         Efemale.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Efemale.setText("Female");
+        Efemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EfemaleActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Start Date");
@@ -487,9 +492,19 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         // TODO add your handling code here:
-        Ename.setText("");
-        Eid.setText("");
-        Eage.setText("");
+         Ename.setText("");
+            Eid.setText("");
+            Eage.setText("");
+            Emale.setSelected(false);
+            Efemale.setSelected(false);
+            StartDate.setCalendar(null); 
+//            Level.setSelectedItem(level);
+            Level.setSelectedItem(false);
+            TeamInfo.setText("");
+//            PositionTitle.setSelectedItem(positiontitle);
+            PhoneNo.setText("");
+            Email.setText("");
+        
     }//GEN-LAST:event_clearActionPerformed
     public void addTableHeader(){
             DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
@@ -558,13 +573,13 @@ public class MainFrame extends javax.swing.JFrame {
         {
             gender = "Male";
         }
-        else if(Efemale.isSelected() == true){
+         if(Efemale.isSelected() == true){
             gender = "Female";
          
         }
         
         
-        else {if (name.isEmpty() || id.isEmpty()  || teaminfo.isEmpty()  || phone.isEmpty()  || email.isEmpty()){
+         {if (name.isEmpty() || id.isEmpty()  || teaminfo.isEmpty()  || phone.isEmpty()  || email.isEmpty()){
             JOptionPane.showMessageDialog(this,
                 "Please fill all the fields in the form",
                 "Try again",
@@ -628,7 +643,7 @@ public class MainFrame extends javax.swing.JFrame {
             PhoneNo.setText("");
             Email.setText("");
             
-        }
+        } 
     }//GEN-LAST:event_insertActionPerformed
 // This code is to Search Desired elements.
     }
@@ -832,7 +847,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void EmaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmaleActionPerformed
         // TODO add your handling code here:
+        if (Emale.isSelected()){
+        Efemale.setSelected(false);
+        }
     }//GEN-LAST:event_EmaleActionPerformed
+
+    private void EfemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EfemaleActionPerformed
+        // TODO add your handling code here:
+        
+            if (Efemale.isSelected()){
+        Emale.setSelected(false);
+        }
+    }//GEN-LAST:event_EfemaleActionPerformed
        
     /**
      * @param args the command line arguments
