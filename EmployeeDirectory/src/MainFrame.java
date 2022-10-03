@@ -498,8 +498,8 @@ public class MainFrame extends javax.swing.JFrame {
             Emale.setSelected(false);
             Efemale.setSelected(false);
             StartDate.setCalendar(null); 
-//            Level.setSelectedItem(level);
-            Level.setSelectedItem(false);
+     //       Level.setSelectedItem(level);
+            
             TeamInfo.setText("");
 //            PositionTitle.setSelectedItem(positiontitle);
             PhoneNo.setText("");
@@ -552,7 +552,7 @@ public class MainFrame extends javax.swing.JFrame {
         
        
 
-
+      
 
 
         Pattern ph = Pattern.compile("\\d{10}");
@@ -587,14 +587,14 @@ public class MainFrame extends javax.swing.JFrame {
           
         } 
 
-        else if(m2.matches() == false){
+        else if(m3.matches() == false){
         JOptionPane.showMessageDialog(this,
                 "Please enter a valid 10 digit number",
                 "Try again",
                 JoptionPane.ERROR_MESSAGE);
         }
     
-        else if(m3.matches() == false) {
+        else if(m2.matches() == false) {
             JOptionPane.showMessageDialog(this,
                 "Please a valid email id",
                 "Try again",
@@ -675,7 +675,9 @@ public class MainFrame extends javax.swing.JFrame {
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
        DefaultTableModel model = (DefaultTableModel) employee_table.getModel();
+       
        if (employee_table.getSelectedRowCount() == 1){
+       
            
             String name = Ename.getText();
             String id = Eid.getText();
@@ -688,41 +690,86 @@ public class MainFrame extends javax.swing.JFrame {
             String email = Email.getText();
             String gender = "";
             
-            if (Emale.isSelected()== true && Efemale.isSelected() == true ){
-            JOptionPane.showMessageDialog(this,
-                "Please select only one gender",
-                "Try again",
-                JoptionPane.ERROR_MESSAGE); 
-        }
-        else if(Emale.isSelected() == true)
+	    Pattern ph = Pattern.compile("\\d{10}");
+        Matcher m3 = ph.matcher(phone);
+        Pattern e = Pattern.compile("^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[a-z]{2,4}$");
+        Matcher m2 = e.matcher(email);
+        Pattern ag = Pattern.compile("^[0-9].*$");
+        Matcher m1 = ag.matcher(age);
+   
+        
+        
+         if(Emale.isSelected() == true)
         {
             gender = "Male";
         }
-        else if(Efemale.isSelected() == true){
+         if(Efemale.isSelected() == true){
             gender = "Female";
-
+         
         }
+         if (m1.matches() == false){
+        JOptionPane.showMessageDialog(this,
+                "Enter valid age",
+                "Try again",
+                JoptionPane.ERROR_MESSAGE);
+        }
+        else if(m3.matches() == false){
+        JOptionPane.showMessageDialog(this,
+                "Please enter a valid 10 digit number",
+                "Try again",
+                JoptionPane.ERROR_MESSAGE);
+        }
+        else if (m2.matches() == false){
+        JOptionPane.showMessageDialog(this,
+                "Please eneter valid email address",
+                "Try again",
+                JoptionPane.ERROR_MESSAGE);
+        }
+        
+
+        else {
+
+	
             model.setValueAt(name, employee_table.getSelectedRow(), 0);
             model.setValueAt(id, employee_table.getSelectedRow(), 1);
             model.setValueAt(age, employee_table.getSelectedRow(), 2);
+            model.setValueAt(gender,employee_table.getSelectedRow(), 3);
             model.setValueAt(startdate, employee_table.getSelectedRow(), 4);
             model.setValueAt(level, employee_table.getSelectedRow(), 5);
             model.setValueAt(team_info, employee_table.getSelectedRow(), 6);
             model.setValueAt(position_title, employee_table.getSelectedRow(), 7);
             model.setValueAt(phone, employee_table.getSelectedRow(), 8);
             model.setValueAt(email, employee_table.getSelectedRow(), 9);
-//            
+            JOptionPane.showMessageDialog(this, "Field Updated Successfully");
+        }
+//            }
 //           model.addRow(new Object[]{name, id, age});
-           JOptionPane.showMessageDialog(this, "Field Updated Successfully");
+            Ename.setText("");
+            Eid.setText("");
+            Eage.setText("");
+//            Emale.setSelected(false);
+//            Efemale.setSelected(false);
+            StartDate.setCalendar(null); 
+            Level.setSelectedItem(level);
+            TeamInfo.setText("");
+            PositionTitle.setSelectedItem(position_title);
+            PhoneNo.setText("");
+            Email.setText("");
+           
        }
-       else{
+            
+            
             if(employee_table.getRowCount()== 0){
                 JOptionPane.showMessageDialog(this, "Table is Empty");
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Please choose a Row to Update");
-            }
-       }
+            
+	
+                               
+       
+       
+       
+       
+       
     }//GEN-LAST:event_UpdateActionPerformed
 
     
@@ -741,6 +788,7 @@ public class MainFrame extends javax.swing.JFrame {
         String phone = model.getValueAt(employee_table.getSelectedRow(), 8).toString();
         String email = model.getValueAt(employee_table.getSelectedRow(), 9).toString();
         
+     
         Ename.setText(name);
         Eid.setText(id);
         Eage.setText(age);
