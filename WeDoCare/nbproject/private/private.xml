@@ -3,12 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/DoctorRegistration.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/PatientHomePage.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/WeDoCare.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/DoctorRegisteration.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/DocReg.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/LoginValidationPage.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/DoctorHomePage.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/PatientReg.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/EncounterHistory.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/PatientRegisteration.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/Registration.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/JdbcConnection.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/StaffRegisteration.java</file>
-            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/LoginPage.java</file>
         </group>
     </open-files>
 </project-private>

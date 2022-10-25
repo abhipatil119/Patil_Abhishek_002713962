@@ -68,7 +68,7 @@ public class LoginValidationPage extends javax.swing.JFrame {
            
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginValidationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     
