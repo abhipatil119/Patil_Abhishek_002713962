@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
-
+import BackEnd.Encounter;
+import FrontEnd.HospitalReg;
+import BackEnd.HospitalRegisteration;
+import BackEnd.HospitalRegisteration;
 import BackEnd.JdbcConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,10 +14,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,8 +34,13 @@ public class PatientHomePage extends javax.swing.JFrame {
         initComponents();
     }
     Connection conn;
-    PreparedStatement pst1,pst2,pst3;
+    PreparedStatement pst;
     ResultSet rs;
+//    ArrayList<HospitalReg> hoslist = new ArrayList<>();
+    ArrayList<Encounter> app = new ArrayList<>();
+    ArrayList<HospitalRegisteration> hosreg = new ArrayList<>();
+    HospitalReg hos = new HospitalReg();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +71,9 @@ public class PatientHomePage extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        finder = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -198,18 +210,15 @@ public class PatientHomePage extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        finder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Hospital", "Doctor", "Zipcode"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(finder);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -250,6 +259,19 @@ public class PatientHomePage extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "patient_name", "doctor_name", "appoitment_date", "appoitment_time"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -261,8 +283,13 @@ public class PatientHomePage extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1006, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1006, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(46, 46, 46))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(546, 546, 546)
@@ -275,26 +302,33 @@ public class PatientHomePage extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
                 .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(54, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -317,10 +351,84 @@ public class PatientHomePage extends javax.swing.JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel find = (DefaultTableModel) finder.getModel();
+         String search_hos = jTextField1.getText();
+        try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            
+            pst = conn.prepareStatement("SELECT hospital_name, hospital_id, community, hospital_address, doctor_name, speciality ,zipcode FROM hospitalReg ");
+            rs = pst.executeQuery();
+//            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+//            String ps = rs.getString(1);
+//            System.out.println(ps);
+            while(rs.next())
+            {
+               String hos_name =  rs.getString("hospital_name");
+               String hos_id = rs.getString("hospital_id");
+               String community = rs.getString("community");
+               String hospital_address = rs.getString("hospital_address");
+               String doc_name = rs.getString("doctor_name");
+               String spec = rs.getString("speciality");
+               Long zip_code = rs.getLong("zipcode");
+               hosreg.add(new HospitalRegisteration(hos_name,zip_code ,hos_id,doc_name,community,hospital_address,spec));
+               
+              
+                
+            }
+            
+             String zip = jTextField1.getText();
+             long zip_no = Long.parseLong(zip);
+              for (int j =0; j < hosreg.size();j++){
+//              System.out.println(hosreg.get(j).getHospital_name());
+              
+              }
+               for (int i = 0; i< hosreg.size(); i++){
+                if (hosreg.get(i).getZipcode() == zip_no ){
+                    System.out.println(hosreg.get(i).getHospital_name());
+                    Object[] obj = {hosreg.get(i).getHospital_name(), hosreg.get(i).getDoctor_name(),hosreg.get(i).getZipcode()};
+                        find.addRow(obj);
+                    
+        }
+        
+//               String tempreture = rs.getString("tempreture");
+//               String pulse = rs.getString("pulse");
+//               String doctor_name = rs.getString("doctor_name");
+//               String doctor_id = rs.getString("doctor_id");
+//               String medication = rs.getString("medication");
+//               String diet = rs.getString("diet");
+//               String hospital = rs.getString("hospital");
+//               Date date_of_checkup = rs.getDate(15);
+               
+//               DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+               
+//               model.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
+          
+            
+            }
+            
+            
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(DoctorHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
+        
+        
+        
+        
+//        
+//        DefaultTableModel find = (DefaultTableModel) finder.getModel();
+//        System.out.println(hos.HospitalArray().get(0).getDoctor_name() + " " + hos.HospitalArray().get(0).getHospital_id() + " " + hos.HospitalArray().get(0).getZipcode());
+//        
+//        
+//        
         
         
         
@@ -328,58 +436,63 @@ public class PatientHomePage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try {
+        
             // TODO add your handling code here:
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
+            
+//            int age = Integer.parseInt(age1);
+           
+        try {
+            pst = conn.prepareStatement("SELECT patient_name,doctor_name,appoitment_date,appointment_time FROM appointment");
+            while(rs.next())
+            {
+               String patient_name =  rs.getString("patient_name");
+               String doctor_name = rs.getString("doctor_name");
+               Date appointment_date = rs.getDate("appointment_date");
+               String appointment_time = rs.getString("appointment_time");
+               
+               app.add(new Encounter(patient_name,doctor_name ,appointment_date,appointment_time));
+               
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
             String Pname = patient_name.getText();
             String Dname = Doc_name.getText();
             Date app_date = jDateChooser1.getDate();
-            
             String time = jComboBox1.getSelectedItem().toString();
-//            int age = Integer.parseInt(age1);
-           DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-           final String stringDate = dateFormat.format(app_date);
-           pst1 = conn.prepareStatement("SELECT * FROM appointment WHERE appoitment_date = ? and appoitment_time = ?") ;
-           pst1.setString(1,stringDate);
-           pst1.setString(2,time);
-           
-            pst2= conn.prepareStatement("INSERT INTO appointment(patient_name,doctor_name,appoitment_date,appoitment_time)VALUES(?,?,?,?)");
-            pst2.setString(1,Pname);
-            pst2.setString(2,Dname);
-            pst2.setString(3,stringDate);
-            pst2.setString(4,time);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(app_date);
             
-            
-            int k = pst2.executeUpdate();
-            if (k==1){
-                JOptionPane.showMessageDialog(this, "Appoitment booked !!!");
-                patient_name.setText("");
-                Doc_name.setText("");
-                jDateChooser1.setDate(app_date);
-                jComboBox1.setSelectedItem(jComboBox1);
-//                Email.setText("");
-//                UserName.setText("");
-//                Password.setText("");
-            }
-            else
-                {
+           for (int i = 0; i< app.size(); i++){
+                if (app.get(i).getAppointment_date().toString().equalsIgnoreCase(stringDate) && app.get(i).getAppointment_time().equalsIgnoreCase(time)){
+                    
+                  {
 
                 JOptionPane.showMessageDialog(this,
-                "Error in Registering you!",
+                "This Appointment is booked by someone",
                 "Try again",
                 JOptionPane.ERROR_MESSAGE);
 
+                }  
+                    
+                    
                 }
-        } catch (SQLException ex) {
-            Logger.getLogger(DocReg.class.getName()).log(Level.SEVERE, null, ex);
+                else 
+                {app.add(new Encounter(Pname,Dname ,app_date,time));
+                
+                
+                }
             
-        }
+             
         
         
         
         
-        
+           }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -421,6 +534,7 @@ public class PatientHomePage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Doc_name;
     private javax.swing.JTable encountertable;
+    private javax.swing.JTable finder;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -438,7 +552,8 @@ public class PatientHomePage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField patient_name;
     // End of variables declaration//GEN-END:variables
