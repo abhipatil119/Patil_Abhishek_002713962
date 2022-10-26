@@ -377,9 +377,7 @@ public class PatientHomePage extends javax.swing.JFrame {
                String spec = rs.getString("speciality");
                Long zip_code = rs.getLong("zipcode");
                hosreg.add(new HospitalRegisteration(hos_name,zip_code ,hos_id,doc_name,community,hospital_address,spec));
-               
               
-                
             }
             
              String zip = jTextField1.getText();
@@ -392,8 +390,9 @@ public class PatientHomePage extends javax.swing.JFrame {
                 if (hosreg.get(i).getZipcode() == zip_no ){
                     System.out.println(hosreg.get(i).getHospital_name());
                     Object[] obj = {hosreg.get(i).getHospital_name(), hosreg.get(i).getDoctor_name(),hosreg.get(i).getZipcode()};
+                        find.setRowCount(0);
                         find.addRow(obj);
-                    
+                    break;
         }
         
 //               String tempreture = rs.getString("tempreture");
@@ -444,7 +443,8 @@ public class PatientHomePage extends javax.swing.JFrame {
 //            int age = Integer.parseInt(age1);
            
         try {
-            pst = conn.prepareStatement("SELECT patient_name,doctor_name,appoitment_date,appointment_time FROM appointment");
+            pst = conn.prepareStatement("SELECT patient_name,doctor_name,appointment_date,appointment_time FROM appointment");
+            rs = pst.executeQuery();
             while(rs.next())
             {
                String patient_name =  rs.getString("patient_name");
@@ -468,7 +468,8 @@ public class PatientHomePage extends javax.swing.JFrame {
             final String stringDate = dateFormat.format(app_date);
             
            for (int i = 0; i< app.size(); i++){
-                if (app.get(i).getAppointment_date().toString().equalsIgnoreCase(stringDate) && app.get(i).getAppointment_time().equalsIgnoreCase(time)){
+               System.out.println(app.get(i).getAppointment_date());
+                if ((app.get(i).getAppointment_date().toString() == null ? (stringDate) == null : app.get(i).getAppointment_date().toString().equals(stringDate)) || (app.get(i).getAppointment_time() == null ? (time) == null : app.get(i).getAppointment_time().equals(time)))
                     
                   {
 
@@ -476,16 +477,47 @@ public class PatientHomePage extends javax.swing.JFrame {
                 "This Appointment is booked by someone",
                 "Try again",
                 JOptionPane.ERROR_MESSAGE);
-
-                }  
-                    
-                    
+                  break;
                 }
+                    
+                    
+                
                 else 
-                {app.add(new Encounter(Pname,Dname ,app_date,time));
-                
-                
+                {
+                    app.add(new Encounter(Pname,Dname ,app_date,time));
+                try {
+                    pst = conn.prepareStatement("INSERT INTO appointment(patient_name, doctor_name, appointment_date, appointment_time) values (?,?,?,?)");
+                    pst.setString(1,Pname);
+                    pst.setString(2,Dname);
+                    pst.setString(3,stringDate);
+                    pst.setString(4, time);
+            
+            
+                int k = pst.executeUpdate();
+                if (k==1){
+                    JOptionPane.showMessageDialog(this, "Appoitment Booked Successfully !!!");
+                        patient_name.setText("");
+                        Doc_name.setText("");
+                    jDateChooser1.setDate(app_date);
+                    jComboBox1.setSelectedItem("");
+                    break;
                 }
+                else
+                    {
+
+                    JOptionPane.showMessageDialog(this,
+                    "Error in booking appointment!",
+                    "Try again",
+                    JOptionPane.ERROR_MESSAGE);
+                    break;
+                    }
+
+
+            } catch (SQLException ex) {
+                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+                    }
             
              
         

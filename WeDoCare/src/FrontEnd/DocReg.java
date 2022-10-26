@@ -30,7 +30,7 @@ public class DocReg extends javax.swing.JPanel {
             Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sample","root","ABHIpatil123#");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wecare","root","ABHIpatil123#");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DocReg.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -142,6 +142,12 @@ public class DocReg extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Hospital");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setText("Specialization");
@@ -292,20 +298,25 @@ public class DocReg extends javax.swing.JPanel {
             String Lname = LastName.getText();
             String age1 = Age.getText();
             int age = Integer.parseInt(age1);
+            String specialization = jTextField2.getText();
+            
             String phone1 = PhoneNo.getText();
             long phone = Long.parseLong(phone1);
             String email = Email.getText();
+            String hospital = jTextField1.getText();
             String username = UserName.getText();
             String password = Password.getText();
             
-            pst= conn.prepareStatement("INSERT INTO doctor(FirstName,LastName,age,PhoneNo,email,username,password)VALUES(?,?,?,?,?,?,?)");
+            pst= conn.prepareStatement("INSERT INTO doctor(FirstName,LastName,age,specialization,PhoneNo,email_id,Hospital, username,password)VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setString(1,Fname);
             pst.setString(2,Lname);
             pst.setInt(3,age);
-            pst.setLong(4,phone);
-            pst.setString(5,email);
-            pst.setString(6,username);
-            pst.setString(7,password);
+            pst.setString(4,specialization);
+            pst.setLong(5,phone);
+            pst.setString(6,email);
+            pst.setString(7, hospital);
+            pst.setString(8,username);
+            pst.setString(9,password);
             
             
             int k = pst.executeUpdate();
@@ -316,6 +327,8 @@ public class DocReg extends javax.swing.JPanel {
                 Age.setText("");
                 PhoneNo.setText("");
                 Email.setText("");
+                jTextField1.setText("");
+                jTextField2.setText("");
                 UserName.setText("");
                 Password.setText("");
             }
@@ -338,6 +351,10 @@ public class DocReg extends javax.swing.JPanel {
     private void PhoneNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhoneNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PhoneNoActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
