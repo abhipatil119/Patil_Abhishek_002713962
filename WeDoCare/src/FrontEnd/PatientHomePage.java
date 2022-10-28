@@ -4,6 +4,7 @@
  */
 package FrontEnd;
 import BackEnd.Encounter;
+import BackEnd.EncounterHistory;
 import FrontEnd.HospitalReg;
 import BackEnd.HospitalRegisteration;
 import BackEnd.HospitalRegisteration;
@@ -40,7 +41,7 @@ public class PatientHomePage extends javax.swing.JFrame {
     ArrayList<Encounter> app = new ArrayList<>();
     ArrayList<HospitalRegisteration> hosreg = new ArrayList<>();
     HospitalReg hos = new HospitalReg();
-    
+    ArrayList<EncounterHistory> Ehis = new ArrayList<>();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +58,58 @@ public class PatientHomePage extends javax.swing.JFrame {
                hosreg.add(new HospitalRegisteration(hos_name,zip_code ,hos_id,doc_name,community,hospital_address,spec));
         return hosreg;
     }
+    
+    public void encounter(String username, String password){
+        
+    try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            
+            pst = conn.prepareStatement("(SELECT patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup from  vital_encountor_history where patient_id = (SELECT patient_id FROM PatientReg Where username = ? and password = ?));");
+            pst.setString(1,username);
+            pst.setString(2,password);
+            rs = pst.executeQuery();
+//            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+//            String ps = rs.getString(1);
+//            System.out.println(ps);
+            while(rs.next())
+            {
+               String patient_name =  rs.getString("patient_name");
+               String patient_id = rs.getString("patient_id");
+               String city = rs.getString("city");
+               String symptoms = rs.getString("symptoms");
+               int encounter_no = rs.getInt("encounter_no");
+  
+               int blood_pressure = rs.getInt("blood_pressure");
+               Double heart_rate = rs.getDouble("heart_rate");
+               Double tempreture = rs.getDouble("tempreture");
+               int pulse = rs.getInt("pulse");
+               String doctor_name = rs.getString("doctor_name");
+               String doctor_id = rs.getString("doctor_id");
+               String medication = rs.getString("medication");
+               String diet = rs.getString("diet");
+               String hospital = rs.getString("hospital");
+               Date date_of_checkup = rs.getDate(15);
+               
+               Ehis.add(new EncounterHistory(patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup));
+               DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+               
+               model.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
+          
+            
+            }
+            
+            
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(DoctorHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
+    }
+    
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -86,7 +139,7 @@ public class PatientHomePage extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         area = new javax.swing.JComboBox<>();
         community = new javax.swing.JComboBox<>();
-        hospital = new javax.swing.JComboBox<>();
+        doctor = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         Finder = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -226,16 +279,35 @@ public class PatientHomePage extends javax.swing.JFrame {
         jLabel9.setText("Enter Area");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setText("Select Community");
+        jLabel10.setText("Select Hospital");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setText("List of Hospitals");
+        jLabel11.setText("Select Doctor");
 
-        area.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        area.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                areaMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                areaMouseExited(evt);
+            }
+        });
+        area.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                areaActionPerformed(evt);
+            }
+        });
 
-        community.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        hospital.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        community.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                communityMouseClicked(evt);
+            }
+        });
+        community.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                communityKeyPressed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setText("Book");
@@ -256,36 +328,38 @@ public class PatientHomePage extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
-                        .addComponent(Finder, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel7)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(Finder, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                                        .addComponent(hospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jComboBox2, 0, 125, Short.MAX_VALUE)
-                                            .addComponent(area, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel10)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9))
                                     .addGap(18, 18, 18)
-                                    .addComponent(community, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(41, 41, 41))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(area, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jLabel7))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(doctor, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(112, 112, 112))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +381,7 @@ public class PatientHomePage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(hospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(doctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
@@ -438,9 +512,6 @@ public class PatientHomePage extends javax.swing.JFrame {
         
         
         
-        
-        DefaultTableModel find = (DefaultTableModel) find.getModel();
-         String search_hos = jTextField1.getText();
         try {
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
@@ -464,20 +535,20 @@ public class PatientHomePage extends javax.swing.JFrame {
             }
             
            //  String zip = jTextField1.getText();
-             long zip_no = Long.parseLong(zip);
-              for (int j =0; j < hosreg.size();j++){
-//              System.out.println(hosreg.get(j).getHospital_name());
-              
-              }
-               for (int i = 0; i< hosreg.size(); i++){
-                if (hosreg.get(i).getZipcode() == zip_no ){
-                    //System.out.println(hosreg.get(i).getHospital_name());
-                    Object[] obj = {hosreg.get(i).getHospital_name(), hosreg.get(i).getDoctor_name(),hosreg.get(i).getZipcode()};
-                        find.setRowCount(0);
-                        find.addRow(obj);
-                        new SystemDoctor().doctor_gain(hosreg);
-                    break;
-        }
+//             long zip_no = Long.parseLong(zip);
+//              for (int j =0; j < hosreg.size();j++){
+////              System.out.println(hosreg.get(j).getHospital_name());
+//              
+//              }
+//               for (int i = 0; i< hosreg.size(); i++){
+//                if (hosreg.get(i).getZipcode() == zip_no ){
+//                    //System.out.println(hosreg.get(i).getHospital_name());
+//                    Object[] obj = {hosreg.get(i).getHospital_name(), hosreg.get(i).getDoctor_name(),hosreg.get(i).getZipcode()};
+//                        find.setRowCount(0);
+//                        find.addRow(obj);
+//                        new SystemDoctor().doctor_gain(hosreg);
+//                    break;
+//        }
         
 //               String tempreture = rs.getString("tempreture");
 //               String pulse = rs.getString("pulse");
@@ -497,7 +568,7 @@ public class PatientHomePage extends javax.swing.JFrame {
             
             
         
-        } catch (SQLException ex) {
+         catch (SQLException ex) {
             Logger.getLogger(DoctorHomePage.class.getName()).log(Level.SEVERE, null, ex);
         }
     
@@ -617,6 +688,7 @@ public class PatientHomePage extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         SystemDoctor logpage = new SystemDoctor();
+        logpage.doctor_gain(hosreg);
         logpage.show();
         dispose();
         
@@ -624,14 +696,111 @@ public class PatientHomePage extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
+        String city = jComboBox2.getSelectedItem().toString();
+//        String lo = "longwood";
+//        area.addItem(lo);
+        JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            
+//            int age = Integer.parseInt(age1);
+           
+        try {
+            pst = conn.prepareStatement("SELECT area FROM community where city = ?");
+            pst.setString(1,city);
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String ar =  rs.getString("area");
+               System.out.println(ar);
+               area.addItem(ar);
+                
+            }
+        }catch (SQLException ex) {
+                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        
+        
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void FinderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinderActionPerformed
         // TODO add your handling code here:
-        String lo = "longwood";
-        area.addItem(lo);
-        
+        String a1 = area.getSelectedItem().toString();
+//        String lo = "longwood";
+//        area.addItem(lo);
+        JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            
+//            int age = Integer.parseInt(age1);
+           
+        try {
+            pst = conn.prepareStatement("SELECT hospital FROM community where area = ?");
+            pst.setString(1,a1);
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String hos =  rs.getString("hospital");
+               
+               community.addItem(hos);
+                
+            }
+        }catch (SQLException ex) {
+                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
     }//GEN-LAST:event_FinderActionPerformed
+
+    private void areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areaActionPerformed
+        // TODO add your handling code here:
+      
+        
+        
+        
+    }//GEN-LAST:event_areaActionPerformed
+
+    private void areaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_areaMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_areaMouseClicked
+
+    private void communityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_communityMouseClicked
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+        
+                                     
+
+    }//GEN-LAST:event_communityMouseClicked
+
+    private void areaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_areaMouseExited
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_areaMouseExited
+
+    private void communityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_communityKeyPressed
+        // TODO add your handling code here:
+        String hospital = community.getSelectedItem().toString();
+//        String lo = "longwood";
+//        area.addItem(lo);
+        JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            
+//            int age = Integer.parseInt(age1);
+           
+        try {
+            pst = conn.prepareStatement("SELECT doctor FROM community where hospital = ?");
+            pst.setString(1,hospital);
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String doc =  rs.getString("doctor");
+               
+               doctor.addItem(doc);
+                
+            }
+        }catch (SQLException ex) {
+                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_communityKeyPressed
 
     /**
      * @param args the command line arguments
@@ -673,9 +842,9 @@ public class PatientHomePage extends javax.swing.JFrame {
     private javax.swing.JButton Finder;
     private javax.swing.JComboBox<String> area;
     private javax.swing.JComboBox<String> community;
+    private javax.swing.JComboBox<String> doctor;
     private javax.swing.JTable encountertable;
     private javax.swing.JTable find;
-    private javax.swing.JComboBox<String> hospital;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

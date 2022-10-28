@@ -387,11 +387,13 @@ public class SystemDoctor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void doctor_gain(ArrayList<HospitalRegisteration> hos){
-        System.out.println(hos.get(0).getAddress());
+        for (int i = 0; i< hos.size(); i++){
+        System.out.println(hos.get(i).getAddress());
+        
     
     }
     
-    
+    }
     private void DocTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DocTableMouseClicked
         // TODO add your handling code here:
         DefaultTableModel doctable = (DefaultTableModel) DocTable.getModel();

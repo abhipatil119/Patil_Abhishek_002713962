@@ -64,14 +64,31 @@ public class LoginValidationPage extends javax.swing.JFrame {
                 String password = rs.getString(3);
                 log.add(new Login(loginas, username, password));
                 }
+            
+            
+            
+            
                 for (int i =0; i < log.size();i++){
 //              System.out.println(hosreg.get(j).getHospital_name());
                 if( log.get(i).getLoginas().equals(logas)&& log.get(i).getUsername().equals(user) && log.get(i).getPassword().equals(passw)  ){
+                if (logas.equalsIgnoreCase("doctor")){
                 DoctorHomePage doctorhomepage = new DoctorHomePage();
                 doctorhomepage.show();
                 dispose();
-                break;
+                }
+                else if(logas.equalsIgnoreCase("patient")){
+                PatientHomePage patient = new PatientHomePage();
+                patient.encounter(user,passw);
+                patient.show();
+                dispose();
                 
+                }   
+                else if(logas.equalsIgnoreCase("useradmin"))    {
+                SystemAdminHomePage sysadmin = new SystemAdminHomePage();
+                sysadmin.show();
+                dispose();
+                break;
+                }
               }
                
             }

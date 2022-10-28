@@ -29,6 +29,7 @@ public class EncounterHistory {
     public EncounterHistory(String patient_name, String patient_id, String city ,String symptoms, int encounter_no, Integer blood_pressure, Double heart_rate, Double tempreture, Integer pulse, String doctor_name, String doctor_id, String medication, String diet,String hospital, Date date_of_checkup) {
         this.patient_name = patient_name;
         this.patient_id = patient_id;
+        this.city = city;
         this.symptoms = symptoms;
         this.encounter_no = encounter_no;
         this.blood_pressure = blood_pressure;

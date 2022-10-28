@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,9 @@ public class DoctorHomePage extends javax.swing.JFrame {
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
+    ArrayList<EncounterHistory> Ehis = new ArrayList<>();
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,8 +56,8 @@ public class DoctorHomePage extends javax.swing.JFrame {
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             
-            pst = conn.prepareStatement("SELECT patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup FROM vital_encountor_history WHERE patient_id = ? ");
-            pst.setString(1,p_id);
+            pst = conn.prepareStatement("SELECT patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup FROM vital_encountor_history");
+            
             rs = pst.executeQuery();
 //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
 //            String ps = rs.getString(1);
@@ -64,11 +68,12 @@ public class DoctorHomePage extends javax.swing.JFrame {
                String patient_id = rs.getString("patient_id");
                String city = rs.getString("city");
                String symptoms = rs.getString("symptoms");
-               String encounter_no = rs.getString("encounter_no");
-               String blood_pressure = rs.getString("blood_pressure");
-               String heart_rate = rs.getString("heart_rate");
-               String tempreture = rs.getString("tempreture");
-               String pulse = rs.getString("pulse");
+               int encounter_no = rs.getInt("encounter_no");
+  
+               int blood_pressure = rs.getInt("blood_pressure");
+               Double heart_rate = rs.getDouble("heart_rate");
+               Double tempreture = rs.getDouble("tempreture");
+               int pulse = rs.getInt("pulse");
                String doctor_name = rs.getString("doctor_name");
                String doctor_id = rs.getString("doctor_id");
                String medication = rs.getString("medication");
@@ -76,9 +81,10 @@ public class DoctorHomePage extends javax.swing.JFrame {
                String hospital = rs.getString("hospital");
                Date date_of_checkup = rs.getDate(15);
                
+               Ehis.add(new EncounterHistory(patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup));
                DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
                
-               model.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
+//               model.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
           
             
             }
@@ -90,7 +96,15 @@ public class DoctorHomePage extends javax.swing.JFrame {
         }
     
     
-    
+    for (int i =0; i < Ehis.size(); i++){
+        if(Ehis.get(i).getPatient_id().equalsIgnoreCase(p_id)){
+            System.out.println(Ehis.get(i).getDoctor_name());
+            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+            model.addRow(new Object[] {Ehis.get(0).getPatient_name(),Ehis.get(0).getPatient_id(),Ehis.get(i).getCity(),Ehis.get(i).getSymptoms(),Ehis.get(i).getEncounter_no(),Ehis.get(i).getBlood_pressure(),Ehis.get(i).getHeart_rate(),Ehis.get(i).getTempreture(),Ehis.get(i).getPulse(),Ehis.get(i).getDoctor_name(),Ehis.get(i).getDoctor_id(),Ehis.get(i).getMedication(),Ehis.get(i).getDiet(),Ehis.get(i).getHospital(),Ehis.get(i).getDate_of_checkup()});
+    }
+        else {
+            continue;
+        }}
     
     }
     
