@@ -7,6 +7,7 @@ package FrontEnd;
 
 import BackEnd.Doctor;
 import BackEnd.Encounter;
+import BackEnd.HospitalRegisteration;
 import BackEnd.JdbcConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +34,7 @@ public class SystemDoctor extends javax.swing.JFrame {
     PreparedStatement pst;
     ResultSet rs;
     ArrayList<Doctor> doc = new ArrayList<>();
-    
+    ArrayList<HospitalRegisteration> hos1 = new ArrayList<>();
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -348,6 +349,13 @@ public class SystemDoctor extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+//        hos1 = new PatientHomePage().getHospitalRegistrations();
+//        hos1.get(0).getAddress();
+            PatientHomePage php = new PatientHomePage();
+             
+            php.getHospitalRegistrations().get(0).getDoctor_name();
+                    
+
           JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             DefaultTableModel doctable = (DefaultTableModel) DocTable.getModel();
@@ -378,6 +386,12 @@ public class SystemDoctor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void doctor_gain(ArrayList<HospitalRegisteration> hos){
+        System.out.println(hos.get(0).getAddress());
+    
+    }
+    
+    
     private void DocTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DocTableMouseClicked
         // TODO add your handling code here:
         DefaultTableModel doctable = (DefaultTableModel) DocTable.getModel();

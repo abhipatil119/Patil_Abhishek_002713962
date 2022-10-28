@@ -205,8 +205,8 @@ public class SystemAdminHomePage extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        LoginValidationPage logpage = new LoginValidationPage();
-        logpage.show();
+        SystemDoctor docpage = new SystemDoctor();
+        docpage.show();
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
