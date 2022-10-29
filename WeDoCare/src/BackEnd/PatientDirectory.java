@@ -17,7 +17,7 @@ public class PatientDirectory {
     int Age;
     String blood_group;
     String Address;
-    String Zipcode;
+    int Zipcode;
     String city;
     String UserName;
     String Password;
@@ -81,7 +81,7 @@ public class PatientDirectory {
         this.Password = Password;
     }
    
-     public PatientDirectory(String FirstName, String LastName, String patient_id,String gender, int Age,String blood_group, String Address,String Zipcode,String city, String UserName, String Password) {
+     public PatientDirectory(String FirstName, String LastName, String patient_id,String gender, int Age,String blood_group, String Address,int Zipcode,String city, String UserName, String Password) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.patient_id = patient_id;
@@ -111,11 +111,11 @@ public class PatientDirectory {
         this.blood_group = blood_group;
     }
 
-    public String getZipcode() {
+    public Integer getZipcode() {
         return Zipcode;
     }
 
-    public void setZipcode(String Zipcode) {
+    public void setZipcode(Integer Zipcode) {
         this.Zipcode = Zipcode;
     }
 
