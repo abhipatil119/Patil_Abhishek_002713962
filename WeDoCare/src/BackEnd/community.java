@@ -8,10 +8,10 @@ package BackEnd;
  *
  * @author patil
  */
-public class community {
+public class Community {
     String city;
 
-    public community(String city, String area, String hospital, String doctor) {
+    public Community(String city, String area, String hospital, String doctor) {
         this.city = city;
         this.area = area;
         this.hospital = hospital;

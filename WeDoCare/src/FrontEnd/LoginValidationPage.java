@@ -83,7 +83,7 @@ public class LoginValidationPage extends javax.swing.JFrame {
                 dispose();
                 
                 }   
-                else if(logas.equalsIgnoreCase("useradmin"))    {
+                else if(logas.equalsIgnoreCase("systemadmin"))    {
                 SystemAdminHomePage sysadmin = new SystemAdminHomePage();
                 sysadmin.show();
                 dispose();

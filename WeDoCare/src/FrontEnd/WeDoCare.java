@@ -180,7 +180,7 @@ public class WeDoCare extends javax.swing.JFrame {
 
     private void ResigerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResigerActionPerformed
         // TODO add your handling code here:
-         Registration reg = new Registration();
+         Register reg = new Register();
         reg.show();
         dispose();
         
