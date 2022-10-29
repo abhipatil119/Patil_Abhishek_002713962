@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -87,13 +88,10 @@ public class SystemPatient extends javax.swing.JFrame {
 
         patient_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "FirstName", "LastName", "Gender", "Age", "blood_group", "address", "zipcode", "city"
+                "FirstName", "LastName", "Title 3", "Gender", "Age", "blood_group", "address", "zipcode", "city"
             }
         ));
         patient_table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -324,6 +322,11 @@ public class SystemPatient extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton3.setText("Disapprove");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -334,14 +337,15 @@ public class SystemPatient extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(168, 168, 168)
                         .addComponent(View, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(502, 502, 502)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -471,7 +475,7 @@ public class SystemPatient extends javax.swing.JFrame {
         String Fname = patient.getValueAt(patient_table.getSelectedRow(), 0).toString();
         String Lname = patient.getValueAt(patient_table.getSelectedRow(), 1).toString();
         String patient_id = patient.getValueAt(patient_table.getSelectedRow(), 2).toString();
-        String gender = patient.getValueAt(patient_table.getSelectedRow(), 3).toString();
+        
         String age = patient.getValueAt(patient_table.getSelectedRow(), 4).toString();
         String blood_group = patient.getValueAt(patient_table.getSelectedRow(), 5).toString();
         String address = patient.getValueAt(patient_table.getSelectedRow(), 6).toString();
@@ -508,12 +512,12 @@ public class SystemPatient extends javax.swing.JFrame {
             {
                String first_name =  rs.getString("firstname");
                String last_name = rs.getString("lastname");
-               int patient_id = rs.getInt("patient_id");
-               Long gender = rs.getLong("gender");
+               String patient_id = rs.getString("patient_id");
+               String gender = rs.getString("gender");
                String age = rs.getString("age");
                String blood_group = rs.getString("blood_group");
                String address = rs.getString("address");
-               String zipcode = rs.getString("zipcode");
+               int zipcode = rs.getInt("zipcode");
                String city = rs.getString("city");
                
                
@@ -525,6 +529,23 @@ public class SystemPatient extends javax.swing.JFrame {
             Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ViewActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+         DefaultTableModel doctable = (DefaultTableModel) patient_table.getModel();
+        int row = patient_table.getSelectedRow();
+        if(row  < 0){
+            JOptionPane.showMessageDialog(this,
+                "Please select a row which you want to delete",
+                "Click on the row",
+                JOptionPane.ERROR_MESSAGE);
+
+        }else {
+            DefaultTableModel model = (DefaultTableModel) patient_table.getModel();
+            model.removeRow(row);
+        }
+                
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -136,10 +136,7 @@ public class SystemDoctor extends javax.swing.JFrame {
 
         DocTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "First_name", "Last_name", "Age", "Specialization", "Email", "Phone_no", "Hospital"

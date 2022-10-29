@@ -4,6 +4,7 @@
  */
 package FrontEnd;
 
+import BackEnd.Encounter;
 import BackEnd.EncounterHistory;
 import BackEnd.JdbcConnection;
 import java.sql.Connection;
@@ -36,7 +37,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
     PreparedStatement pst;
     ResultSet rs;
     ArrayList<EncounterHistory> Ehis = new ArrayList<>();
-    
+    ArrayList<Encounter> Econ = new ArrayList<>();
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,7 +101,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
         if(Ehis.get(i).getPatient_id().equalsIgnoreCase(p_id)){
             System.out.println(Ehis.get(i).getDoctor_name());
             DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
-            model.addRow(new Object[] {Ehis.get(0).getPatient_name(),Ehis.get(0).getPatient_id(),Ehis.get(i).getCity(),Ehis.get(i).getSymptoms(),Ehis.get(i).getEncounter_no(),Ehis.get(i).getBlood_pressure(),Ehis.get(i).getHeart_rate(),Ehis.get(i).getTempreture(),Ehis.get(i).getPulse(),Ehis.get(i).getDoctor_name(),Ehis.get(i).getDoctor_id(),Ehis.get(i).getMedication(),Ehis.get(i).getDiet(),Ehis.get(i).getHospital(),Ehis.get(i).getDate_of_checkup()});
+            model.addRow(new Object[] {Ehis.get(i).getPatient_name(),Ehis.get(i).getPatient_id(),Ehis.get(i).getCity(),Ehis.get(i).getSymptoms(),Ehis.get(i).getEncounter_no(),Ehis.get(i).getBlood_pressure(),Ehis.get(i).getHeart_rate(),Ehis.get(i).getTempreture(),Ehis.get(i).getPulse(),Ehis.get(i).getDoctor_name(),Ehis.get(i).getDoctor_id(),Ehis.get(i).getMedication(),Ehis.get(i).getDiet(),Ehis.get(i).getHospital(),Ehis.get(i).getDate_of_checkup()});
     }
         else {
             continue;
@@ -156,7 +157,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
         AddEncounter = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        Update = new javax.swing.JButton();
+        Appointments = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -292,11 +293,11 @@ public class DoctorHomePage extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setText("diet");
 
-        Update.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Update.setText("Update");
-        Update.addActionListener(new java.awt.event.ActionListener() {
+        Appointments.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Appointments.setText("Appointments");
+        Appointments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateActionPerformed(evt);
+                AppointmentsActionPerformed(evt);
             }
         });
 
@@ -343,10 +344,10 @@ public class DoctorHomePage extends javax.swing.JFrame {
                                             .addComponent(jLabel14)
                                             .addComponent(jLabel15)
                                             .addComponent(jLabel16)
-                                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel18)
                                             .addComponent(jLabel19)
-                                            .addComponent(jLabel20))
+                                            .addComponent(jLabel20)
+                                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -354,14 +355,13 @@ public class DoctorHomePage extends javax.swing.JFrame {
                                                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                            .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                                                            .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING))
+                                                        .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                                        .addComponent(jTextField10)
+                                                        .addComponent(jTextField9)
+                                                        .addComponent(jTextField8)
+                                                        .addComponent(jTextField7)
+                                                        .addComponent(jTextField6)
+                                                        .addComponent(jTextField5)
                                                         .addComponent(jTextField12)
                                                         .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                             .addGroup(layout.createSequentialGroup()
@@ -378,9 +378,9 @@ public class DoctorHomePage extends javax.swing.JFrame {
                                 .addGap(500, 500, 500)
                                 .addComponent(jLabel1))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(332, 332, 332)
-                        .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
+                        .addGap(275, 275, 275)
+                        .addComponent(Appointments, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78)
                         .addComponent(AddEncounter)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -473,9 +473,9 @@ public class DoctorHomePage extends javax.swing.JFrame {
                                             .addComponent(jLabel19)
                                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AddEncounter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddEncounter)
+                    .addComponent(Appointments))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -616,15 +616,34 @@ public class DoctorHomePage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_encountertableMouseClicked
 
-    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+    private void AppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointmentsActionPerformed
         // TODO add your handling code here:
-        
-
-
-
-
-        
-    }//GEN-LAST:event_UpdateActionPerformed
+         JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+         try {
+            pst = conn.prepareStatement("SELECT patient_name,doctor_name,appointment_date,appointment_time FROM appointment");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String patient_name =  rs.getString("patient_name");
+               String doctor_name = rs.getString("doctor_name");
+               String appointment_date = rs.getString("appointment_date");
+               String appointment_time = rs.getString("appointment_time");
+               
+               Econ.add(new Encounter(patient_name,doctor_name ,appointment_date,appointment_time));
+               
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         DoctorAppointment docapp = new DoctorAppointment();
+         docapp.appointment_table(Econ);
+         
+         
+         docapp.show();
+    }//GEN-LAST:event_AppointmentsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -663,7 +682,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEncounter;
-    private javax.swing.JButton Update;
+    private javax.swing.JButton Appointments;
     private javax.swing.JTable encountertable;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;

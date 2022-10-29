@@ -13,7 +13,7 @@ import java.util.Date;
 public class Encounter {
     String patient_name;
     String doctor_name;
-    Date appointment_date;
+    String appointment_date;
 
     public String getPatient_name() {
         return patient_name;
@@ -31,11 +31,11 @@ public class Encounter {
         this.doctor_name = doctor_name;
     }
 
-    public Date getAppointment_date() {
+    public String getAppointment_date() {
         return appointment_date;
     }
 
-    public void setAppointment_date(Date appointment_date) {
+    public void setAppointment_date(String appointment_date) {
         this.appointment_date = appointment_date;
     }
 
@@ -47,7 +47,7 @@ public class Encounter {
         this.appointment_time = appointment_time;
     }
 
-    public Encounter(String patient_name, String doctor_name, Date appointment_date, String appointment_time) {
+    public Encounter(String patient_name, String doctor_name, String appointment_date, String appointment_time) {
         this.patient_name = patient_name;
         this.doctor_name = doctor_name;
         this.appointment_date = appointment_date;

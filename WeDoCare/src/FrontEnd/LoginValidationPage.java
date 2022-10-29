@@ -89,16 +89,26 @@ public class LoginValidationPage extends javax.swing.JFrame {
                 dispose();
                 break;
                 }
-              }
-               
-            }
-                
-            
+                else 
                 JOptionPane.showMessageDialog(this,
                 "Please enter a valid username and password",
                 "Try again",
                 JOptionPane.ERROR_MESSAGE);
            
+              }
+               
+                
+//                else {
+//                JOptionPane.showMessageDialog(this,
+//                "Please enter a valid username and password",
+//                "Try again",
+//                JOptionPane.ERROR_MESSAGE);
+//                break;
+//                }
+            }
+                
+            
+                
             
         } catch (SQLException ex) {
             Logger.getLogger(LoginValidationPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,6 +151,7 @@ public class LoginValidationPage extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Login As");
 
         log_as.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "doctor", "patient", "systemadmin", "community" }));
@@ -150,14 +161,15 @@ public class LoginValidationPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("User Name");
 
-        jTextField1.setText("jTextField1");
-
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Password");
 
         jPasswordField1.setText("jPasswordField1");
 
+        login.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +196,7 @@ public class LoginValidationPage extends javax.swing.JFrame {
                             .addComponent(jPasswordField1)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(175, 175, 175)
-                        .addComponent(login)))
+                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -203,8 +215,8 @@ public class LoginValidationPage extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(74, 74, 74)
-                .addComponent(login)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
