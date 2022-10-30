@@ -8,7 +8,7 @@ package BackEnd;
  *
  * @author patil
  */
-public class DoctorDirectory {
+public class DoctorDirectory extends Person{
 
     public DoctorDirectory(String FirstName, String LastName, String id, int Age, String Specialzation, String Hospital, String Address, String UserName, String Password, String ZipCode) {
         this.FirstName = FirstName;
@@ -22,10 +22,9 @@ public class DoctorDirectory {
         this.Password = Password;
         this.ZipCode = ZipCode;
     }
-    public String FirstName;
-    public String LastName;
+   
     public String id;
-    public int Age;
+    
     public String Specialzation;
     public String Hospital;
     public String Address;
@@ -33,21 +32,8 @@ public class DoctorDirectory {
     public String Password;
     public String ZipCode;
 
-    public String getFirstName() {
-        return FirstName;
-    }
-
-    public void setFirstName(String FirstName) {
-        this.FirstName = FirstName;
-    }
-
-    public String getLastName() {
-        return LastName;
-    }
-
-    public void setLastName(String LastName) {
-        this.LastName = LastName;
-    }
+ 
+    
 
     public String getId() {
         return id;
@@ -57,13 +43,7 @@ public class DoctorDirectory {
         this.id = id;
     }
 
-    public int getAge() {
-        return Age;
-    }
-
-    public void setAge(int Age) {
-        this.Age = Age;
-    }
+    
 
     public String getSpecialzation() {
         return Specialzation;

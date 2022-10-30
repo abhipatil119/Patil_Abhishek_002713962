@@ -4,10 +4,12 @@
  */
 package FrontEnd;
 
+import BackEnd.Encounter;
 import BackEnd.HospitalRegisteration;
 import BackEnd.JdbcConnection;
 import BackEnd.Login;
 import BackEnd.PatientDirectory;
+import BackEnd.Person;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,10 +35,11 @@ public class PatientReg extends javax.swing.JFrame {
         initComponents();
     }
     Connection conn;
-    PreparedStatement pst,pst1,pst2;
+    PreparedStatement pst,pst1,pst2,pst3;
     ResultSet rs;
      ArrayList<Login> login = new ArrayList<>();
      ArrayList<PatientDirectory> pd = new ArrayList<>();
+     ArrayList<Person> person = new ArrayList<>();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -396,6 +399,7 @@ public class PatientReg extends javax.swing.JFrame {
         char[] pass = jPasswordField1.getPassword();
         String passw = new String(pass);
         String loginas = "patient";
+        
 
         JdbcConnection jdbc = new JdbcConnection();
         Connection conn = jdbc.Connect();
@@ -429,8 +433,26 @@ public class PatientReg extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
         }
+         try {
+            pst = conn.prepareStatement("SELECT person_id FROM Person");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               Integer person_id =  rs.getInt("patient_name");
+               String FirstName = rs.getString("FirstName");
+               String LastName = rs.getString("LastName");
+               Integer Age = rs.getInt("Age");
+               person.add(new Person(person_id,FirstName ,LastName,Age));
+               
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }            
+        
+         
         //
 
         try{
@@ -452,9 +474,25 @@ public class PatientReg extends javax.swing.JFrame {
             pst1.setString(1,loginas);
             pst1.setString(2,username);
             pst1.setString(3, passw);
-
+            // Auto Incrementing person_id //
+         int per;
+         if (person.isEmpty()){
+             per = 1;
+         }
+         else{    
+         int m = (person.size()-1);
+              per = person.get(m).getPerson_id();
+         }
+        
+            pst3 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName,age)VALUES(?,?,?,?)");
+            pst3.setInt(1,per);
+            pst3.setString(2,Fname);
+            pst3.setString(3,Lname);
+            pst3.setInt(4,age);
+            
             int k = pst.executeUpdate();
             int k1 = pst1.executeUpdate();
+            int k2 = pst3.executeUpdate();
             if (k==1){
                 JOptionPane.showMessageDialog(this, "Record added Successfully !!!");
                 jTextField7.setText("");

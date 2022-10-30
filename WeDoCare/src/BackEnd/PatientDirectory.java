@@ -8,13 +8,12 @@ package BackEnd;
  *
  * @author patil
  */
-public class PatientDirectory {
-    String FirstName;
-    String LastName;
+public class PatientDirectory extends Person{
+    
     String gender;
     String patient_id;
     
-    int Age;
+    
     String blood_group;
     String Address;
     int Zipcode;
@@ -25,21 +24,8 @@ public class PatientDirectory {
    
     
     
-    public String getFirstName() {
-        return FirstName;
-    }
-
-    public void setFirstName(String FirstName) {
-        this.FirstName = FirstName;
-    }
-
-    public String getLastName() {
-        return LastName;
-    }
-
-    public void setLastName(String LastName) {
-        this.LastName = LastName;
-    }
+   
+   
 
     public String getPatientId() {
         return patient_id;
@@ -49,13 +35,7 @@ public class PatientDirectory {
         this.patient_id = patient_id;
     }
 
-    public int getAge() {
-        return Age;
-    }
-
-    public void setAge(int Age) {
-        this.Age = Age;
-    }
+   
 
     public String getAddress() {
         return Address;

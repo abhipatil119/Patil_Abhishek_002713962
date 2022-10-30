@@ -102,7 +102,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
             System.out.println(Ehis.get(i).getDoctor_name());
             DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
             model.addRow(new Object[] {Ehis.get(i).getPatient_name(),Ehis.get(i).getPatient_id(),Ehis.get(i).getCity(),Ehis.get(i).getSymptoms(),Ehis.get(i).getEncounter_no(),Ehis.get(i).getBlood_pressure(),Ehis.get(i).getHeart_rate(),Ehis.get(i).getTempreture(),Ehis.get(i).getPulse(),Ehis.get(i).getDoctor_name(),Ehis.get(i).getDoctor_id(),Ehis.get(i).getMedication(),Ehis.get(i).getDiet(),Ehis.get(i).getHospital(),Ehis.get(i).getDate_of_checkup()});
-    }
+    }   
         else {
             continue;
         }}
@@ -158,6 +158,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         Appointments = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -301,6 +302,13 @@ public class DoctorHomePage extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("log out");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -324,7 +332,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -376,7 +384,10 @@ public class DoctorHomePage extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1069, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(500, 500, 500)
-                                .addComponent(jLabel1))))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(10, 10, 10))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(275, 275, 275)
                         .addComponent(Appointments, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,9 +398,9 @@ public class DoctorHomePage extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
@@ -398,7 +409,14 @@ public class DoctorHomePage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(searchbox, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton2)
+                                .addGap(12, 12, 12)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
@@ -645,6 +663,13 @@ public class DoctorHomePage extends javax.swing.JFrame {
          docapp.show();
     }//GEN-LAST:event_AppointmentsActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        WeDoCare wc = new WeDoCare();
+        wc.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -685,6 +710,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
     private javax.swing.JButton Appointments;
     private javax.swing.JTable encountertable;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;

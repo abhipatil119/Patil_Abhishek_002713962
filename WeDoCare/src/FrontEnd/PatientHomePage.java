@@ -44,6 +44,7 @@ public class PatientHomePage extends javax.swing.JFrame {
     ArrayList<HospitalRegisteration> hosreg = new ArrayList<>();
     HospitalReg hos = new HospitalReg();
     ArrayList<EncounterHistory> Ehis = new ArrayList<>();
+    ArrayList<Community> com = new ArrayList<>();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,6 +139,7 @@ public class PatientHomePage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -266,32 +268,32 @@ public class PatientHomePage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(hospital, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(area, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(doctor1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(104, 104, 104))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 225, Short.MAX_VALUE)
                                     .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(hospital, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(area, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jDateChooser3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(doctor1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(104, 104, 104))))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(area, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
@@ -326,6 +328,14 @@ public class PatientHomePage extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton2.setText("log out");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -333,18 +343,24 @@ public class PatientHomePage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(53, 53, 53)
+                .addGap(55, 55, 55)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(350, 350, 350))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(546, 546, 546)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(19, 19, 19))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(11, 11, 11)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addGap(91, 91, 91)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,34 +498,62 @@ public class PatientHomePage extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
-//        CommunityReg cr = new CommunityReg();
-//        for (int i = 0; i < cr.Register().size();i++);
-//        {
-//        System.out.println(cr.Register().get(i));
-//        }
-        String city = jComboBox2.getSelectedItem().toString();
-//        String lo = "longwood";
-//        area.addItem(lo);
-        JdbcConnection jdbc = new JdbcConnection();
+         JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             
 //            int age = Integer.parseInt(age1);
            
         try {
-            pst = conn.prepareStatement("SELECT area FROM community where city = ?");
-            pst.setString(1,city);
+            pst = conn.prepareStatement("SELECT city,area,hospital,doctor FROM Community");
             rs = pst.executeQuery();
             while(rs.next())
             {
-               String ar =  rs.getString("area");
-               System.out.println(ar);
-               area.addItem(ar);
+               String city =  rs.getString("city");
+               String area = rs.getString("area");
+               String hospital = rs.getString("hospital");
+               String doctor = rs.getString("doctor");
+               
+               
+               
+               com.add(new Community(city,area,hospital,doctor));
+              
                 
             }
-        }catch (SQLException ex) {
-                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String city = jComboBox2.getSelectedItem().toString();
+        for (int i = 0;i< com.size();i++){
+            if (com.get(i).getCity().equalsIgnoreCase(city)){
+                area.addItem(com.get(i).getArea());
             }
-            
+        }
+//        CommunityReg cr = new CommunityReg();
+//        for (int i = 0; i < cr.Register().size();i++);
+//        {
+//        System.out.println(cr.Register().get(i));
+//        }
+        
+//        String lo = "longwood";
+//        area.addItem(lo);
+      
+//            int age = Integer.parseInt(age1);
+           
+//        try {
+//            pst = conn.prepareStatement("SELECT area FROM community where city = ?");
+//            pst.setString(1,city);
+//            rs = pst.executeQuery();
+//            while(rs.next())
+//            {
+//               String ar =  rs.getString("area");
+//               System.out.println(ar);
+//               area.addItem(ar);
+//                
+//            }
+//        }catch (SQLException ex) {
+//                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
         
         
     }//GEN-LAST:event_jComboBox2ActionPerformed
@@ -529,26 +573,37 @@ public class PatientHomePage extends javax.swing.JFrame {
       String a1 = area.getSelectedItem().toString();
 //        String lo = "longwood";
 //        area.addItem(lo);
-        JdbcConnection jdbc = new JdbcConnection();
+        System.out.println(a1);
+         JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             
 //            int age = Integer.parseInt(age1);
            
-
         try {
-            pst = conn.prepareStatement("SELECT hospital FROM community where area = ?");
-            pst.setString(1,a1);
+            pst = conn.prepareStatement("SELECT city,area,hospital,doctor FROM Community");
             rs = pst.executeQuery();
             while(rs.next())
             {
-               String ar =  rs.getString("hospital");
-               System.out.println(ar);
-               hospital.addItem(ar);
+               String city =  rs.getString("city");
+               String area = rs.getString("area");
+               String hospital = rs.getString("hospital");
+               String doctor = rs.getString("doctor");
+               
+               
+               
+               com.add(new Community(city,area,hospital,doctor));
+              
                 
             }
-        }catch (SQLException ex) {
-                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
-            }    
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (int i = 0;i< com.size();i++){
+            if (com.get(i).getArea().equalsIgnoreCase(a1)){
+                hospital.addItem(com.get(i).getHospital());
+            }
+        }
     }//GEN-LAST:event_areaMouseClicked
 
     
@@ -568,7 +623,7 @@ public class PatientHomePage extends javax.swing.JFrame {
 
     private void hospitalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hospitalMouseClicked
         // TODO add your handling code here:
-        String a1 = hospital.getSelectedItem().toString();
+        String hosp = hospital.getSelectedItem().toString();
 //        String lo = "longwood";
 //        area.addItem(lo);
         JdbcConnection jdbc = new JdbcConnection();
@@ -576,21 +631,31 @@ public class PatientHomePage extends javax.swing.JFrame {
             
 //            int age = Integer.parseInt(age1);
            
-
         try {
-            pst = conn.prepareStatement("SELECT doctor FROM community where hospital = ?");
-            pst.setString(1,a1);
+            pst = conn.prepareStatement("SELECT city,area,hospital,doctor FROM Community");
             rs = pst.executeQuery();
             while(rs.next())
             {
-               String ar =  rs.getString("doctor");
-               System.out.println(ar);
-               doctor1.addItem(ar);
+               String city =  rs.getString("city");
+               String area = rs.getString("area");
+               String hospital = rs.getString("hospital");
+               String doctor = rs.getString("doctor");
+               
+               
+               
+               com.add(new Community(city,area,hospital,doctor));
+              
                 
             }
-        }catch (SQLException ex) {
-                Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
-            }    
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (int i = 0;i< com.size();i++){
+            if (com.get(i).getHospital().equalsIgnoreCase(hosp)){
+                doctor1.addItem(com.get(i).getDoctor());
+            }
+        }
                            
     }//GEN-LAST:event_hospitalMouseClicked
 
@@ -602,6 +667,13 @@ public class PatientHomePage extends javax.swing.JFrame {
     private void doctor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctor1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_doctor1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        WeDoCare wdc = new WeDoCare();
+        wdc.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -644,6 +716,7 @@ public class PatientHomePage extends javax.swing.JFrame {
     private javax.swing.JTable encountertable;
     private javax.swing.JComboBox<String> hospital;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser3;

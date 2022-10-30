@@ -5,7 +5,16 @@
 package FrontEnd;
 
 import BackEnd.Community;
+import BackEnd.JdbcConnection;
+import BackEnd.PatientDirectory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +25,9 @@ public class CommunityReg extends javax.swing.JFrame  {
     /**
      * Creates new form CommunityReg
      */
-    
+    Connection conn;
+    PreparedStatement pst;
+    ResultSet rs;
     ArrayList<Community> com = new ArrayList<>();
     public CommunityReg() {
         initComponents();
@@ -194,12 +205,53 @@ public class CommunityReg extends javax.swing.JFrame  {
     
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
         // TODO add your handling code here:
-        String city1 = city.getText();
+        JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            String city1 = city.getText();
         String area1 = area.getText();
         String hospital1 = hospital.getText();
         String doctor1 = doctor.getText();
         com.add(new Community(city1,area1,hospital1,doctor1));
         PatientHomePage pa = new PatientHomePage();
+            
+            
+            try{
+            pst= conn.prepareStatement("INSERT INTO Community(city,area,hospital,doctor)VALUES(?,?,?,?)");
+
+            pst.setString(1,city1);
+            pst.setString(2,area1);
+            pst.setString(3, hospital1);
+            pst.setString(4,doctor1);
+            com.add(new Community(city1,area1,hospital1,doctor1));
+
+          
+
+            int k = pst.executeUpdate();
+           
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Community Successfully !!!");
+                city.setText("");
+                area.setText("");
+                hospital.setText("");
+                doctor.setText("");
+                
+                
+            }
+            
+            else
+            {
+
+                JOptionPane.showMessageDialog(this,
+                    "Error in Registering you!",
+                    "Try again",
+                    JOptionPane.ERROR_MESSAGE);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Community.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
         
     }//GEN-LAST:event_registerActionPerformed
 

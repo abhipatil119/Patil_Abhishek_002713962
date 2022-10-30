@@ -9,9 +9,26 @@ package BackEnd;
  * @author patil
  */
 public class Person {
+    int Person_id;
     String FirstName;
     String LastName;
-    String Age;
+    int Age;
+
+    public int getPerson_id() {
+        return Person_id;
+    }
+
+    public void setPerson_id(int Person_id) {
+        this.Person_id = Person_id;
+    }
+
+    public Person(int Person_id, String FirstName, String LastName, int Age) {
+        this.Person_id = Person_id;
+        this.FirstName = FirstName;
+        this.LastName = LastName;
+        this.Age = Age;
+    }
+    
 
     public String getFirstName() {
         return FirstName;
@@ -29,11 +46,11 @@ public class Person {
         this.LastName = LastName;
     }
 
-    public String getAge() {
+    public int getAge() {
         return Age;
     }
 
-    public void setAge(String Age) {
+    public void setAge(int Age) {
         this.Age = Age;
     }
     
