@@ -84,7 +84,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
                
                Ehis.add(new EncounterHistory(patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup));
                DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
-               
+               model.setRowCount(0);
 //               model.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
           
             
@@ -101,6 +101,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
         if(Ehis.get(i).getPatient_id().equalsIgnoreCase(p_id)){
             System.out.println(Ehis.get(i).getDoctor_name());
             DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+            
             model.addRow(new Object[] {Ehis.get(i).getPatient_name(),Ehis.get(i).getPatient_id(),Ehis.get(i).getCity(),Ehis.get(i).getSymptoms(),Ehis.get(i).getEncounter_no(),Ehis.get(i).getBlood_pressure(),Ehis.get(i).getHeart_rate(),Ehis.get(i).getTempreture(),Ehis.get(i).getPulse(),Ehis.get(i).getDoctor_name(),Ehis.get(i).getDoctor_id(),Ehis.get(i).getMedication(),Ehis.get(i).getDiet(),Ehis.get(i).getHospital(),Ehis.get(i).getDate_of_checkup()});
     }   
         else {
@@ -538,7 +539,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
     
     DefaultTableModel emodel = (DefaultTableModel) encountertable.getModel();
     Ehis.add(new EncounterHistory(patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup));
-    emodel.setRowCount(0);
+    
     emodel.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
               
         

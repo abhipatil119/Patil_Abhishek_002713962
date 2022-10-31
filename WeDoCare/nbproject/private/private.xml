@@ -8,19 +8,21 @@
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/Login.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/DoctorHomePage.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/PatientReg.java</file>
-            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/DocReg.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/CommunityReg.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/JdbcConnection.java</file>
-            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/PatientHomePage.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/Person.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/PatientHomePage.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/WeDoCare.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/DoctorReg.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/Doctor.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/LoginValidationPage.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/HospitalReg.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/DoctorDirectory.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/SystemAdminHomePage.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/Register.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/Community.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/BackEnd/PatientDirectory.java</file>
+            <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/HospitalHomePage.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/SystemDoctor.java</file>
             <file>file:/C:/Users/patil/OneDrive/Documents/NetBeansProjects/WeDoCare/src/FrontEnd/DoctorAppointment.java</file>
         </group>
