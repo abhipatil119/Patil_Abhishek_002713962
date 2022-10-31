@@ -538,6 +538,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
     
     DefaultTableModel emodel = (DefaultTableModel) encountertable.getModel();
     Ehis.add(new EncounterHistory(patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup));
+    emodel.setRowCount(0);
     emodel.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
               
         

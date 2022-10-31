@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package FrontEnd;
+import BackEnd.Login;
+import BackEnd.Person;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,9 +27,10 @@ public class DocReg extends javax.swing.JPanel {
         Connect();
     }
     Connection conn;
-    PreparedStatement pst;
-    
-    
+    PreparedStatement pst,pst1,pst2;
+    ResultSet rs;
+    ArrayList<Person> person = new ArrayList<>();
+    ArrayList<Login> login = new ArrayList<>();
     
     public void Connect(){
         try {
@@ -56,7 +63,6 @@ public class DocReg extends javax.swing.JPanel {
         LastName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        Age = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         UserName = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -66,10 +72,11 @@ public class DocReg extends javax.swing.JPanel {
         PhoneNo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setPreferredSize(new java.awt.Dimension(1259, 500));
 
@@ -108,7 +115,7 @@ public class DocReg extends javax.swing.JPanel {
         jLabel2.setText("Last Name");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Age");
+        jLabel5.setText("DOB");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("User Name");
@@ -158,6 +165,13 @@ public class DocReg extends javax.swing.JPanel {
 
         jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\patil\\Downloads\\doctor-2027768_640.png")); // NOI18N
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cardiology", "Orthopedic", "Gynacology", "Neurology", "Medicine", "ENT", "Pediatrician", "Dentist", "Urologist" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -173,11 +187,15 @@ public class DocReg extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5))
-                        .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Age, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,19 +206,19 @@ public class DocReg extends javax.swing.JPanel {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Email)
+                            .addComponent(PhoneNo)
+                            .addComponent(jTextField1)
+                            .addComponent(UserName)
+                            .addComponent(Password)
+                            .addComponent(jComboBox1, 0, 215, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
+                .addGap(91, 91, 91))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,13 +236,13 @@ public class DocReg extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(LastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
-                            .addComponent(Age, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,8 +288,9 @@ public class DocReg extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
@@ -293,14 +312,14 @@ public class DocReg extends javax.swing.JPanel {
     }//GEN-LAST:event_PasswordActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            // TODO add your handling code here:
-            
-            String Fname = FirstName.getText();
+        String Fname = FirstName.getText();
             String Lname = LastName.getText();
-            String age1 = Age.getText();
-            int age = Integer.parseInt(age1);
-            String specialization = jTextField2.getText();
+            Date DOB = (Date)jDateChooser1.getDate();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(DOB);
+            
+            
+            String specialization = jComboBox1.getSelectedItem().toString();
             
             String phone1 = PhoneNo.getText();
             long phone = Long.parseLong(phone1);
@@ -308,11 +327,44 @@ public class DocReg extends javax.swing.JPanel {
             String hospital = jTextField1.getText();
             String username = UserName.getText();
             String password = Password.getText();
+        
+            // TODO add your handling code here:
+            try {
+            pst1 = conn.prepareStatement("SELECT username, password from ValidationLogin");
+            rs = pst1.executeQuery();
+            //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+            //            String ps = rs.getString(1);
+            //            System.out.println(ps);
+            while(rs.next())
+            {
+                String user_name =  rs.getString("username");
+                String passi = rs.getString("password");
+                String loginas = "doctor";
+                login.add(new Login(loginas ,user_name, passi));
+
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DocReg.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        for (int i =0; i < login.size();i++) {
+            if (login.get(i).getUsername().equalsIgnoreCase(username) || login.get(i).getPassword().equalsIgnoreCase(password))
+            {
+
+                JOptionPane.showMessageDialog(this,
+                    "UserName or password is already taken please enter another one!",
+                    "Try again",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
             
-            pst= conn.prepareStatement("INSERT INTO doctor(FirstName,LastName,age,specialization,PhoneNo,email_id,Hospital, username,password)VALUES(?,?,?,?,?,?,?,?,?)");
+            try {
+            pst= conn.prepareStatement("INSERT INTO doctor(FirstName,LastName,DOB,specialization,PhoneNo,email_id,Hospital, username,password)VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setString(1,Fname);
             pst.setString(2,Lname);
-            pst.setInt(3,age);
+            pst.setString(3,stringDate);
             pst.setString(4,specialization);
             pst.setLong(5,phone);
             pst.setString(6,email);
@@ -320,17 +372,32 @@ public class DocReg extends javax.swing.JPanel {
             pst.setString(8,username);
             pst.setString(9,password);
             
+            int per;
+         if (person.isEmpty()){
+             per = 1;
+         }
+         else{    
+         int m = (person.size()-1);
+              per = person.get(m).getPerson_id()+1;
+         }
+            LocalDate date1 = LocalDate.parse(stringDate);
+            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName,DOB)VALUES(?,?,?,?)");
+            pst2.setInt(1,per);
+            pst2.setString(2,Fname);
+            pst2.setString(3,Lname);
+            pst2.setString(4,stringDate);
+            
             
             int k = pst.executeUpdate();
             if (k==1){
                 JOptionPane.showMessageDialog(this, "Record added Successfully !!!");
                 FirstName.setText("");
                 LastName.setText("");
-                Age.setText("");
+                
                 PhoneNo.setText("");
                 Email.setText("");
                 jTextField1.setText("");
-                jTextField2.setText("");
+                jComboBox1.setSelectedItem(jComboBox1);
                 UserName.setText("");
                 Password.setText("");
             }
@@ -358,9 +425,12 @@ public class DocReg extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Age;
     private javax.swing.JTextField Email;
     private javax.swing.JTextField FirstName;
     private javax.swing.JTextField LastName;
@@ -368,6 +438,8 @@ public class DocReg extends javax.swing.JPanel {
     private javax.swing.JTextField PhoneNo;
     private javax.swing.JTextField UserName;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -383,6 +455,5 @@ public class DocReg extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

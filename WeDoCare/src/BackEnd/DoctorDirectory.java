@@ -4,17 +4,19 @@
  */
 package BackEnd;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author patil
  */
 public class DoctorDirectory extends Person{
 
-    public DoctorDirectory(String FirstName, String LastName, String id, int Age, String Specialzation, String Hospital, String Address, String UserName, String Password, String ZipCode) {
+    public DoctorDirectory(String FirstName, String LastName, String id, LocalDate DOB, String Specialzation, String Hospital, String Address, String UserName, String Password, String ZipCode) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.id = id;
-        this.Age = Age;
+        this.DOB = DOB;
         this.Specialzation = Specialzation;
         this.Hospital = Hospital;
         this.Address = Address;
@@ -23,6 +25,7 @@ public class DoctorDirectory extends Person{
         this.ZipCode = ZipCode;
     }
    
+    
     public String id;
     
     public String Specialzation;

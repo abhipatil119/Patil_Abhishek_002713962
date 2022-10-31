@@ -37,7 +37,7 @@ public class SystemPatient extends javax.swing.JFrame {
     public void patient_reg(ArrayList<PatientDirectory> pd1){
         DefaultTableModel model = (DefaultTableModel) patient_table.getModel();
         for (int i = 0; i< pd1.size();i++){
-            model.addRow(new Object[] {pd1.get(i).getFirstName(),pd1.get(i).getLastName(),pd1.get(i).getPatientId(),pd1.get(i).getGender(),pd1.get(i).getAge(),pd1.get(i).getBlood_group(),pd1.get(i).getAddress(),pd1.get(i).getZipcode(),pd1.get(i).getCity()});
+            model.addRow(new Object[] {pd1.get(i).getFirstName(),pd1.get(i).getLastName(),pd1.get(i).getPatientId(),pd1.get(i).getGender(),pd1.get(i).getDOB(),pd1.get(i).getBlood_group(),pd1.get(i).getAddress(),pd1.get(i).getZipcode(),pd1.get(i).getCity()});
     
         }
 }
@@ -506,7 +506,7 @@ public class SystemPatient extends javax.swing.JFrame {
 //            int age = Integer.parseInt(age1);
            
         try {
-            pst = conn.prepareStatement("SELECT firstname,lastname,patient_id,gender,age, blood_group, address,zipcode,city  FROM PatientReg");
+            pst = conn.prepareStatement("SELECT firstname,lastname,patient_id,gender,DOB, blood_group, address,zipcode,city  FROM PatientReg");
             rs = pst.executeQuery();
             while(rs.next())
             {
@@ -514,14 +514,14 @@ public class SystemPatient extends javax.swing.JFrame {
                String last_name = rs.getString("lastname");
                String patient_id = rs.getString("patient_id");
                String gender = rs.getString("gender");
-               String age = rs.getString("age");
+               String DOB = rs.getString("DOB");
                String blood_group = rs.getString("blood_group");
                String address = rs.getString("address");
                int zipcode = rs.getInt("zipcode");
                String city = rs.getString("city");
                
                
-               pattable.addRow(new Object[]{first_name,last_name,patient_id,gender,age, blood_group, address,zipcode,city});
+               pattable.addRow(new Object[]{first_name,last_name,patient_id,gender,DOB, blood_group, address,zipcode,city});
               
                 
             }

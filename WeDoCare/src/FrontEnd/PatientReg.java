@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -73,10 +74,10 @@ public class PatientReg extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jTextField7 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,7 +120,7 @@ public class PatientReg extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("Age");
+        jLabel7.setText("DOB");
 
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +164,6 @@ public class PatientReg extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setText("User Name");
 
-        jTextField6.setText("jTextField6");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -173,7 +173,11 @@ public class PatientReg extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setText("Password");
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,8 +192,6 @@ public class PatientReg extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setText("jTextField2");
-
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +204,11 @@ public class PatientReg extends javax.swing.JFrame {
         jLabel13.setText("Patient id");
 
         jTextField8.setText("jTextField8");
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -232,38 +239,35 @@ public class PatientReg extends javax.swing.JFrame {
                                     .addComponent(jComboBox1, 0, 193, Short.MAX_VALUE)
                                     .addComponent(jTextField6)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(jTextField1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel13))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(male)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(female))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9)
+                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel13))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(male)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(female))
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(9, 9, 9)
-                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
@@ -301,10 +305,10 @@ public class PatientReg extends javax.swing.JFrame {
                         .addComponent(male)
                         .addComponent(female)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -373,6 +377,16 @@ public class PatientReg extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
 
+    
+    public static boolean isInteger(String s) {
+    try { 
+        Integer.parseInt(s); 
+    } catch(NumberFormatException e) { 
+        return false; 
+    }
+    // if exception isn't thrown, then it is an integer
+    return true;
+}
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 
@@ -388,8 +402,7 @@ public class PatientReg extends javax.swing.JFrame {
         }
         if(female.isSelected() == true){
             gender = "Female";}
-        String age1 = jTextField2.getText();
-        Integer age = Integer.parseInt(age1);
+        
         String blood_group = jTextField3.getText();
         String address = jTextField4.getText();
         String zip = jTextField5.getText();
@@ -400,7 +413,23 @@ public class PatientReg extends javax.swing.JFrame {
         String passw = new String(pass);
         String loginas = "patient";
         
-
+        if (jTextField7.getText().equals("") || jTextField1.getText().equals("")  || jTextField8.getText().equals("")  || jTextField4.getText().equals("")  || jTextField6.getText().equals("")){
+            JOptionPane.showMessageDialog(this,
+                "Please fill all the fields in the form",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+          
+        } 
+        Date app_date = jDateChooser1.getDate();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String stringDate = dateFormat.format(app_date);
+        if (isInteger(zip) == false){
+            JOptionPane.showMessageDialog(this,
+                "Age is an Integer field please enter valid entry",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+        };
+        
         JdbcConnection jdbc = new JdbcConnection();
         Connection conn = jdbc.Connect();
 
@@ -435,16 +464,17 @@ public class PatientReg extends javax.swing.JFrame {
             }
         }
          try {
-            pst = conn.prepareStatement("SELECT person_id FROM Person");
+            pst = conn.prepareStatement("SELECT person_id,FirstName,LastName,DOB FROM Person");
             rs = pst.executeQuery();
             while(rs.next())
             {
-               Integer person_id =  rs.getInt("patient_name");
+               Integer person_id =  rs.getInt("person_id");
                String FirstName = rs.getString("FirstName");
                String LastName = rs.getString("LastName");
-               Integer Age = rs.getInt("Age");
-               person.add(new Person(person_id,FirstName ,LastName,Age));
-               
+               String sDate = rs.getString("DOB");
+               LocalDate date1 = LocalDate.parse(sDate);
+               person.add(new Person(person_id,FirstName ,LastName,date1));
+           
               
                 
             }
@@ -456,13 +486,13 @@ public class PatientReg extends javax.swing.JFrame {
         //
 
         try{
-            pst= conn.prepareStatement("INSERT INTO PatientReg(firstname,lastname,patient_id,gender,age,blood_group,address,zipcode,city,username,password)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            pst= conn.prepareStatement("INSERT INTO PatientReg(firstname,lastname,patient_id,gender,DOB,blood_group,address,zipcode,city,username,password)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 
             pst.setString(1,Fname);
             pst.setString(2,Lname);
             pst.setString(3, patient_id);
             pst.setString(4,gender);
-            pst.setInt(5, age);
+            pst.setString(5, stringDate);
             pst.setString(6,blood_group);
             pst.setString(7,address);
             pst.setInt(8, zipcode);
@@ -475,20 +505,21 @@ public class PatientReg extends javax.swing.JFrame {
             pst1.setString(2,username);
             pst1.setString(3, passw);
             // Auto Incrementing person_id //
+            
          int per;
          if (person.isEmpty()){
              per = 1;
          }
          else{    
          int m = (person.size()-1);
-              per = person.get(m).getPerson_id();
+              per = person.get(m).getPerson_id()+1;
          }
-        
-            pst3 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName,age)VALUES(?,?,?,?)");
+            LocalDate date1 = LocalDate.parse(stringDate);
+            pst3 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName,DOB)VALUES(?,?,?,?)");
             pst3.setInt(1,per);
             pst3.setString(2,Fname);
             pst3.setString(3,Lname);
-            pst3.setInt(4,age);
+            pst3.setString(4,stringDate);
             
             int k = pst.executeUpdate();
             int k1 = pst1.executeUpdate();
@@ -502,11 +533,11 @@ public class PatientReg extends javax.swing.JFrame {
                 jTextField5.setText("");
                 jTextField6.setText("");
                 jPasswordField1.setText("");
-                jTextField2.setText("");
+                
                 jTextField8.setText("");
-                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,age,blood_group,address,zipcode,city,username,passw));
-                SystemPatient sp = new SystemPatient();
-                sp.patient_reg(pd);
+//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+//                SystemPatient sp = new SystemPatient();
+//                sp.patient_reg(pd);
             }
             
             else
@@ -562,6 +593,14 @@ public class PatientReg extends javax.swing.JFrame {
         w.show();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -603,6 +642,7 @@ public class PatientReg extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -619,7 +659,6 @@ public class PatientReg extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;

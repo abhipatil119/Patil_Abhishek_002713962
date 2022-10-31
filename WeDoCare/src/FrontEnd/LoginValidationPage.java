@@ -89,6 +89,18 @@ public class LoginValidationPage extends javax.swing.JFrame {
                 dispose();
                 break;
                 }
+                else if(logas.equalsIgnoreCase("hospital"))    {
+                HospitalHomePage hos = new HospitalHomePage();
+                hos.show();
+                dispose();
+                break;
+                }
+                else if(logas.equalsIgnoreCase("community"))    {
+                HospitalHomePage hos = new HospitalHomePage();
+                hos.show();
+                dispose();
+                break;
+                }
                 else 
                 JOptionPane.showMessageDialog(this,
                 "Please enter a valid username and password",
@@ -154,7 +166,7 @@ public class LoginValidationPage extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Login As");
 
-        log_as.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "doctor", "patient", "systemadmin", "community" }));
+        log_as.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "doctor", "patient", "systemadmin", "community", "hospital" }));
         log_as.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 log_asActionPerformed(evt);

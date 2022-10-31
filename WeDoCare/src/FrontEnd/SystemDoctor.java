@@ -6,6 +6,7 @@
 package FrontEnd;
 
 import BackEnd.Doctor;
+import BackEnd.DoctorDirectory;
 import BackEnd.Encounter;
 import BackEnd.HospitalRegisteration;
 import BackEnd.JdbcConnection;
@@ -13,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -33,7 +35,7 @@ public class SystemDoctor extends javax.swing.JFrame {
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
-    ArrayList<Doctor> doc = new ArrayList<>();
+    ArrayList<DoctorDirectory> doc = new ArrayList<>();
     ArrayList<HospitalRegisteration> hos1 = new ArrayList<>();
     
     /** This method is called from within the constructor to
@@ -359,20 +361,20 @@ public class SystemDoctor extends javax.swing.JFrame {
 //            int age = Integer.parseInt(age1);
            
         try {
-            pst = conn.prepareStatement("SELECT FirstName,LastName,age,PhoneNo,specialization, email_id , Hospital FROM doctor");
+            pst = conn.prepareStatement("SELECT FirstName,LastName,DOB,PhoneNo,specialization, email_id , Hospital FROM doctor");
             rs = pst.executeQuery();
             while(rs.next())
             {
                String first_name =  rs.getString("FirstName");
                String last_name = rs.getString("LastName");
-               int age = rs.getInt("age");
+               String dob = rs.getString("DOB");
                Long PhoneNo = rs.getLong("PhoneNo");
                String email = rs.getString("email_id");
                String specialization = rs.getString("specialization");
                String Hospital = rs.getString("Hospital");
-               
-               doc.add(new Doctor(first_name,last_name,age ,specialization,email,PhoneNo,Hospital));
-               doctable.addRow(new Object[]{first_name, last_name, age, specialization, email, PhoneNo, Hospital});
+               LocalDate date1 = LocalDate.parse(dob);
+//               doc.add(new DoctorDirectory(first_name,last_name,date1,specialization,email,PhoneNo,Hospital));
+               doctable.addRow(new Object[]{first_name, last_name, dob, specialization, email, PhoneNo, Hospital});
               
                 
             }

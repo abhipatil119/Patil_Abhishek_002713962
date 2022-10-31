@@ -4,6 +4,9 @@
  */
 package BackEnd;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 /**
  *
  * @author patil
@@ -12,7 +15,7 @@ public class Person {
     int Person_id;
     String FirstName;
     String LastName;
-    int Age;
+    LocalDate DOB;
 
     public int getPerson_id() {
         return Person_id;
@@ -22,11 +25,11 @@ public class Person {
         this.Person_id = Person_id;
     }
 
-    public Person(int Person_id, String FirstName, String LastName, int Age) {
+    public Person(int Person_id, String FirstName, String LastName, LocalDate DOB) {
         this.Person_id = Person_id;
         this.FirstName = FirstName;
         this.LastName = LastName;
-        this.Age = Age;
+        this.DOB = DOB;
     }
     
 
@@ -46,12 +49,14 @@ public class Person {
         this.LastName = LastName;
     }
 
-    public int getAge() {
-        return Age;
+    public LocalDate getDOB() {
+        return DOB;
     }
 
-    public void setAge(int Age) {
-        this.Age = Age;
+    public void setDOB(LocalDate DOB) {
+        this.DOB = DOB;
     }
+
+  
     
 }

@@ -75,14 +75,11 @@ public class HospitalReg extends javax.swing.JFrame {
 
         jLabel2.setText("Zipcode");
 
-        jTextField2.setText("jTextField2");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
-
-        jTextField3.setText("jTextField3");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setText("Register");
@@ -91,8 +88,6 @@ public class HospitalReg extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jTextField4.setText("jTextField4");
 
         jLabel4.setText("Doctor_name");
 
@@ -103,8 +98,6 @@ public class HospitalReg extends javax.swing.JFrame {
         jLabel7.setText("community");
 
         jLabel8.setText("Speciality");
-
-        jTextField7.setText("jTextField7");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -129,14 +122,21 @@ public class HospitalReg extends javax.swing.JFrame {
 
         jLabel12.setText("Password");
 
-        jTextField5.setText("jTextField5");
-
-        jPasswordField1.setText("jPasswordField1");
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\patil\\Downloads\\hospital (3).png")); // NOI18N
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setText("Main Menu");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -366,6 +366,17 @@ public class HospitalReg extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        SystemAdminHomePage sh = new SystemAdminHomePage();
+        sh.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public ArrayList<HospitalRegisteration> HospitalArray(){
 //     String hos_name =  jTextField1.getText();
