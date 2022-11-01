@@ -447,8 +447,8 @@ public class SystemPatient extends javax.swing.JFrame {
         else if(female.isSelected()){
         gender= "Female";   
         }
-        String age = jTextField2.getText();
-        String blood_group = jTextField8.getText();
+        String DOB = jTextField8.getText();
+        String blood_group = jTextField2.getText();
         String address = jTextField4.getText();
         String zipcode1 = jTextField5.getText();
         int zipcode = Integer.parseInt(zipcode1);
@@ -458,7 +458,7 @@ public class SystemPatient extends javax.swing.JFrame {
             pt.setValueAt(last_name, patient_table.getSelectedRow(), 1);
             pt.setValueAt(patient_id, patient_table.getSelectedRow(), 2);
             pt.setValueAt(gender,patient_table.getSelectedRow(), 3);
-            pt.setValueAt(age, patient_table.getSelectedRow(), 4);
+            pt.setValueAt(DOB, patient_table.getSelectedRow(), 4);
             pt.setValueAt(blood_group, patient_table.getSelectedRow(), 5);
             pt.setValueAt(address, patient_table.getSelectedRow(), 6);
             pt.setValueAt(zipcode, patient_table.getSelectedRow(), 7);
@@ -476,7 +476,7 @@ public class SystemPatient extends javax.swing.JFrame {
         String Lname = patient.getValueAt(patient_table.getSelectedRow(), 1).toString();
         String patient_id = patient.getValueAt(patient_table.getSelectedRow(), 2).toString();
         
-        String age = patient.getValueAt(patient_table.getSelectedRow(), 4).toString();
+        String DOB = patient.getValueAt(patient_table.getSelectedRow(), 4).toString();
         String blood_group = patient.getValueAt(patient_table.getSelectedRow(), 5).toString();
         String address = patient.getValueAt(patient_table.getSelectedRow(), 6).toString();
         String zipcode = patient.getValueAt(patient_table.getSelectedRow(), 7).toString();
@@ -488,7 +488,7 @@ public class SystemPatient extends javax.swing.JFrame {
         jTextField1.setText(Lname);
         
         jTextField8.setText(patient_id); 
-        jTextField2.setText(age);
+        jTextField2.setText(DOB);
         jTextField3.setText(blood_group);
         jTextField4.setText(address);
         jTextField5.setText(zipcode);
