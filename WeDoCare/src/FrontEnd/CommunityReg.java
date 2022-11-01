@@ -30,7 +30,7 @@ public class CommunityReg extends javax.swing.JFrame  {
      * Creates new form CommunityReg
      */
     Connection conn;
-    PreparedStatement pst;
+    PreparedStatement pst,pst1;
     ResultSet rs;
     ArrayList<CommunityReg> com = new ArrayList<>();
     public CommunityReg() {
@@ -63,6 +63,7 @@ public class CommunityReg extends javax.swing.JFrame  {
         password = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         DOF = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -117,6 +118,14 @@ public class CommunityReg extends javax.swing.JFrame  {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Password");
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,7 +137,9 @@ public class CommunityReg extends javax.swing.JFrame  {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(364, 364, 364)
-                        .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(166, 166, 166)
@@ -187,7 +198,9 @@ public class CommunityReg extends javax.swing.JFrame  {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(register, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
         );
 
@@ -226,6 +239,7 @@ public class CommunityReg extends javax.swing.JFrame  {
         String passw = new String(pass);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final String dof = dateFormat.format(dof1);
+        String loginas = "community";
         
 //        com.add(new Com(city1,area1,hospital1,doctor1));
         PatientHomePage pa = new PatientHomePage();
@@ -241,11 +255,14 @@ public class CommunityReg extends javax.swing.JFrame  {
             pst.setString(5,passw);
             LocalDate d1 = LocalDate.parse(dof);
 //            com.add(new CommunityReg(com_name,com_address1,d1,user,passw));
-
+            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
+            pst1.setString(1,loginas);
+            pst1.setString(2,user);
+            pst1.setString(3,passw);
           
 
             int k = pst.executeUpdate();
-           
+            int k1 = pst1.executeUpdate();
             if (k==1){
                 JOptionPane.showMessageDialog(this, "Community Successfully !!!");
                 community_name.setText("");
@@ -276,6 +293,13 @@ public class CommunityReg extends javax.swing.JFrame  {
     private void com_addressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_com_addressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_com_addressActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:\
+        SystemAdminHomePage sm = new SystemAdminHomePage();
+        sm.show();
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,6 +340,7 @@ public class CommunityReg extends javax.swing.JFrame  {
     private com.toedter.calendar.JDateChooser DOF;
     private javax.swing.JTextField com_address;
     private javax.swing.JTextField community_name;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

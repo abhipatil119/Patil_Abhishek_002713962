@@ -48,7 +48,7 @@ public class LoginValidationPage extends javax.swing.JFrame {
     }
     
       
-    public void LoginIfValid(){
+    public String LoginIfValid(){
         String logas = log_as.getSelectedItem().toString();
         String user = jTextField1.getText();
         char[] pass = jPasswordField1.getPassword();
@@ -74,32 +74,35 @@ public class LoginValidationPage extends javax.swing.JFrame {
                 if (logas.equalsIgnoreCase("doctor")){
                 DoctorHomePage doctorhomepage = new DoctorHomePage();
                 doctorhomepage.show();
+                
                 dispose();
+                return "true";
+                
                 }
                 else if(logas.equalsIgnoreCase("patient")){
                 PatientHomePage patient = new PatientHomePage();
                 patient.encounter(user,passw);
                 patient.show();
                 dispose();
-                
+                return "true";
                 }   
                 else if(logas.equalsIgnoreCase("systemadmin"))    {
                 SystemAdminHomePage sysadmin = new SystemAdminHomePage();
                 sysadmin.show();
                 dispose();
-                break;
+                return "true";
                 }
                 else if(logas.equalsIgnoreCase("hospital"))    {
                 HospitalHomePage hos = new HospitalHomePage();
                 hos.show();
                 dispose();
-                break;
+                return "true";
                 }
                 else if(logas.equalsIgnoreCase("community"))    {
-                HospitalHomePage hos = new HospitalHomePage();
+                ComminityHomePage hos = new ComminityHomePage();
                 hos.show();
                 dispose();
-                break;
+                return "true";
                 }
                 else 
                 JOptionPane.showMessageDialog(this,
@@ -108,7 +111,12 @@ public class LoginValidationPage extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
            
               }
-               
+                }
+//                 JOptionPane.showMessageDialog(this,
+//                "Please enter a valid username and password",
+//                "Try again",
+//                JOptionPane.ERROR_MESSAGE); 
+                
                 
 //                else {
 //                JOptionPane.showMessageDialog(this,
@@ -117,7 +125,7 @@ public class LoginValidationPage extends javax.swing.JFrame {
 //                JOptionPane.ERROR_MESSAGE);
 //                break;
 //                }
-            }
+            
                 
             
                 
@@ -125,11 +133,13 @@ public class LoginValidationPage extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(LoginValidationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "false";
     
     
     
     
-    } 
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -286,7 +296,18 @@ public class LoginValidationPage extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:
-        LoginIfValid();
+        if (LoginIfValid().equalsIgnoreCase("true")){
+            JOptionPane.showMessageDialog(this, " Login Successfully !!! ");
+        }
+        else
+        {
+                JOptionPane.showMessageDialog(this,
+                "Please enter a valid username and password",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+                }
+        
+        
         
     }//GEN-LAST:event_loginActionPerformed
 

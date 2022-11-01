@@ -24,7 +24,8 @@ public class DoctorAppointment extends javax.swing.JFrame {
     public void appointment_table(ArrayList<Encounter> en){
         DefaultTableModel model = (DefaultTableModel) app_table.getModel();
         for(int i=0; i< en.size();i++){
-        model.addRow(new Object[] {en.get(i).getPatient_name(),en.get(i).getDoctor_name(),en.get(i).getAppointment_date(),en.get(i).getAppointment_time()});
+        
+        model.addRow(new Object[] {en.get(i).getPatient_id(),en.get(i).getDoctor_name(),en.get(i).getAppointment_date(),en.get(i).getAppointment_time()});
         
         }
         
@@ -62,7 +63,7 @@ public class DoctorAppointment extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(app_table);
 
-        jButton1.setText("logout");
+        jButton1.setText("back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

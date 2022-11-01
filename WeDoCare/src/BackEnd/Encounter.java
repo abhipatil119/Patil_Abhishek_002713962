@@ -11,16 +11,16 @@ import java.util.Date;
  * @author patil
  */
 public class Encounter {
-    String patient_name;
+    String patient_id;
     String doctor_name;
     String appointment_date;
 
-    public String getPatient_name() {
-        return patient_name;
+    public String getPatient_id() {
+        return patient_id;
     }
 
-    public void setPatient_name(String patient_name) {
-        this.patient_name = patient_name;
+    public void setPatient_id(String patient_id) {
+        this.patient_id = patient_id;
     }
 
     public String getDoctor_name() {
@@ -47,8 +47,8 @@ public class Encounter {
         this.appointment_time = appointment_time;
     }
 
-    public Encounter(String patient_name, String doctor_name, String appointment_date, String appointment_time) {
-        this.patient_name = patient_name;
+    public Encounter(String patient_id, String doctor_name, String appointment_date, String appointment_time) {
+        this.patient_id = patient_id;
         this.doctor_name = doctor_name;
         this.appointment_date = appointment_date;
         this.appointment_time = appointment_time;

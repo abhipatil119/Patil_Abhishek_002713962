@@ -62,6 +62,13 @@ public class PatientHomePage extends javax.swing.JFrame {
         return hosreg;
     }
     
+    
+    
+
+    
+    
+    
+    
     public void encounter(String username, String password){
         
     try {
@@ -234,6 +241,28 @@ public class PatientHomePage extends javax.swing.JFrame {
         jLabel12.setText("Choose Date");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "10:20", "10:40", "11:00", "11:20", "11:40", "12:00", "12:20", "12:40", "13:00", "13:20", "13:40", "14:00" }));
+        jComboBox1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboBox1FocusLost(evt);
+            }
+        });
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        jComboBox1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jComboBox1InputMethodTextChanged(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Choose Time");
@@ -241,7 +270,16 @@ public class PatientHomePage extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Patient_id");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -267,11 +305,6 @@ public class PatientHomePage extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 225, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -282,7 +315,12 @@ public class PatientHomePage extends javax.swing.JFrame {
                                     .addComponent(area, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jDateChooser3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(doctor1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(104, 104, 104))))))
+                                .addGap(104, 104, 104))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,13 +354,10 @@ public class PatientHomePage extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -412,16 +447,16 @@ public class PatientHomePage extends javax.swing.JFrame {
 //            int age = Integer.parseInt(age1);
            
         try {
-            pst = conn.prepareStatement("SELECT patient_name,doctor_name,appointment_date,appointment_time FROM appointment");
+            pst = conn.prepareStatement("SELECT patient_id,doctor_name,appointment_date,appointment_time FROM appointment");
             rs = pst.executeQuery();
             while(rs.next())
             {
-               String patient_name =  rs.getString("patient_name");
+               String patient_id =  rs.getString("patient_id");
                String doctor_name = rs.getString("doctor_name");
                String appointment_date = rs.getString("appointment_date");
                String appointment_time = rs.getString("appointment_time");
                
-               app.add(new Encounter(patient_name,doctor_name ,appointment_date,appointment_time));
+               app.add(new Encounter(patient_id,doctor_name ,appointment_date,appointment_time));
                
               
                 
@@ -429,7 +464,7 @@ public class PatientHomePage extends javax.swing.JFrame {
             } catch (SQLException ex) {
             Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
         }
-            String Pname = jTextField1.getText();
+            String Pid = jTextField1.getText();
             String Dname = doctor1.getSelectedItem().toString();
             Date app_date = jDateChooser3.getDate();
             String time = jComboBox1.getSelectedItem().toString();
@@ -453,9 +488,12 @@ public class PatientHomePage extends javax.swing.JFrame {
 //                else 
 //                {
 //                    app.add(new Encounter(Pname,Dname ,app_date,time));
-                try {
-                    pst = conn.prepareStatement("INSERT INTO appointment(patient_name, doctor_name, appointment_date, appointment_time) values (?,?,?,?)");
-                    pst.setString(1,Pname);
+            
+
+            
+                    try {
+                    pst = conn.prepareStatement("INSERT INTO appointment(patient_id, doctor_name, appointment_date, appointment_time) values (?,?,?,?)");
+                    pst.setString(1,Pid);
                     pst.setString(2,Dname);
                     pst.setString(3,stringDate);
                     pst.setString(4, time);
@@ -484,6 +522,14 @@ public class PatientHomePage extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(HospitalReg.class.getName()).log(Level.SEVERE, null, ex);
             }
+                
+                
+                
+                
+            
+
+
+                
 
                     
             
@@ -624,6 +670,7 @@ public class PatientHomePage extends javax.swing.JFrame {
     private void hospitalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hospitalMouseClicked
         // TODO add your handling code here:
         String hosp = hospital.getSelectedItem().toString();
+        String area1 = area.getSelectedItem().toString();
 //        String lo = "longwood";
 //        area.addItem(lo);
         JdbcConnection jdbc = new JdbcConnection();
@@ -652,8 +699,9 @@ public class PatientHomePage extends javax.swing.JFrame {
         }
         
         for (int i = 0;i< com.size();i++){
-            if (com.get(i).getHospital().equalsIgnoreCase(hosp)){
+            if (com.get(i).getHospital().equalsIgnoreCase(hosp) && com.get(i).getArea().equalsIgnoreCase(area1)){
                 doctor1.addItem(com.get(i).getDoctor());
+                System.out.println(com.get(i).getDoctor());
             }
         }
                            
@@ -674,6 +722,78 @@ public class PatientHomePage extends javax.swing.JFrame {
         wdc.show();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+         
+            
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jComboBox1InputMethodTextChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox1InputMethodTextChanged
+
+    private void jComboBox1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1FocusLost
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        // TODO add your handling code here:
+        JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            
+//            int age = Integer.parseInt(age1);
+           
+        try {
+            pst = conn.prepareStatement("SELECT patient_id,doctor_name,appointment_date,appointment_time FROM appointment");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String patient_id =  rs.getString("patient_id");
+               String doctor_name = rs.getString("doctor_name");
+               String appointment_date = rs.getString("appointment_date");
+               String appointment_time = rs.getString("appointment_time");
+               
+               app.add(new Encounter(patient_id,doctor_name ,appointment_date,appointment_time));
+               
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            String Pid = jTextField1.getText();
+            String Dname = doctor1.getSelectedItem().toString();
+            Date app_date = jDateChooser3.getDate();
+            String time = jComboBox1.getSelectedItem().toString();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(app_date);
+        
+            for(int i =0; i < app.size();i++){
+            if (app.get(i).getAppointment_date().equalsIgnoreCase(stringDate) && app.get(i).getAppointment_time().equalsIgnoreCase(time)){
+                {
+
+                    JOptionPane.showMessageDialog(this,
+                    "This appointment is already booked",
+                    "Please try to book another slot",
+                    JOptionPane.ERROR_MESSAGE);
+                    
+                    }
+            
+            }
+            } 
+    }//GEN-LAST:event_jTextField1MouseClicked
 
     /**
      * @param args the command line arguments

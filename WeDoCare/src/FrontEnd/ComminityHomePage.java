@@ -120,7 +120,11 @@ public class ComminityHomePage extends javax.swing.JFrame {
             }
         });
 
-        jTextField5.setText("jTextField5");
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("City");
 
@@ -296,6 +300,10 @@ public class ComminityHomePage extends javax.swing.JFrame {
         log.show();
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
         
     /**
      * @param args the command line arguments

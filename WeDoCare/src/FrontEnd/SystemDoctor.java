@@ -33,10 +33,11 @@ public class SystemDoctor extends javax.swing.JFrame {
         initComponents();
     }
     Connection conn;
-    PreparedStatement pst;
+    PreparedStatement pst,pst3;
     ResultSet rs;
     ArrayList<DoctorDirectory> doc = new ArrayList<>();
     ArrayList<HospitalRegisteration> hos1 = new ArrayList<>();
+    
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -202,20 +203,20 @@ public class SystemDoctor extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(32, 32, 32)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(32, 32, 32)
                 .addComponent(disapprove, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(disapprove, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(disapprove, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -358,7 +359,9 @@ public class SystemDoctor extends javax.swing.JFrame {
     }//GEN-LAST:event_updateActionPerformed
 
     private void disapproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disapproveActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
+       JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
         DefaultTableModel doctable = (DefaultTableModel) DocTable.getModel();
         int row = DocTable.getSelectedRow();
         if(row  < 0){
@@ -368,8 +371,20 @@ public class SystemDoctor extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
 
         }else {
+            String Fname = doctable.getValueAt(DocTable.getSelectedRow(), 0).toString();
             DefaultTableModel model = (DefaultTableModel) DocTable.getModel();
             model.removeRow(row);
+            
+            try {
+            DocTable.getSelectedRow();
+            System.out.println(Fname);
+            pst3 = conn.prepareStatement("DELETE FROM doctor where FirstName = ? ");
+            pst3.setString(1,Fname);
+            int k = pst3.executeUpdate();
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
                  
     }//GEN-LAST:event_disapproveActionPerformed
@@ -380,12 +395,13 @@ public class SystemDoctor extends javax.swing.JFrame {
 //        hos1.get(0).getAddress();
             PatientHomePage php = new PatientHomePage();
              
-            php.getHospitalRegistrations().get(0).getDoctor_name();
+//            System.out.println(php.getHospitalRegistrations().get(2).getDoctor_name());
                     
 
           JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             DefaultTableModel doctable = (DefaultTableModel) DocTable.getModel();
+            doctable.setRowCount(0);
 //            int age = Integer.parseInt(age1);
            
         try {

@@ -327,7 +327,7 @@ public class DocReg extends javax.swing.JPanel {
             String hospital = jTextField1.getText();
             String username = UserName.getText();
             String password = Password.getText();
-        
+            String loginas1 = "doctor";
             // TODO add your handling code here:
             try {
             pst1 = conn.prepareStatement("SELECT username, password from ValidationLogin");
@@ -339,6 +339,7 @@ public class DocReg extends javax.swing.JPanel {
             {
                 String user_name =  rs.getString("username");
                 String passi = rs.getString("password");
+                
                 String loginas = "doctor";
                 login.add(new Login(loginas ,user_name, passi));
 
@@ -372,6 +373,10 @@ public class DocReg extends javax.swing.JPanel {
             pst.setString(8,username);
             pst.setString(9,password);
             
+            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
+            pst1.setString(1,loginas1);
+            pst1.setString(2,username);
+            pst1.setString(3,password);
             int per;
          if (person.isEmpty()){
              per = 1;
@@ -387,7 +392,7 @@ public class DocReg extends javax.swing.JPanel {
             pst2.setString(3,Lname);
             pst2.setString(4,stringDate);
             
-            
+            int k1 = pst1.executeUpdate();
             int k = pst.executeUpdate();
             if (k==1){
                 JOptionPane.showMessageDialog(this, "Record added Successfully !!!");

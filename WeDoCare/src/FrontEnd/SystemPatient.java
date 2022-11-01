@@ -503,6 +503,7 @@ public class SystemPatient extends javax.swing.JFrame {
           JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             DefaultTableModel pattable = (DefaultTableModel) patient_table.getModel();
+            pattable.setRowCount(0);
 //            int age = Integer.parseInt(age1);
            
         try {

@@ -14,8 +14,6 @@ public class PatientDirectory extends Person{
     
     String gender;
     String patient_id;
-    
-    
     String blood_group;
     String Address;
     int Zipcode;

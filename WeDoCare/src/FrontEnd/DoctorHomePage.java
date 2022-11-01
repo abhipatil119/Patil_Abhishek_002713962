@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -34,10 +36,11 @@ public class DoctorHomePage extends javax.swing.JFrame {
         
     }
     Connection conn;
-    PreparedStatement pst;
+    PreparedStatement pst,pst1;
     ResultSet rs;
     ArrayList<EncounterHistory> Ehis = new ArrayList<>();
     ArrayList<Encounter> Econ = new ArrayList<>();
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,7 +73,6 @@ public class DoctorHomePage extends javax.swing.JFrame {
                String city = rs.getString("city");
                String symptoms = rs.getString("symptoms");
                int encounter_no = rs.getInt("encounter_no");
-  
                int blood_pressure = rs.getInt("blood_pressure");
                Double heart_rate = rs.getDouble("heart_rate");
                Double tempreture = rs.getDouble("tempreture");
@@ -213,12 +215,14 @@ public class DoctorHomePage extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Enter Encounter details");
 
-        jTextField2.setText("jTextField2");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("patient_id");
-
-        jTextField3.setText("jTextField3");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("city");
@@ -233,42 +237,50 @@ public class DoctorHomePage extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("encounter_number");
 
-        jTextField5.setText("jTextField5");
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("blood_pressure");
 
-        jTextField6.setText("jTextField6");
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("heart_rate");
 
-        jTextField7.setText("jTextField7");
-
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("tempreture");
-
-        jTextField8.setText("jTextField8");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setText("pulse");
 
-        jTextField9.setText("jTextField9");
-
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("doctor_name");
-
-        jTextField10.setText("jTextField10");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setText("doctor_id");
 
-        jTextField11.setText("jTextField11");
+        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField11ActionPerformed(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel17.setText("Medication");
 
-        jTextField12.setText("jTextField12");
+        jTextField12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField12ActionPerformed(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel18.setText("Hospital");
@@ -289,8 +301,6 @@ public class DoctorHomePage extends javax.swing.JFrame {
                 AddEncounterActionPerformed(evt);
             }
         });
-
-        jTextField4.setText("jTextField4");
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setText("diet");
@@ -507,7 +517,9 @@ public class DoctorHomePage extends javax.swing.JFrame {
 
     private void AddEncounterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEncounterActionPerformed
         // TODO add your handling code here:
-        
+    JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();   
+            
     String patient_name = jTextField2.getText();
     String patient_id = jTextField3.getText();
     String city = jComboBox1.getSelectedItem().toString();
@@ -534,14 +546,55 @@ public class DoctorHomePage extends javax.swing.JFrame {
     String diet = jTextField4.getText();
     String hospital = jTextField12.getText();
     Date date_of_checkup = jDateChooser1.getDate();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String dofc = dateFormat.format(date_of_checkup);
     
-    
+     try {
+            pst1= conn.prepareStatement("INSERT INTO vital_encountor_history(patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst1.setString(1,patient_name);
+            pst1.setString(2,patient_id);
+            pst1.setString(3,city);
+            pst1.setString(4,symptoms);
+            pst1.setLong(5,encounter_no);
+            pst1.setDouble(6,blood_pressure);
+            pst1.setDouble(7, heart_rate);
+            pst1.setDouble(8,tempreture);
+            pst1.setInt(9,pulse);
+            pst1.setString(10,doctor_name);
+            pst1.setString(11,doctor_id);
+            pst1.setString(12,medication);
+            pst1.setString(13,diet);
+            pst1.setString(14,hospital);
+            pst1.setString(15,dofc);
+            
+            
+            int k = pst1.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Record added Successfully !!!");
+                jTextField2.setText("");
+                jTextField3.setText("");
+                jTextField4.setText("");
+                jTextField5.setText("");
+                jTextField6.setText("");
+                jTextField7.setText("");
+                jComboBox1.setSelectedItem(jComboBox1);
+                jTextField8.setText("");
+                jTextField9.setText("");
+                jTextField10.setText("");
+                jTextField11.setText("");
+                jTextField12.setText("");
+            }
+     }
+     catch (SQLException ex) {
+            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     DefaultTableModel emodel = (DefaultTableModel) encountertable.getModel();
     Ehis.add(new EncounterHistory(patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup));
     
     emodel.addRow(new Object[] {patient_name,patient_id,city,symptoms,encounter_no,blood_pressure,heart_rate,tempreture,pulse,doctor_name,doctor_id,medication,diet,hospital,date_of_checkup});
-              
+    
+    
         
         
         
@@ -571,7 +624,7 @@ public class DoctorHomePage extends javax.swing.JFrame {
             
             
             
-            JOptionPane.showMessageDialog(this, "Field Updated Successfully");
+            JOptionPane.showMessageDialog(this, "Encounter Added Successfully");
         
         
         
@@ -671,6 +724,26 @@ public class DoctorHomePage extends javax.swing.JFrame {
         wc.show();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField11ActionPerformed
+
+    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField12ActionPerformed
 
     /**
      * @param args the command line arguments

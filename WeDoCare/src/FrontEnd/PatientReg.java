@@ -203,7 +203,6 @@ public class PatientReg extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel13.setText("Patient id");
 
-        jTextField8.setText("jTextField8");
         jTextField8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField8ActionPerformed(evt);
@@ -503,7 +502,7 @@ public class PatientReg extends javax.swing.JFrame {
             pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
             pst1.setString(1,loginas);
             pst1.setString(2,username);
-            pst1.setString(3, passw);
+            pst1.setString(3,passw);
             // Auto Incrementing person_id //
             
          int per;

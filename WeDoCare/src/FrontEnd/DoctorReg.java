@@ -317,6 +317,7 @@ public class DoctorReg extends javax.swing.JFrame {
         String email = Email.getText();
         String hospital = jTextField1.getText();
         String username = UserName.getText();
+        String loginas1 = "doctor";
         String password = Password.getText();
 
         // TODO add your handling code here:
@@ -362,7 +363,11 @@ public class DoctorReg extends javax.swing.JFrame {
             pst.setString(7, hospital);
             pst.setString(8,username);
             pst.setString(9,password);
-
+            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
+            pst1.setString(1,loginas1);
+            pst1.setString(2,username);
+            pst1.setString(3,password);
+            
             int per;
             if (person.isEmpty()){
                 per = 1;
@@ -377,7 +382,8 @@ public class DoctorReg extends javax.swing.JFrame {
             pst2.setString(2,Fname);
             pst2.setString(3,Lname);
             pst2.setString(4,stringDate);
-
+            
+            int k1 = pst1.executeUpdate();
             int k = pst.executeUpdate();
             if (k==1){
                 JOptionPane.showMessageDialog(this, "Record added Successfully !!!");
