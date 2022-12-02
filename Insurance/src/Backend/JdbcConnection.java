@@ -16,6 +16,9 @@ import java.util.logging.Logger;
  */
 public class JdbcConnection {
     Connection conn;
+    int i=1;
+    String m="Git trial";
+    
     public Connection Connect(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
