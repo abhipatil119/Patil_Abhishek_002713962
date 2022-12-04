@@ -24,7 +24,7 @@ public class JdbcConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
 //            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wecare","root","ABHIpatil123#");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/insurance","root","ABHIpatil123#");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("SQL syntax error");
         }
