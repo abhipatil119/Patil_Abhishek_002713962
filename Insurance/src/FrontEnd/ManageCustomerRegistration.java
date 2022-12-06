@@ -72,7 +72,7 @@ public class ManageCustomerRegistration extends javax.swing.JFrame {
         jLabel1.setText("Manage Customer Registration  ");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("Customer Details ");
+        jLabel2.setText(" Details :");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setText("Full Name");

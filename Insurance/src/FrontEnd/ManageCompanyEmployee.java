@@ -72,7 +72,7 @@ public class ManageCompanyEmployee extends javax.swing.JFrame {
         jLabel1.setText("Manage Company Employee Registration  ");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("Manager Details ");
+        jLabel2.setText(" Details :");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setText("Full Name");
@@ -134,7 +134,7 @@ public class ManageCompanyEmployee extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Customer Id", "First Name", "Last Name", "Street Address", "City", "Zip Code", "State", "DOB", "Gender", "Email Address", "Phone Number"
+                "Manager Id", "First Name", "Last Name", "Street Address", "City", "Zip Code", "State", "DOB", "Gender", "Email Address", "Phone Number"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
