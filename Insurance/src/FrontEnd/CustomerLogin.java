@@ -5,6 +5,7 @@
 package FrontEnd;
 
 import BackEnd.Login;
+import Backend.CustId;
 import Backend.JdbcConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -88,7 +89,7 @@ public class CustomerLogin extends javax.swing.JFrame {
         String user = jTextField1.getText();
         char[] pass = jPasswordField1.getPassword();
         String passw = new String(pass);
-        ArrayList<CustId> = new ArrayList<>
+        ArrayList<CustId> cs = new ArrayList<>();
         
     
         
@@ -119,7 +120,7 @@ public class CustomerLogin extends javax.swing.JFrame {
             {
                
                String cust_id = rs.getString("cust_id");
-               
+               cs.add(new CustId(cust_id));
                
                
                
@@ -127,7 +128,7 @@ public class CustomerLogin extends javax.swing.JFrame {
               
                 
             }
-                return cust_id;
+                return cs.get(0).getCustId();
              
               }
                 

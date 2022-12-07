@@ -394,7 +394,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
             }
             } catch (SQLException ex) {
             Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
-        }      
+        }
             try {
                 JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();    
