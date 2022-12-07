@@ -9,7 +9,6 @@ package FrontEnd;
  * @author patil
  */
 public class CarInsurance extends javax.swing.JFrame {
-
     /**
      * Creates new form CarInsurance
      */

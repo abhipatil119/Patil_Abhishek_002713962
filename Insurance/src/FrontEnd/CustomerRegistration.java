@@ -4,6 +4,22 @@
  */
 package FrontEnd;
 
+import BackEnd.Login;
+import Backend.HealthPricing;
+import Backend.Person;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
@@ -13,6 +29,12 @@ public class CustomerRegistration extends javax.swing.JFrame {
     /**
      * Creates new form CustomerRegistration
      */
+    Connection conn;
+    PreparedStatement pst,pst1,pst2;
+    ResultSet rs;
+    ArrayList<Login> log = new ArrayList<>();
+    ArrayList<Person> person = new ArrayList<>();
+    
     public CustomerRegistration() {
         initComponents();
     }
@@ -72,6 +94,12 @@ public class CustomerRegistration extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Full Name");
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("First Name");
 
@@ -101,6 +129,11 @@ public class CustomerRegistration extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(242, 242, 242));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setText("Register");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setText("Username");
@@ -136,7 +169,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(280, Short.MAX_VALUE)
+                .addContainerGap(268, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(236, 236, 236))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -158,17 +191,18 @@ public class CustomerRegistration extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField7)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(308, 308, 308)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField7)
+                                        .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(296, 296, 296)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +235,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -246,9 +280,9 @@ public class CustomerRegistration extends javax.swing.JFrame {
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -258,7 +292,10 @@ public class CustomerRegistration extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,6 +308,133 @@ public class CustomerRegistration extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+            String Fname = jTextField1.getText();
+            String Lname = jTextField2.getText();
+            String street = jTextField3.getText();
+            String city = jTextField4.getText();
+            String  state = jTextField5.getText();
+            String  zipcode = jTextField6.getText();
+            String gender = "";
+            String logas = "customer";
+           if(jRadioButton1.isSelected() == true)
+            {
+                gender = "Male";
+            }
+             if(jRadioButton1.isSelected() == true){
+                gender = "Female";
+
+            }
+            String phone = jTextField7.getText();
+            String username = jTextField9.getText();
+            String password = jTextField10.getText();
+            String email = jTextField8.getText();
+            
+            Date DOB = (Date)jDateChooser1.getDate();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(DOB);
+            
+            try {
+            pst1 = conn.prepareStatement("SELECT username, password  from ValidationLogin");
+            rs = pst1.executeQuery();
+            //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+            //            String ps = rs.getString(1);
+            //            System.out.println(ps);
+            while(rs.next())
+            {
+                String user_name =  rs.getString("username");
+                String passi = rs.getString("password");               
+                String loginas = "customer";
+                String companyname = "";
+                log.add(new Login(loginas ,companyname,user_name, passi));
+
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        for (int i =0; i < log.size();i++) {
+            if (log.get(i).getUsername().equalsIgnoreCase(username) || log.get(i).getPassword().equalsIgnoreCase(password))
+            {
+
+                JOptionPane.showMessageDialog(this,
+                    "UserName or password is already taken please enter another one!",
+                    "Try again",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+            
+            try {
+            pst= conn.prepareStatement("INSERT INTO doctor(fname,lname,street_address,state,zipcode,city,gender,dob,phone, username,pass,email)VALUES(?,?,?,?,?,?,?,?,?)");
+            pst.setString(1,Fname);
+            pst.setString(2,Lname);
+            pst.setString(3,street);
+            pst.setString(4,state);
+            pst.setString(5,zipcode);
+            pst.setString(6,city);
+            pst.setString(6,gender);
+            pst.setString(7,stringDate);
+            pst.setString(8, phone);
+            pst.setString(9,username);
+            pst.setString(10,password);
+            pst.setString(11,email);
+            
+            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
+            pst1.setString(1,logas);
+            pst1.setString(2,username);
+            pst1.setString(3,password);
+            int per;
+         if (person.isEmpty()){
+             per = 1;
+         }
+         else{    
+         int m = (person.size()-1);
+              per = person.get(m).getPerson_id()+1;
+         }
+            LocalDate date1 = LocalDate.parse(stringDate);
+            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName,DOB)VALUES(?,?,?,?)");
+            pst2.setInt(1,per);
+            pst2.setString(2,Fname);
+            pst2.setString(3,Lname);
+            pst2.setString(4,stringDate);
+            
+            int k1 = pst1.executeUpdate();
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Record added Successfully !!!");
+                jTextField1.setText("");
+                jTextField2.setText("");
+                
+                jTextField3.setText("");
+                jTextField4.setText("");
+                jTextField5.setText("");
+                jTextField1.setSelectedItem(jComboBox1);
+                jTextField6.setText("");
+                jTextField7.setText("");
+            }
+            else
+                {
+
+                JOptionPane.showMessageDialog(this,
+                "Error in Registering you!",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(DocReg.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+            
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
