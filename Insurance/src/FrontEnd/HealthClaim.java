@@ -5,6 +5,7 @@
 package FrontEnd;
 
 import BackEnd.Login;
+import Backend.Appointment;
 import Backend.CustomerData;
 import Backend.HealthPricing;
 import Backend.JdbcConnection;
@@ -13,7 +14,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -30,11 +34,11 @@ public class HealthClaim extends javax.swing.JFrame {
      */
     
     Connection conn;
-    PreparedStatement pst,pst1,pst2;
+    PreparedStatement pst,pst1,pst2,pst3;
     ResultSet rs;
     ArrayList<HealthPricing> healthP = new ArrayList<>();
     ArrayList<CustomerData> cus = new ArrayList<>();
-    
+    ArrayList<Appointment> app = new ArrayList<>();
     public HealthClaim() {
         initComponents();
     }
@@ -65,7 +69,6 @@ public class HealthClaim extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         healthtable = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -92,6 +95,7 @@ public class HealthClaim extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,7 +141,8 @@ public class HealthClaim extends javax.swing.JFrame {
 
         healthtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "company", "cust_id", "Gender", "DOB", "Tobacco usage", "Pregnant or adopting?", "Chronic diseases", "Expected annual income", "Height", "Weight", "Premium", "Sales Broker?"
@@ -151,16 +156,23 @@ public class HealthClaim extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        healthtable.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                healthtableFocusLost(evt);
+            }
+        });
+        healthtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                healthtableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(healthtable);
 
         jButton3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton3.setText("Buy Claim");
-
-        jButton2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton2.setText("Compare");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Buy Policy");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -271,6 +283,14 @@ public class HealthClaim extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jButton4.setText("Book Appointment");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -278,86 +298,77 @@ public class HealthClaim extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(156, 156, 156)
                 .addComponent(jButton1)
+                .addGap(48, 48, 48)
+                .addComponent(jButton4)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(199, 199, 199)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(231, 231, 231)
-                                .addComponent(jLabel1))
-                            .addComponent(jLabel10))
-                        .addContainerGap(1128, Short.MAX_VALUE))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel12))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addComponent(jTextField3)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jDateChooser3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jRadioButton3)
+                        .addGap(51, 51, 51)
+                        .addComponent(jRadioButton4))
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox3)
+                    .addComponent(jCheckBox4)
+                    .addComponent(jCheckBox5)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(199, 199, 199)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(231, 231, 231)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel14)
+                    .addComponent(Time)
+                    .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel12))
-                                .addGap(44, 44, 44)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                    .addComponent(jTextField3)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jDateChooser3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton3)
-                                .addGap(51, 51, 51)
-                                .addComponent(jRadioButton4))
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox3)
-                            .addComponent(jCheckBox4)
-                            .addComponent(jCheckBox5)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel13))
+                        .addGap(223, 223, 223)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(233, 233, 233)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(127, 127, 127)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(69, 69, 69))
+                                .addComponent(jRadioButton1)
+                                .addGap(47, 47, 47)
+                                .addComponent(jRadioButton2))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 1, Short.MAX_VALUE)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(Time)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel13))
-                                .addGap(223, 223, 223)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jRadioButton2))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 1, Short.MAX_VALUE)
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(280, 280, 280)
-                                .addComponent(jRadioButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton6)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(280, 280, 280)
+                        .addComponent(jRadioButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(377, 377, 377))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,11 +432,12 @@ public class HealthClaim extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel12)
                     .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -438,7 +450,9 @@ public class HealthClaim extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -447,10 +461,6 @@ public class HealthClaim extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(210, 210, 210)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -471,10 +481,6 @@ public class HealthClaim extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -949,6 +955,179 @@ public class HealthClaim extends javax.swing.JFrame {
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
+ 
+    public void appointment(String company,String cust_id,String app_date ,String reason, String time) throws SQLException{
+    try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst3 = conn.prepareStatement("SELECT company,cust_id ,reason ,date_of_app ,time FROM appointment");
+            
+            rs = pst3.executeQuery();
+            
+            while(rs.next())
+            {
+                String comp = rs.getString("company");
+                String cus_id =  rs.getString("cust_id");
+                String r = rs.getString("reason");
+                String date_of_app =  rs.getString("date_of_app");
+                String t = rs.getString("time");
+                app.add(new Appointment(comp,cust_id,r,date_of_app,t));
+                
+                
+
+            }
+            
+            
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    for (int i =0; i < app.size();i++) {
+            if (app.get(i).getCompany().equalsIgnoreCase(company) || app.get(i).getDate_of_app().equalsIgnoreCase(app_date) && app.get(i).getTime().equalsIgnoreCase(time))
+            {
+
+                JOptionPane.showMessageDialog(this,
+                    "Appointment is booked by someone please choose another date or time",
+                    "Try again",
+                    JOptionPane.ERROR_MESSAGE);
+                
+            }
+            
+        }
+        
+    try{
+         JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+    
+            pst= conn.prepareStatement("INSERT INTO appointment(company,cust_id,reason,date_of_app,time)VALUES(?,?,?,?,?)");
+
+            pst.setString(1,company);
+            pst.setString(2,cust_id);
+            pst.setString(3, reason);
+            pst.setString(4,app_date);
+            pst.setString(5, time);
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Appointment booked Successfully !!!");
+                
+//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+//                SystemPatient sp = new SystemPatient();
+//                sp.patient_reg(pd);
+            }
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+    }
+    
+    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        String com_name = jComboBox1.getSelectedItem().toString();
+        String cust_id = jTextField5.getText();
+        String reason = "heatlh insurance claim";
+        String time = jComboBox2.getSelectedItem().toString();
+        Date DOB = (Date)jDateChooser3.getDate();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(DOB);
+            
+        try {
+            appointment(com_name,cust_id,stringDate , reason, time);
+        } catch (SQLException ex) {
+            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void healthtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_healthtableMouseClicked
+        // TODO add your handling code here:
+//         DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
+//         
+//        String company = health.getValueAt(healthtable.getSelectedRow(), 0).toString();
+//        String cust_id = health.getValueAt(healthtable.getSelectedRow(), 1).toString();
+//        String gender = health.getValueAt(healthtable.getSelectedRow(), 2).toString();
+//        
+//        String DOB = health.getValueAt(healthtable.getSelectedRow(), 4).toString();
+//        String tobacco = health.getValueAt(healthtable.getSelectedRow(), 5).toString();
+//        String preg_child = health.getValueAt(healthtable.getSelectedRow(), 6).toString();
+//        String chronic = health.getValueAt(healthtable.getSelectedRow(), 7).toString();
+//        String annual = health.getValueAt(healthtable.getSelectedRow(), 8).toString();
+//        String height = health.getValueAt(healthtable.getSelectedRow(), 9).toString();
+//        String weight = health.getValueAt(healthtable.getSelectedRow(), 10).toString();
+//        String premium = health.getValueAt(healthtable.getSelectedRow(), 11).toString();
+//        String sales_id = health.getValueAt(healthtable.getSelectedRow(), 12).toString();
+//        
+//        
+        
+        
+        
+    }//GEN-LAST:event_healthtableMouseClicked
+
+    private void healthtableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_healthtableFocusLost
+        // TODO add your handling code here:
+    DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
+         
+        String company = health.getValueAt(healthtable.getSelectedRow(), 0).toString();
+        String cust_id = health.getValueAt(healthtable.getSelectedRow(), 1).toString();
+        String gender = health.getValueAt(healthtable.getSelectedRow(), 2).toString();
+        
+        String DOB = health.getValueAt(healthtable.getSelectedRow(), 3).toString();
+        String tobacco = health.getValueAt(healthtable.getSelectedRow(), 4).toString();
+        String preg_child = health.getValueAt(healthtable.getSelectedRow(), 5).toString();
+        String chronic = health.getValueAt(healthtable.getSelectedRow(), 6).toString();
+        String annual = health.getValueAt(healthtable.getSelectedRow(), 7).toString();
+        String height = health.getValueAt(healthtable.getSelectedRow(), 8).toString();
+        String weight = health.getValueAt(healthtable.getSelectedRow(), 9).toString();
+        String premium = health.getValueAt(healthtable.getSelectedRow(), 10).toString();
+        String sales_id = health.getValueAt(healthtable.getSelectedRow(), 11).toString();
+        
+         try{
+         JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+    
+            pst= conn.prepareStatement("INSERT INTO managepolicies(company,cust_id,gender,DOB,tobacco,preg_child,chronic,annual,height,weight,premium,sales_id)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+
+            pst.setString(1,company);
+            pst.setString(2,cust_id);
+            pst.setString(3, gender);
+            pst.setString(4,DOB);
+            pst.setString(5, tobacco);
+            pst.setString(6, preg_child);
+            pst.setString(7, chronic);
+            pst.setString(8, annual);
+            pst.setString(9, height);
+            pst.setString(10, weight);
+            pst.setString(11, premium); 
+            pst.setString(12, sales_id);
+            
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Appointment booked Successfully !!!");
+                
+//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+//                SystemPatient sp = new SystemPatient();
+//                sp.patient_reg(pd);
+            }
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }   
+    }//GEN-LAST:event_healthtableFocusLost
 
     /**
      * @param args the command line arguments
@@ -990,8 +1169,8 @@ public class HealthClaim extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTable healthtable;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;

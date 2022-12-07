@@ -183,5 +183,12 @@ use insurance;
 
 
 -- base_premium,tobacco_no ,tobacco_yes ,child_no ,child_yes ,cancer ,heart_patient ,AIDS_HIV ,renal_kidney_failure ,bipolar_disorder ,
-drop table appointment;
-create table appointment(company varchar(20), cust_id varchar(30), reason varchar(40),date_of_app varchar(40), time varchar(30))
+-- drop table appointment;
+-- create table appointment(company varchar(20), cust_id varchar(30), reason varchar(40),date_of_app varchar(40), time varchar(30))
+-- select * from appointment
+
+
+
+
+
+create table managepolicies(company varchar(30),cust_id varchar(30),gender varchar(30),DOB varchar(30),tobacco varchar(30),preg_child varchar(30),chronic varchar(30),annual varchar(30),height varchar(30),weight varchar(30),premium varchar(30),sales_id varchar(30));
