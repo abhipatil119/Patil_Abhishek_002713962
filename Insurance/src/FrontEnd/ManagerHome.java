@@ -4,10 +4,18 @@
  */
 package FrontEnd;
 
+import Backend.HealthPricing;
+import Backend.JdbcConnection;
+import Backend.ManagePolicies;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +26,10 @@ public class ManagerHome extends javax.swing.JFrame {
     /**
      * Creates new form ManagerHome
      */
+     Connection conn;
+    PreparedStatement pst,pst1,pst2,pst3;
+    ResultSet rs;
+    ArrayList<ManagePolicies> manage = new ArrayList<>();
     public ManagerHome() {
         initComponents();
     }
@@ -215,22 +227,33 @@ public class ManagerHome extends javax.swing.JFrame {
 //        Showing table 
 
     try {
-            pst = conn.prepareStatement("SELECT person_id,FirstName,LastName,DOB FROM Person");
+            DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
+            health.setRowCount(0);
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT company,cust_id,gender,DOB,tobacco,preg_child,chronic,annual,height,weight,premium,sales_id FROM managepolicies");
             rs = pst.executeQuery();
             while(rs.next())
             {
-               Integer person_id =  rs.getInt("person_id");
-               String FirstName = rs.getString("FirstName");
-               String LastName = rs.getString("LastName");
+               String com =  rs.getString("company");
+               String  cus = rs.getString("cust_id");
+               String gender = rs.getString("gender");
                String sDate = rs.getString("DOB");
-               LocalDate date1 = LocalDate.parse(sDate);
-               person.add(new Person(person_id,FirstName ,LastName,date1));
-           
+               String tobacco = rs.getString("tobacco");
+               String preg_child = rs.getString("preg_child");
+               String chronic = rs.getString("chronic");
+               String annual = rs.getString("annual");  
+               String height = rs.getString("height");
+               String weight = rs.getString("weight");
+               String premium = rs.getString("premium");
+               String sales_id = rs.getString("sales_id");
+               health.addRow(new Object[]{com,cus,gender,sDate,tobacco,preg_child,chronic,annual,height,weight,premium,sales_id});
+              
               
                 
             }
             } catch (SQLException ex) {
-            Logger.getLogger(PatientHomePage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
         }            
         
         

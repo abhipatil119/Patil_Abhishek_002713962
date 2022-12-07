@@ -983,7 +983,7 @@ public class HealthClaim extends javax.swing.JFrame {
 
         }
     for (int i =0; i < app.size();i++) {
-            if (app.get(i).getCompany().equalsIgnoreCase(company) || app.get(i).getDate_of_app().equalsIgnoreCase(app_date) && app.get(i).getTime().equalsIgnoreCase(time))
+            if (app.get(i).getCompany().equalsIgnoreCase(company) && app.get(i).getDate_of_app().equalsIgnoreCase(app_date) && app.get(i).getTime().equalsIgnoreCase(time))
             {
 
                 JOptionPane.showMessageDialog(this,
