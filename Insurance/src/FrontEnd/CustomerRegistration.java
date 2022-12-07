@@ -6,9 +6,10 @@ package FrontEnd;
 
 import BackEnd.Login;
 import Backend.HealthPricing;
+import Backend.JdbcConnection;
 import Backend.Person;
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -337,7 +339,12 @@ public class CustomerRegistration extends javax.swing.JFrame {
             final String stringDate = dateFormat.format(DOB);
             
             try {
-            pst1 = conn.prepareStatement("SELECT username, password  from ValidationLogin");
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst1 = conn.prepareStatement("SELECT username, password  from ValidationLogin where loginas = ?");
+            pst1.setString(1,logas);
             rs = pst1.executeQuery();
             //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
             //            String ps = rs.getString(1);
@@ -367,40 +374,72 @@ public class CustomerRegistration extends javax.swing.JFrame {
                 return;
             }
         }
-            
             try {
-            pst= conn.prepareStatement("INSERT INTO doctor(fname,lname,street_address,state,zipcode,city,gender,dob,phone, username,pass,email)VALUES(?,?,?,?,?,?,?,?,?)");
-            pst.setString(1,Fname);
-            pst.setString(2,Lname);
-            pst.setString(3,street);
-            pst.setString(4,state);
-            pst.setString(5,zipcode);
-            pst.setString(6,city);
-            pst.setString(6,gender);
-            pst.setString(7,stringDate);
-            pst.setString(8, phone);
-            pst.setString(9,username);
-            pst.setString(10,password);
-            pst.setString(11,email);
-            
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+            pst = conn.prepareStatement("SELECT person_id,FirstName,LastName FROM Person");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               Integer person_id =  rs.getInt("person_id");
+               String FirstName = rs.getString("FirstName");
+               String LastName = rs.getString("LastName");
+               
+               
+               person.add(new Person(person_id,FirstName ,LastName));
+           
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+            try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
             pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
             pst1.setString(1,logas);
             pst1.setString(2,username);
             pst1.setString(3,password);
             int per;
+            String cust_id;
          if (person.isEmpty()){
              per = 1;
+             cust_id = "C1";
          }
          else{    
          int m = (person.size()-1);
               per = person.get(m).getPerson_id()+1;
+              cust_id = "C"+per;
+              System.out.println(cust_id);
          }
-            LocalDate date1 = LocalDate.parse(stringDate);
-            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName,DOB)VALUES(?,?,?,?)");
+         
+            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName)VALUES(?,?,?)");
             pst2.setInt(1,per);
             pst2.setString(2,Fname);
             pst2.setString(3,Lname);
-            pst2.setString(4,stringDate);
+             
+            pst2.execute();
+                
+                
+                
+            pst= conn.prepareStatement("INSERT INTO CustomerRegistration(cust_id,fname,lname,street_address,state,zip_code,city,gender,dob,phone, username,pass,email)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setString(1,cust_id);
+            pst.setString(2,Fname);
+            pst.setString(3,Lname);
+            pst.setString(4,street);
+            pst.setString(5,state);
+            pst.setString(6,zipcode);
+            pst.setString(7,city);
+            pst.setString(8,gender);
+            pst.setString(9,stringDate);
+            pst.setString(10, phone);
+            pst.setString(11,username);
+            pst.setString(12,password);
+            pst.setString(13,email);
+            
+            
             
             int k1 = pst1.executeUpdate();
             int k = pst.executeUpdate();
@@ -412,9 +451,13 @@ public class CustomerRegistration extends javax.swing.JFrame {
                 jTextField3.setText("");
                 jTextField4.setText("");
                 jTextField5.setText("");
-                jTextField1.setSelectedItem(jComboBox1);
+                
                 jTextField6.setText("");
                 jTextField7.setText("");
+                jTextField8.setText("");
+                jTextField9.setText("");
+                jTextField10.setText("");
+                
             }
             else
                 {
@@ -426,7 +469,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
 
                 }
         } catch (SQLException ex) {
-            Logger.getLogger(DocReg.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
             
         }
             
