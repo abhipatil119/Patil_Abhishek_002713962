@@ -191,6 +191,11 @@ public class HealthClaim extends javax.swing.JFrame {
 
         jCheckBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jCheckBox1.setText("Cancer");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jCheckBox2.setText("Heart disease");
@@ -243,7 +248,12 @@ public class HealthClaim extends javax.swing.JFrame {
 
         jLabel13.setText("Company");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geico", "AllSate", "StateFarm", "Progressive" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geico", "AllState", "StateFarm", "Progressive" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -478,34 +488,252 @@ public class HealthClaim extends javax.swing.JFrame {
 
         }
         int premium = 0;
-        premium = premium + healthP.get(0).getBase_premium();
-        if (jRadioButton3.isSelected() == true){
-         premium = premium + healthP.get(0).getTobacco_yes();
+        if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Geico")){
+                premium = premium + healthP.get(0).getBase_premium();
+                if (jRadioButton1.isSelected() == true){
+                 premium = premium + healthP.get(0).getTobacco_yes();
+
+                }
+                else if (jRadioButton2.isSelected() == true){
+                 premium = premium + healthP.get(0).getTobacco_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+
+
+                }
+
+                if (jRadioButton3.isSelected() == true){
+                 premium = premium + healthP.get(0).getChild_yes();
+
+                }
+                else if (jRadioButton4.isSelected() == true){
+                 premium = premium + healthP.get(0).getChild_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+
+                if (jCheckBox1.isSelected() == true){
+                premium = premium + healthP.get(0).getCancer();
+                 }
+
+                if(jCheckBox2.isSelected() == true){
+                premium = premium + healthP.get(0).getHeart_patient();
+
+                 } 
+
+                if(jCheckBox3.isSelected() == true){
+                premium = premium + healthP.get(0).getAIDS_HIV();
+
+                 } 
+
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(0).getRenal_kidney_failure();
+
+                 } 
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(0).getBipolar_disorder();
+
+                 } 
+
+                String final_premium = "$"+premium;
+                jTextField1.setText(final_premium);
+        }
+        else if (jComboBox1.getSelectedItem().toString().equalsIgnoreCase("AllState")){
+            premium = premium + healthP.get(1).getBase_premium();
+                if (jRadioButton1.isSelected() == true){
+                 premium = premium + healthP.get(1).getTobacco_yes();
+
+                }
+                else if (jRadioButton2.isSelected() == true){
+                 premium = premium + healthP.get(1).getTobacco_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+
+
+                }
+
+                if (jRadioButton3.isSelected() == true){
+                 premium = premium + healthP.get(1).getChild_yes();
+
+                }
+                else if (jRadioButton4.isSelected() == true){
+                 premium = premium + healthP.get(1).getChild_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+
+                if (jCheckBox1.isSelected() == true){
+                premium = premium + healthP.get(1).getCancer();
+                 }
+
+                if(jCheckBox2.isSelected() == true){
+                premium = premium + healthP.get(1).getHeart_patient();
+
+                 } 
+
+                if(jCheckBox3.isSelected() == true){
+                premium = premium + healthP.get(1).getAIDS_HIV();
+
+                 } 
+
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(1).getRenal_kidney_failure();
+
+                 } 
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(1).getBipolar_disorder();
+
+                 } 
+
+                String final_premium = "$"+premium;
+                jTextField1.setText(final_premium);
+        
         
         }
-        else if (jRadioButton4.isSelected() == true){
-         premium = premium + healthP.get(0).getTobacco_no();
+        else if (jComboBox1.getSelectedItem().toString().equalsIgnoreCase("StateFarm")){
+            premium = premium + healthP.get(2).getBase_premium();
+                if (jRadioButton1.isSelected() == true){
+                 premium = premium + healthP.get(2).getTobacco_yes();
+
+                }
+                else if (jRadioButton2.isSelected() == true){
+                 premium = premium + healthP.get(2).getTobacco_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+
+
+                }
+
+                if (jRadioButton3.isSelected() == true){
+                 premium = premium + healthP.get(2).getChild_yes();
+
+                }
+                else if (jRadioButton4.isSelected() == true){
+                 premium = premium + healthP.get(2).getChild_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+
+                if (jCheckBox1.isSelected() == true){
+                premium = premium + healthP.get(2).getCancer();
+                 }
+
+                if(jCheckBox2.isSelected() == true){
+                premium = premium + healthP.get(2).getHeart_patient();
+
+                 } 
+
+                if(jCheckBox3.isSelected() == true){
+                premium = premium + healthP.get(2).getAIDS_HIV();
+
+                 } 
+
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(2).getRenal_kidney_failure();
+
+                 } 
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(2).getBipolar_disorder();
+
+                 } 
+
+                String final_premium = "$"+premium;
+                jTextField1.setText(final_premium);
+        
         
         }
         else {
-        JOptionPane.showMessageDialog(this,
-                "Please select all the fields",
-                "Try again",
-                JOptionPane.ERROR_MESSAGE);
-           
+            premium = premium + healthP.get(3).getBase_premium();
+                if (jRadioButton1.isSelected() == true){
+                 premium = premium + healthP.get(3).getTobacco_yes();
+
+                }
+                else if (jRadioButton2.isSelected() == true){
+                 premium = premium + healthP.get(3).getTobacco_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+
+
+                }
+
+                if (jRadioButton3.isSelected() == true){
+                 premium = premium + healthP.get(3).getChild_yes();
+
+                }
+                else if (jRadioButton4.isSelected() == true){
+                 premium = premium + healthP.get(3).getChild_no();
+
+                }
+                else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select all the fields",
+                        "Try again",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+
+                if (jCheckBox1.isSelected() == true){
+                premium = premium + healthP.get(3).getCancer();
+                 }
+
+                if(jCheckBox2.isSelected() == true){
+                premium = premium + healthP.get(3).getHeart_patient();
+
+                 } 
+
+                if(jCheckBox3.isSelected() == true){
+                premium = premium + healthP.get(3).getAIDS_HIV();
+
+                 } 
+
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(3).getRenal_kidney_failure();
+
+                 } 
+                if(jCheckBox4.isSelected() == true){
+                premium = premium + healthP.get(3).getBipolar_disorder();
+
+                 } 
+
+                String final_premium = "$"+premium;
+                jTextField1.setText(final_premium);
+        
         
         }
-        
-        if ()
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -572,6 +800,10 @@ public class HealthClaim extends javax.swing.JFrame {
         
         
         jTextField6.setText(cus.get(0).getDob());
+        
+        
+        
+        
     }//GEN-LAST:event_jTextField5FocusLost
     
     
@@ -586,6 +818,17 @@ public class HealthClaim extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
