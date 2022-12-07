@@ -121,8 +121,9 @@ use insurance;
 -- );  
 
 -- Health pricing-
-
+-- drop table HealthPricing;
 -- create table HealthPricing(
+-- company varchar(30),
 -- base_premium int,
 -- tobacco_no int,
 -- tobacco_yes int,
@@ -135,7 +136,7 @@ use insurance;
 -- bipolar_disorder int
 -- );
 -- select * from HealthPricing;
--- insert into HealthPricing values (1000,0,50,0,50,300,300,1000,200,200);
+-- insert into HealthPricing values ("Progressive",1300,0,30,0,30,160,550,600,350,350);
 -- ---------Registration pages-
 
 -- drop table CustomerRegistration;
@@ -181,6 +182,6 @@ use insurance;
 -- create table Person(person_id int,FirstName varchar(30),LastName varchar(30));
 
 
-base_premium,tobacco_no ,tobacco_yes ,child_no ,child_yes ,cancer ,heart_patient ,AIDS_HIV ,renal_kidney_failure ,bipolar_disorder ,
-
-
+-- base_premium,tobacco_no ,tobacco_yes ,child_no ,child_yes ,cancer ,heart_patient ,AIDS_HIV ,renal_kidney_failure ,bipolar_disorder ,
+drop table appointment;
+create table appointment(company varchar(20), cust_id varchar(30), reason varchar(40),date_of_app varchar(40), time varchar(30))
