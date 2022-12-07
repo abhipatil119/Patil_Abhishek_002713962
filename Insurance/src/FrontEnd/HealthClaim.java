@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -62,7 +63,7 @@ public class HealthClaim extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        healthtable = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -87,6 +88,10 @@ public class HealthClaim extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        Time = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,26 +135,23 @@ public class HealthClaim extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setText("Your premium is");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        healthtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "cust_id", "Gender", "DOB", "Tobacco usage", "Pregnant or adopting?", "Chronic diseases", "Expected annual income", "Height", "Weight", "Premium", "Sales Broker?"
+                "company", "cust_id", "Gender", "DOB", "Tobacco usage", "Pregnant or adopting?", "Chronic diseases", "Expected annual income", "Height", "Weight", "Premium", "Sales Broker?"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false, false, true, false
+                true, true, false, false, false, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(healthtable);
 
         jButton3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton3.setText("Buy Claim");
@@ -255,14 +257,28 @@ public class HealthClaim extends javax.swing.JFrame {
             }
         });
 
+        Time.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        Time.setText("Time");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:30", "11;30", "12:30", "13:30", "14:30", "15:30", "16:30", "17:30", "18:30" }));
+
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel14.setText("sales_id");
+
+        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(155, 155, 155)
+                .addGap(156, 156, 156)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,10 +292,7 @@ public class HealthClaim extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(231, 231, 231)
                                 .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(179, 179, 179)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel10))
                         .addContainerGap(1128, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +307,11 @@ public class HealthClaim extends javax.swing.JFrame {
                                     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                                     .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                                     .addComponent(jTextField3)
-                                    .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jDateChooser3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jRadioButton3)
@@ -319,6 +336,8 @@ public class HealthClaim extends javax.swing.JFrame {
                         .addGap(69, 69, 69))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(Time)
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,16 +429,21 @@ public class HealthClaim extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel12)
                     .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Time)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(25, 25, 25))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(210, 210, 210)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -440,7 +464,9 @@ public class HealthClaim extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -453,7 +479,7 @@ public class HealthClaim extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        
+        DefaultTableModel model = (DefaultTableModel) healthtable.getModel();
         
         
         try {
@@ -488,6 +514,88 @@ public class HealthClaim extends javax.swing.JFrame {
 
         }
         int premium = 0;
+        String com_name = jComboBox1.getSelectedItem().toString();
+        String cust_id = jTextField5.getText();
+         String gender = "";
+            
+           if(jRadioButton5.isSelected() == true)
+            {
+                gender = "Male";
+            }
+             if(jRadioButton6.isSelected() == true){
+                gender = "Female";
+
+            }
+         String date = jTextField6.getText();
+         String tobacco="";
+        if(jRadioButton1.isSelected() == true)
+            {
+                tobacco = "yes";
+            }
+             if(jRadioButton2.isSelected() == true){
+                tobacco = "no";
+
+            }
+         String preg_child="";
+        if(jRadioButton3.isSelected() == true)
+            {
+                preg_child = "yes";
+            }
+             if(jRadioButton4.isSelected() == true){
+                preg_child = "no";
+
+            }
+             
+             
+             String chronic = "";
+                     System.out.println(jCheckBox1.getText());
+                     if (jCheckBox1.isSelected() == true){
+                chronic = chronic +","+jCheckBox1.getText() ;
+                 }
+
+                if(jCheckBox2.isSelected() == true){
+                chronic = chronic +","+jCheckBox2.getText();
+
+                 } 
+
+                if(jCheckBox3.isSelected() == true){
+                chronic = chronic +","+jCheckBox3.getText();
+
+                 } 
+
+                if(jCheckBox4.isSelected() == true){
+                chronic = chronic +","+jCheckBox4.getText();
+
+                 } 
+                if(jCheckBox5.isSelected() == true){
+                chronic = chronic +","+jCheckBox5.getText();
+
+                 }
+                
+                String income = jTextField4.getText();
+                String height = jTextField2.getText();
+                String weight = jTextField3.getText();
+                String sales_id =  jTextField7.getText();
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
         if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Geico")){
                 premium = premium + healthP.get(0).getBase_premium();
                 if (jRadioButton1.isSelected() == true){
@@ -540,13 +648,16 @@ public class HealthClaim extends javax.swing.JFrame {
                 premium = premium + healthP.get(0).getRenal_kidney_failure();
 
                  } 
-                if(jCheckBox4.isSelected() == true){
+                if(jCheckBox5.isSelected() == true){
                 premium = premium + healthP.get(0).getBipolar_disorder();
 
                  } 
 
                 String final_premium = "$"+premium;
                 jTextField1.setText(final_premium);
+                
+                
+                model.addRow(new Object[]{com_name, cust_id, gender, date,tobacco , preg_child, chronic, income, height, weight, final_premium,sales_id });
         }
         else if (jComboBox1.getSelectedItem().toString().equalsIgnoreCase("AllState")){
             premium = premium + healthP.get(1).getBase_premium();
@@ -607,6 +718,10 @@ public class HealthClaim extends javax.swing.JFrame {
 
                 String final_premium = "$"+premium;
                 jTextField1.setText(final_premium);
+                
+             
+                model.addRow(new Object[]{com_name, cust_id, gender, date,tobacco , preg_child, chronic, income, height, weight, final_premium,sales_id });
+        
         
         
         }
@@ -670,6 +785,7 @@ public class HealthClaim extends javax.swing.JFrame {
                 String final_premium = "$"+premium;
                 jTextField1.setText(final_premium);
         
+                model.addRow(new Object[]{com_name, cust_id, gender, date,tobacco , preg_child, chronic, income, height, weight, final_premium,sales_id });
         
         }
         else {
@@ -732,7 +848,7 @@ public class HealthClaim extends javax.swing.JFrame {
                 String final_premium = "$"+premium;
                 jTextField1.setText(final_premium);
         
-        
+                model.addRow(new Object[]{com_name, cust_id, gender, date,tobacco , preg_child, chronic, income, height, weight, final_premium,sales_id });
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -830,6 +946,10 @@ public class HealthClaim extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -866,7 +986,9 @@ public class HealthClaim extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Time;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTable healthtable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -876,12 +998,14 @@ public class HealthClaim extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -899,12 +1023,12 @@ public class HealthClaim extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSlider1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 }
