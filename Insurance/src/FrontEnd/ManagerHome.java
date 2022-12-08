@@ -4,6 +4,8 @@
  */
 package FrontEnd;
 
+import Backend.ClaimInfo;
+import Backend.CustomerData;
 import Backend.HealthPricing;
 import Backend.JdbcConnection;
 import Backend.ManagePolicies;
@@ -15,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,9 +32,11 @@ public class ManagerHome extends javax.swing.JFrame {
      Connection conn;
     PreparedStatement pst,pst1,pst2,pst3;
     ResultSet rs;
+    ArrayList<ClaimInfo> ci = new ArrayList<>();
     ArrayList<ManagePolicies> manage = new ArrayList<>();
+//    ArrayList<ClaimInfo> claim = new ArrayList<>();
     public ManagerHome() {
-        initComponents();
+        initComponents();  
     }
 
     /**
@@ -49,12 +54,14 @@ public class ManagerHome extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         healthtable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        approval = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +70,11 @@ public class ManagerHome extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(242, 242, 242));
         jButton2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton2.setText("Approve Claims");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FrontEnd/manager.png"))); // NOI18N
@@ -97,7 +109,7 @@ public class ManagerHome extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(healthtable);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        approval.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -108,7 +120,7 @@ public class ManagerHome extends javax.swing.JFrame {
                 "cust_id", "reason", "detailed description", "appointment booked?", "Company_name"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(approval);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setText("Policies and Details");
@@ -167,6 +179,15 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setText("cust_id");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -191,8 +212,12 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addGap(422, 422, 422))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(35, 35, 35)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(189, 189, 189))
+                .addGap(134, 134, 134))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,9 +230,12 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(124, 124, 124))
         );
@@ -255,6 +283,9 @@ public class ManagerHome extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Appointment ap = new Appointment();
+        ap.show();
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -301,10 +332,87 @@ public class ManagerHome extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Appointment ap = new Appointment();
-        ap.show();
-        dispose();
+         try {
+            DefaultTableModel claim = (DefaultTableModel) approval.getModel();
+            claim.setRowCount(0);
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT cust_id,reason,detailed_desc,company_name FROM claimtable where cust_id = ?");
+            
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String cust =  rs.getString("cust_id");
+               String  reason = rs.getString("reason");
+               String desc = rs.getString("detailed_desc");
+               String com = rs.getString("company_name");
+               
+               claim.addRow(new Object[]{cust,reason,desc,com});
+              
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
+        }            
+   
+       
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String customer_id = jTextField1.getText();
+        try {
+            
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT cust_id ,reason, detailed_desc,company_name FROM claimtable where cust_id = ?");
+            pst1.setString(1,customer_id);
+            
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String cust =  rs.getString("cust_id");
+               String reason =  rs.getString("reason");
+               String deatiled_desc =  rs.getString("deatiled_desc");
+               String company_name = rs.getString("company_name");
+               
+               ci.add(new ClaimInfo(cust, reason, deatiled_desc,company_name));
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
+        }            
+             try{
+         JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+    
+            pst= conn.prepareStatement("INSERT INTO Financemiddle(company,cust_id,reason,date_of_app,time)VALUES(?,?,?,?,?)");
+
+            pst.setString(1,ci.get(0).getCust_id());
+            pst.setString(2,ci.get(0).getReason());
+            pst.setString(3, ci.get(0).getDetailed_desc());
+            pst.setString(4,ci.get(0).getCompany_name());
+            
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Approved and sent to finance department !!!");
+                
+//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+//                SystemPatient sp = new SystemPatient();
+//                sp.patient_reg(pd);
+            }
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,6 +450,7 @@ public class ManagerHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable approval;
     private javax.swing.JTable healthtable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -349,10 +458,11 @@ public class ManagerHome extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

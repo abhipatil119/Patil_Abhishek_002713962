@@ -199,7 +199,6 @@ public class InformAndClaim extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 153, 255));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel9.setText("** Upload Bills and Files");
 
         jButton6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton6.setText("Claim & Book Appointment");
