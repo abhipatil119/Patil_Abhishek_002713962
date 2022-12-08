@@ -4,11 +4,20 @@
  */
 package FrontEnd;
 
+import Backend.CustomerData;
 import Backend.HealthPricing;
+import Backend.JdbcConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +31,7 @@ public class InformAndClaim extends javax.swing.JFrame {
     Connection conn;
     PreparedStatement pst,pst1,pst2,pst3;
     ResultSet rs;
+    ArrayList<CustomerData> cus = new ArrayList<>();
     ArrayList<HealthPricing> healthP = new ArrayList<>();
     public InformAndClaim() {
         initComponents();
@@ -54,7 +64,6 @@ public class InformAndClaim extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jFileChooser3 = new javax.swing.JFileChooser();
         jLabel9 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
@@ -68,6 +77,8 @@ public class InformAndClaim extends javax.swing.JFrame {
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -191,7 +202,7 @@ public class InformAndClaim extends javax.swing.JFrame {
         jLabel9.setText("** Upload Bills and Files");
 
         jButton6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jButton6.setText("Claim");
+        jButton6.setText("Claim & Book Appointment");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -227,6 +238,15 @@ public class InformAndClaim extends javax.swing.JFrame {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:30", "11;30", "12:30", "13:30", "14:30", "15:30", "16:30", "17:30", "18:30" }));
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel16.setText("Company name");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -236,6 +256,10 @@ public class InformAndClaim extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,12 +280,9 @@ public class InformAndClaim extends javax.swing.JFrame {
                                 .addGap(251, 251, 251)
                                 .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jFileChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                        .addGap(124, 124, 124)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,10 +313,13 @@ public class InformAndClaim extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))))
-                .addGap(18, 18, 18)
-                .addComponent(jFileChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(58, 58, 58)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -394,12 +418,168 @@ public class InformAndClaim extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+       String cust_id = jTextField1.getText();
+       String reason = jComboBox1.getSelectedItem().toString();
+       try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst1 = conn.prepareStatement("SELECT cust_id ,gender, dob  from CustomerRegistration where cust_id = ?");
+            pst1.setString(1,cust_id);
+            rs = pst1.executeQuery();
+            
+            while(rs.next())
+            {
+                String customer = rs.getString("cust_id");
+                String gender =  rs.getString("gender");
+                String dob = rs.getString("dob");               
+                cus.add(new CustomerData(customer, gender, dob));
+                
+
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }    
+         for (int i =0; i < cus.size();i++){
+        if (cus.get(i).getCust_id().equalsIgnoreCase(cust_id)){
+             try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+            pst1 = conn.prepareStatement("INSERT INTO inform(cust_id,reason)VALUES(?,?)");
+            pst1.setString(1,cust_id);
+            pst1.setString(2,reason);
+           
+            int k = pst1.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Thank you for Informing !! Take Care  !!!");
+                
+//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+//                SystemPatient sp = new SystemPatient();
+//                sp.patient_reg(pd);
+            }
+                
+            
+       }catch (SQLException ex) {
+            Logger.getLogger(InformAndClaim.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        
+        }else{
+            
+        JOptionPane.showMessageDialog(this,
+                " Sorry You haven't Taken any policy we can't claim your request.",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+        
+        
+        
+        }
+      }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         String cust_id = jTextField2.getText();
+        String reason = jComboBox1.getSelectedItem().toString();
+        String detailD = jTextArea1.getText();
+        Date DOB = (Date)jDateChooser3.getDate();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(DOB);
+        String  tm =   jComboBox2.getSelectedItem().toString();
+        String comp_nam = jTextField3.getText();
         
+        try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst1 = conn.prepareStatement("SELECT cust_id ,gender, dob  from CustomerRegistration where cust_id = ?");
+            pst1.setString(1,cust_id);
+            rs = pst1.executeQuery();
+            
+            while(rs.next())
+            {
+                String customer = rs.getString("cust_id");
+                String gender =  rs.getString("gender");
+                String dob = rs.getString("dob");               
+                cus.add(new CustomerData(customer, gender, dob));
+                
+
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }    
+         for (int i =0; i < cus.size();i++){
+        if (cus.get(i).getCust_id().equalsIgnoreCase(cust_id)){
+        
+       try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+            pst1 = conn.prepareStatement("INSERT INTO claimtable(cust_id,reason,detailed_desc,company_name)VALUES(?,?,?,?)");
+            pst1.setString(1,cust_id);
+            pst1.setString(2,reason);
+            pst1.setString(3,detailD);
+            pst1.setString(4,comp_nam);
+            int k = pst1.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Your Claim has been submitted and will be processed soon We will get back to you via Email!!!");
+                
+//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+//                SystemPatient sp = new SystemPatient();
+//                sp.patient_reg(pd);
+            }
+                
+            
+       }catch (SQLException ex) {
+            Logger.getLogger(InformAndClaim.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        
+       try{
+         JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+    
+            pst= conn.prepareStatement("INSERT INTO appointment(company,cust_id,reason,date_of_app,time)VALUES(?,?,?,?,?)");
+
+            pst.setString(1,comp_nam);
+            pst.setString(2,cust_id);
+            pst.setString(3, reason);
+            pst.setString(4,stringDate);
+            pst.setString(5, tm);
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Appointment booked Successfully !!!");
+                
+//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+//                SystemPatient sp = new SystemPatient();
+//                sp.patient_reg(pd);
+            }
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+       
+    }
+        else {
+        JOptionPane.showMessageDialog(this,
+                " Sorry You haven't Taken any policy we can't claim your request.",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+        
+        
+        }
+       
+       
+         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -433,6 +613,10 @@ public class InformAndClaim extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,7 +664,6 @@ public class InformAndClaim extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JFileChooser jFileChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -488,6 +671,7 @@ public class InformAndClaim extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -503,5 +687,6 @@ public class InformAndClaim extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
