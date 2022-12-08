@@ -194,4 +194,6 @@ use insurance;
 -- create table managepolicies(company varchar(30),cust_id varchar(30),gender varchar(30),DOB varchar(30),tobacco varchar(30),preg_child varchar(30),chronic varchar(300),annual varchar(30),height varchar(30),weight varchar(30),premium varchar(30),sales_id varchar(30));
 
 
- select * from managepolicies;
+ -- select * from managepolicies;
+ 
+ create table claimtable (cust_id varchar(20),reason varchar(200),detailed_desc varchar(500),comapny_name varchar(70))
