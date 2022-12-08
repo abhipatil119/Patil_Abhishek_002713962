@@ -5,6 +5,7 @@
 package FrontEnd;
 
 import BackEnd.Login;
+import Backend.HealthPricing;
 import Backend.JdbcConnection;
 import Backend.Person;
 import java.sql.Connection;
@@ -26,7 +27,7 @@ public class MarketingPricesHealth extends javax.swing.JFrame {
     Connection conn;
     PreparedStatement pst,pst1,pst2;
     ResultSet rs;
-    ArrayList<Login> log = new ArrayList<>();
+    ArrayList<HealthPricing> h1 = new ArrayList<>();
     
     /**
      * Creates new form MarketingPricesHealth
@@ -70,6 +71,7 @@ public class MarketingPricesHealth extends javax.swing.JFrame {
         jTextField10 = new javax.swing.JTextField();
         Company = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,6 +161,14 @@ public class MarketingPricesHealth extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geico ", "AllState", "Progressive ", "StateFarm" }));
 
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton2.setText("View");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -204,14 +214,15 @@ public class MarketingPricesHealth extends javax.swing.JFrame {
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(365, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(357, 357, 357)
-                        .addComponent(jButton1)))
+                .addGap(234, 234, 234)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(jButton1)
+                .addGap(418, 418, 418))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,9 +280,11 @@ public class MarketingPricesHealth extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -382,6 +395,52 @@ public class MarketingPricesHealth extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+            pst = conn.prepareStatement("SELECT company,base_premium,tobacco_no,tobacco_yes,child_no,child_yes,cancer,heart_patient,AIDS_HIV,renal_kidney_failure,bipolar_disorder FROM HealthPricing where company = 'Geico'");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String company_name =  rs.getString("company");
+               Integer base_premium =  rs.getInt("base_premium");
+               Integer tobacco_no =  rs.getInt("tobacco_no");
+               Integer tobacco_yes =  rs.getInt("tobacco_yes");
+               Integer child_no =  rs.getInt("child_no");
+               Integer child_yes =  rs.getInt("child_yes");
+               Integer cancer =  rs.getInt("cancer");
+               Integer heart_patient =  rs.getInt("heart_patient");
+               Integer AIDS_HIV =  rs.getInt("AIDS_HIV");
+               Integer renal_kidney_failure =  rs.getInt("renal_kidney_failure");
+               Integer bipolar_disorder =  rs.getInt("bipolar_disorder");
+               h1.add(new HealthPricing(base_premium,tobacco_no ,tobacco_yes,child_no,child_yes,cancer,heart_patient,AIDS_HIV,renal_kidney_failure,bipolar_disorder));
+           
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Integer.toString(h1.get(0).getBase_premium());
+        
+        
+        jTextField10.setText(Integer.toString(h1.get(0).getBase_premium()));
+        jTextField1.setText(Integer.toString(h1.get(0).getTobacco_no()));
+        jTextField2.setText(Integer.toString(h1.get(0).getTobacco_yes()));
+        jTextField3.setText(Integer.toString(h1.get(0).getTobacco_yes()));
+        jTextField4.setText(Integer.toString(h1.get(0).getChild_no()));
+        jTextField5.setText(Integer.toString(h1.get(0).getChild_yes()));
+        jTextField6.setText(Integer.toString(h1.get(0).getCancer()));
+        jTextField7.setText(Integer.toString(h1.get(0).getHeart_patient()));
+        jTextField8.setText(Integer.toString(h1.get(0).getAIDS_HIV()));
+        jTextField9.setText(Integer.toString(h1.get(0).getRenal_kidney_failure()));
+        jTextField10.setText(Integer.toString(h1.get(0).getBipolar_disorder()));
+        JOptionPane.showMessageDialog(this, "These are the current prices");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -420,6 +479,7 @@ public class MarketingPricesHealth extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Company;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
