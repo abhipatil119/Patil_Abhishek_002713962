@@ -4,12 +4,31 @@
  */
 package FrontEnd;
 
+import BackEnd.Login;
+import Backend.JdbcConnection;
+import Backend.Person;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
  */
 public class SalesRegistration extends javax.swing.JFrame {
-
+    Connection conn;
+    PreparedStatement pst,pst1,pst2;
+    ResultSet rs;
+    ArrayList<Login> log = new ArrayList<>();
+    ArrayList<Person> person = new ArrayList<>();
     /**
      * Creates new form SalesRegistration
      */
@@ -60,7 +79,7 @@ public class SalesRegistration extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FrontEnd/registration.png"))); // NOI18N
@@ -80,6 +99,12 @@ public class SalesRegistration extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("Address");
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Street Address");
@@ -101,9 +126,20 @@ public class SalesRegistration extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(242, 242, 242));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setText("Register");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setText("Username");
+
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel14.setText("Password");
@@ -288,6 +324,183 @@ public class SalesRegistration extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+            String Fname = jTextField1.getText();
+            String Lname = jTextField2.getText();
+            String street = jTextField3.getText();
+            String city = jTextField4.getText();
+            String  state = jTextField5.getText();
+            String  zipcode = jTextField6.getText();
+            String gender = "";
+            String logas = "salesagency";
+           if(jRadioButton1.isSelected() == true)
+            {
+                gender = "Male";
+            }
+             if(jRadioButton2.isSelected() == true){
+                gender = "Female";
+
+            }
+            String phone = jTextField7.getText();
+            String username = jTextField9.getText();
+            String password = jTextField10.getText();
+            String email = jTextField8.getText();
+            
+            Date DOB = (Date)jDateChooser1.getDate();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(DOB);
+            
+            try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst1 = conn.prepareStatement("SELECT username, password  from ValidationLogin where loginas = ?");
+            pst1.setString(1,logas);
+            rs = pst1.executeQuery();
+            //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+            //            String ps = rs.getString(1);
+            //            System.out.println(ps);
+            while(rs.next())
+            {
+                String user_name =  rs.getString("username");
+                String passi = rs.getString("password");               
+                String loginas = "customer";
+                String companyname = "";
+                log.add(new Login(loginas ,companyname,user_name, passi));
+
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        for (int i =0; i < log.size();i++) {
+            if (log.get(i).getUsername().equalsIgnoreCase(username) || log.get(i).getPassword().equalsIgnoreCase(password))
+            {
+
+                JOptionPane.showMessageDialog(this,
+                    "UserName or password is already taken please enter another one!",
+                    "Try again",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+            try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+            pst = conn.prepareStatement("SELECT person_id,FirstName,LastName FROM Person");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               Integer person_id =  rs.getInt("person_id");
+               String FirstName = rs.getString("FirstName");
+               String LastName = rs.getString("LastName");
+               
+               
+               person.add(new Person(person_id,FirstName ,LastName));
+           
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
+            pst1.setString(1,logas);
+            pst1.setString(2,username);
+            pst1.setString(3,password);
+            int per;
+            String sales_id;
+         if (person.isEmpty()){
+             per = 1;
+             sales_id = "S1";
+         }
+         else{    
+         int m = (person.size()-1);
+              per = person.get(m).getPerson_id()+1;
+              sales_id = "S"+per;
+              System.out.println(sales_id);
+         }
+         
+            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName)VALUES(?,?,?)");
+            pst2.setInt(1,per);
+            pst2.setString(2,Fname);
+            pst2.setString(3,Lname);
+             
+            pst2.execute();
+                
+                
+                
+            pst= conn.prepareStatement("INSERT INTO SalesAgentRegistration(sales_id,fname,lname,street_address,state,zip_code,city,gender,dob,phone, username,pass,email)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setString(1,sales_id);
+            pst.setString(2,Fname);
+            pst.setString(3,Lname);
+            pst.setString(4,street);
+            pst.setString(5,state);
+            pst.setString(6,zipcode);
+            pst.setString(7,city);
+            pst.setString(8,gender);
+            pst.setString(9,stringDate);
+            pst.setString(10, phone);
+            pst.setString(11,username);
+            pst.setString(12,password);
+            pst.setString(13,email);
+            
+            
+            
+            
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Record added Successfully !!!");
+                jTextField1.setText("");
+                jTextField2.setText("");
+                
+                jTextField3.setText("");
+                jTextField4.setText("");
+                jTextField5.setText("");
+                
+                jTextField6.setText("");
+                jTextField7.setText("");
+                jTextField8.setText("");
+                jTextField9.setText("");
+                jTextField10.setText("");
+                
+            }
+            else
+                {
+
+                JOptionPane.showMessageDialog(this,
+                "Error in Registering you!",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+            
+           
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField9ActionPerformed
 
     /**
      * @param args the command line arguments

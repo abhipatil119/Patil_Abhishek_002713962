@@ -325,7 +325,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
             {
                 gender = "Male";
             }
-             if(jRadioButton1.isSelected() == true){
+             if(jRadioButton2.isSelected() == true){
                 gender = "Female";
 
             }
@@ -444,7 +444,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
             int k1 = pst1.executeUpdate();
             int k = pst.executeUpdate();
             if (k==1){
-                JOptionPane.showMessageDialog(this, "Record added Successfully !!!");
+                JOptionPane.showMessageDialog(this, "You have been registered succesfully ! Welcome, Customer to our Application  !!!");
                 jTextField1.setText("");
                 jTextField2.setText("");
                 
