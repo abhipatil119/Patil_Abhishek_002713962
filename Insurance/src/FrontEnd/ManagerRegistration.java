@@ -4,15 +4,37 @@
  */
 package FrontEnd;
 
+import BackEnd.Login;
+import Backend.JdbcConnection;
+import Backend.Person;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
  */
+
 public class ManagerRegistration extends javax.swing.JFrame {
 
     /**
      * Creates new form ManagerRegistration
      */
+    Connection conn;
+    PreparedStatement pst,pst1,pst2;
+    ResultSet rs;
+    ArrayList<Login> log = new ArrayList<>();
+    ArrayList<Person> person = new ArrayList<>();
+    
     public ManagerRegistration() {
         initComponents();
     }
@@ -73,6 +95,12 @@ public class ManagerRegistration extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Full Name");
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("First Name");
 
@@ -108,6 +136,11 @@ public class ManagerRegistration extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(242, 242, 242));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setText("Register");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setText("Username");
@@ -117,6 +150,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
 
         jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Manager ", "Finance Head", "Marketing Manager", " " }));
+        jComboBox1.setToolTipText("");
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel15.setText("Register as");
@@ -192,7 +226,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
                                     .addComponent(jTextField8)
                                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField10))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -201,7 +235,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 1023, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +310,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(115, 115, 115)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -288,7 +322,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)
+                        .addGap(59, 59, 59)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(118, 118, 118))))
         );
@@ -310,6 +344,182 @@ public class ManagerRegistration extends javax.swing.JFrame {
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+            String emp_role = jComboBox1.getSelectedItem().toString();
+            String company = jComboBox2.getSelectedItem().toString();
+            String Fname = jTextField1.getText();
+            String Lname = jTextField2.getText();
+            String street = jTextField3.getText();
+            String city = jTextField4.getText();
+            String  state = jTextField5.getText();
+            String  zipcode = jTextField6.getText();
+            String gender = "";
+            String logas = emp_role;
+           if(jRadioButton1.isSelected() == true)
+            {
+                gender = "Male";
+            }
+             if(jRadioButton1.isSelected() == true){
+                gender = "Female";
+
+            }
+            String phone = jTextField7.getText();
+            String username = jTextField9.getText();
+            String password = jTextField10.getText();
+            String email = jTextField8.getText();
+            
+            Date DOB = (Date)jDateChooser1.getDate();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            final String stringDate = dateFormat.format(DOB);
+            
+            try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst1 = conn.prepareStatement("SELECT username, password,loginas,companyname  from ValidationLogin where loginas = ?");
+            pst1.setString(1,logas);
+            rs = pst1.executeQuery();
+            //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+            //            String ps = rs.getString(1);
+            //            System.out.println(ps);
+            while(rs.next())
+            {
+                String user_name =  rs.getString("username");
+                String passi = rs.getString("password");               
+                String loginas = rs.getString("loginas");
+                String companyname = rs.getString("companyname");
+                log.add(new Login(loginas ,companyname,user_name, passi));
+
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        for (int i =0; i < log.size();i++) {
+            if (log.get(i).getUsername().equalsIgnoreCase(username) || log.get(i).getPassword().equalsIgnoreCase(password))
+            {
+
+                JOptionPane.showMessageDialog(this,
+                    "UserName or password is already taken please enter another one!",
+                    "Try again",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+            try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+            pst = conn.prepareStatement("SELECT person_id,FirstName,LastName FROM Person");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               Integer person_id =  rs.getInt("person_id");
+               String FirstName = rs.getString("FirstName");
+               String LastName = rs.getString("LastName");
+               
+               
+               person.add(new Person(person_id,FirstName ,LastName));
+           
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
+            pst1.setString(1,logas);
+            pst1.setString(2,username);
+            pst1.setString(3,password);
+            int per;
+            String manager_id;
+         if (person.isEmpty()){
+             per = 1;
+             manager_id = "M1";
+         }
+         else{    
+         int m = (person.size()-1);
+              per = person.get(m).getPerson_id()+1;
+              manager_id = "M"+per;
+              System.out.println(manager_id);
+         }
+         
+            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName)VALUES(?,?,?)");
+            pst2.setInt(1,per);
+            pst2.setString(2,Fname);
+            pst2.setString(3,Lname);
+             
+            pst2.execute();
+                
+                
+                
+            pst= conn.prepareStatement("INSERT INTO ManagerRegistration(manager_id,emp_role,insurance_company,fname,lname,street_address,state,zip_code,city,gender,dob,phone, username,pass,email)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setString(1,manager_id);
+            pst.setString(2,emp_role);
+            pst.setString(3,company);
+            pst.setString(4,Fname);
+            pst.setString(5,Lname);
+            pst.setString(6,street);
+            pst.setString(7,state);
+            pst.setString(8,zipcode);
+            pst.setString(9,city);
+            pst.setString(10,gender);
+            pst.setString(11,stringDate);
+            pst.setString(12,phone);
+            pst.setString(13,username);
+            pst.setString(14,password);
+            pst.setString(15,email);
+            
+            
+            
+            
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Manager Registered Successfully !!!");
+                jTextField1.setText("");
+                jTextField2.setText("");
+                
+                jTextField3.setText("");
+                jTextField4.setText("");
+                jTextField5.setText("");
+                
+                jTextField6.setText("");
+                jTextField7.setText("");
+                jTextField8.setText("");
+                jTextField9.setText("");
+                jTextField10.setText("");
+                
+            }
+            else
+                {
+
+                JOptionPane.showMessageDialog(this,
+                "Error in Registering you!",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+            
+                       
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

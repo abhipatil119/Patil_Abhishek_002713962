@@ -156,23 +156,45 @@ use insurance;
 -- pass varchar(30),
 -- email varchar(40)
 -- );
-
+-- drop table ManagerRegistration;
 -- Manager-
 -- create table ManagerRegistration(
+-- manager_id varchar(30),
+-- emp_role varchar(30),
+-- insurance_company varchar(30),
 -- fname varchar(30),
 -- lname varchar(30),
 -- street_address varchar(30),
 -- state varchar(30),
 -- city varchar(30),
 -- zip_code varchar(30),
--- female varchar(10),
--- male varchar(10),
+-- gender varchar(30),
 -- dob varchar(30),
 -- phone long,
 -- username varchar(30),
 -- email varchar(40),
 -- pass varchar(30)
 -- );
+-- select * from SalesAgentRegistration;
+-- select * from ManagerRegistration
+ -- select * from ValidationLogin;
+-- create table SalesAgentRegistration(
+-- sales_id varchar(30),
+-- fname varchar(30),
+-- lname varchar(30),
+-- street_address varchar(30),
+-- state varchar(30),
+-- city varchar(30),
+-- zip_code varchar(30),
+-- gender varchar(30),
+-- dob varchar(30),
+-- phone long,
+-- username varchar(30),
+-- email varchar(40),
+-- pass varchar(30)
+-- );
+
+
 -- select * from CustomerRegistration;
 -- delete  from ValidationLogin where username = "d";
 
@@ -185,7 +207,7 @@ use insurance;
 -- base_premium,tobacco_no ,tobacco_yes ,child_no ,child_yes ,cancer ,heart_patient ,AIDS_HIV ,renal_kidney_failure ,bipolar_disorder ,
 -- drop table appointment;
 -- create table appointment(company varchar(20), cust_id varchar(30), reason varchar(40),date_of_app varchar(40), time varchar(30))
- -- select * from appointment
+-- select * from appointment
 
 
 
@@ -195,5 +217,13 @@ use insurance;
 
 
  -- select * from managepolicies;
- 
- create table claimtable (cust_id varchar(20),reason varchar(200),detailed_desc varchar(500),comapny_name varchar(70))
+-- drop table claimtable;
+ -- create table claimtable (cust_id varchar(20),reason varchar(200),detailed_desc varchar(500),company_name varchar(70))
+--  select * from claimtable;
+-- create table inform(cust_id varchar(20),reason varchar(200))
+-- select * from inform;
+
+
+update HealthPricing set base_premium = ?,tobacco_no =?,tobacco_yes = ?, child_no = ?, child_yes = ?,cancer = ? ,heart_patient =?,AIDS_HIV =?,renal_kidney_failure = ?,bipolar_disorder =? WHERE company = 'Geico'
+select * from HealthPricing
+-- select c.cust_id, r.fname, r.lname, c.reason,c.detailed_desc,m.premium as health_premium from claimtable c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id  where c.cust_id = "C1";
