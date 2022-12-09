@@ -489,7 +489,7 @@ public class SalesHomePage extends javax.swing.JFrame {
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
 
-            pst1 = conn.prepareStatement("SELECT sum(premium)*.1 as commission from SalesCommission where sales_id = ? group by sales_id  ");
+            pst1 = conn.prepareStatement("SELECT sum(premium)*0.1 as commission from SalesCommission where sales_id = ? group by sales_id  ");
             pst1.setString(1,sales_id);
             rs = pst1.executeQuery();
 
