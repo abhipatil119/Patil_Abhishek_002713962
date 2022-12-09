@@ -417,7 +417,7 @@ public class ManagerHomeAllState extends javax.swing.JFrame {
 
                 pet.addRow(new Object[]{cid,pett,species,sex,breed,age,zipcode,premium,sales_id,com});
 
-            }
+            }  
         } catch (SQLException ex) {
             Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
         }
