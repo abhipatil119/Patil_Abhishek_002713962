@@ -11,6 +11,7 @@ use insurance;
 
 
 -- ----------------  CREATING_TABLES---------
+
 -- create table HealthClaim(
 -- custID int,
 -- gender varchar(8),
@@ -25,7 +26,7 @@ use insurance;
 -- salesbroker_id int
 -- );
 -- --------------------------
-
+-- drop table PetClaim;
 -- create table PetClaim(
 -- custID int,
 -- petname varchar(30),
@@ -103,8 +104,8 @@ use insurance;
 -- X int
 -- );
 
-
--- Pet pricing-
+-- drop table PetPricing;
+-- -- Pet pricing-
 -- create table PetPricing(
 -- base_premium int,
 -- pet_dog int,
@@ -117,7 +118,8 @@ use insurance;
 -- age_3_5_years int,
 -- age_5_7_years int,
 -- age_7_9_years int,
--- age_9plus_years int
+-- age_9plus_years int,
+-- company varchar(30)
 -- );  
 
 -- Health pricing-
@@ -135,7 +137,7 @@ use insurance;
 -- renal_kidney_failure int,
 -- bipolar_disorder int
 -- );
--- select * from HealthPricing;
+-- select * from Financemiddle;
 -- insert into HealthPricing values ("Progressive",1300,0,30,0,30,160,550,600,350,350);
 -- ---------Registration pages-
 
@@ -156,6 +158,9 @@ use insurance;
 -- pass varchar(30),
 -- email varchar(40)
 -- );
+
+
+
 -- drop table ManagerRegistration;
 -- Manager-
 -- create table ManagerRegistration(
@@ -215,15 +220,24 @@ use insurance;
 
 -- create table managepolicies(company varchar(30),cust_id varchar(30),gender varchar(30),DOB varchar(30),tobacco varchar(30),preg_child varchar(30),chronic varchar(300),annual varchar(30),height varchar(30),weight varchar(30),premium varchar(30),sales_id varchar(30));
 
-
+-- select * from claimtable
  -- select * from managepolicies;
 -- drop table claimtable;
- -- create table claimtable (cust_id varchar(20),reason varchar(200),detailed_desc varchar(500),company_name varchar(70))
+-- create table Financemiddle (cust_id varchar(20),reason varchar(200),detailed_desc varchar(500),company_name varchar(70));
 --  select * from claimtable;
 -- create table inform(cust_id varchar(20),reason varchar(200))
 -- select * from inform;
 
 
-update HealthPricing set base_premium = ?,tobacco_no =?,tobacco_yes = ?, child_no = ?, child_yes = ?,cancer = ? ,heart_patient =?,AIDS_HIV =?,renal_kidney_failure = ?,bipolar_disorder =? WHERE company = 'Geico'
-select * from HealthPricing
--- select c.cust_id, r.fname, r.lname, c.reason,c.detailed_desc,m.premium as health_premium from claimtable c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id  where c.cust_id = "C1";
+-- ------------ How to create safe mode deleting files ---------------
+-- SET SQL_SAFE_UPDATES = 0;
+-- delete  from inform where cust_id = "C2";
+-- update HealthPricing set base_premium = ?,tobacco_no =?,tobacco_yes = ?, child_no = ?, child_yes = ?,cancer = ? ,heart_patient =?,AIDS_HIV =?,renal_kidney_failure = ?,bipolar_disorder =? WHERE company = 'Geico'
+ -- select * from HealthPricing
+-- select c.cust_id, r.fname, r.lname, c.reason,c.detailed_desc,m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id  where c.cust_id = "C1";
+-- select * from Financemiddle
+-- create table SalesCommission (cust_id varchar(30),sales_id varchar(30), premium int);
+-- select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id
+
+-- select * from SalesCommission
+-- SELECT sum(premium) as commission from SalesCommission where sales_id = 's11'  group by sales_id;
