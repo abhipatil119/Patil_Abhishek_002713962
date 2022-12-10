@@ -521,8 +521,8 @@ public class PetClaim extends javax.swing.JFrame {
                 int age_7_9_years = rs.getInt("age_7_9_years");
                 int age_9plus_years = rs.getInt("age_9plus_years");
                 
-                petP.add(new PetPricing(base_premium, pet_dog, pet_cat, female, male, age_0_6_months, age_6_12_months, age_1_3_years, age_3_5_years, age_5_7_years, age_7_9_years, age_9plus_years ));
-                
+//                petP.add(new PetPricing(base_premium, pet_dog, pet_cat, female, male, age_0_6_months, age_6_12_months, age_1_3_years, age_3_5_years, age_5_7_years, age_7_9_years, age_9plus_years ));
+//                
             }
         }
         catch (SQLException ex) {

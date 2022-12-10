@@ -6,6 +6,8 @@ package FrontEnd;
 
 import BackEnd.Login;
 import Backend.JdbcConnection;
+import FinanaceDepartment.FinanceDepartmentAllState;
+import FinanaceDepartment.FinanceDepartmentProgressive;
 import Manager.ManagerHomeAllState;
 import Manager.ManagerHomeProgressive;
 import Manager.ManagerHomeStateFarm;
@@ -115,15 +117,15 @@ public class CompanyLoginPage extends javax.swing.JFrame {
                 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("Geico")){
-                MarketingHome marketing = new MarketingHome();
-                marketing.show();
+                MarketingPricesHealth market= new MarketingPricesHealth();
+                market.show();
                 dispose();
                 return "true";
                 } 
                 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("AllState")){
-                MarketingHome marketing = new MarketingHome();
+                MarketingPricesHealth_AllState marketing = new MarketingPricesHealth_AllState();
                 marketing.show();
                 dispose();
                 return "true";
@@ -131,24 +133,38 @@ public class CompanyLoginPage extends javax.swing.JFrame {
                 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("Progressive")){
-                MarketingHome marketing = new MarketingHome();
+                MarketingPricesHealth_Progressive marketing = new MarketingPricesHealth_Progressive();
                 marketing.show();
                 dispose();
                 return "true";
                 } 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("StateFarm")){
-                MarketingHome marketing = new MarketingHome();
+                MarketingPricesHealth_StateFarm marketing = new MarketingPricesHealth_StateFarm();
                 marketing.show();
                 dispose();
                 return "true";
                 } 
-                else if(logas.equalsIgnoreCase("Finance Department"))    {
+                else if(logas.equalsIgnoreCase("Finance Department")&& company.equalsIgnoreCase("Geico"))    {
                 FinanceDepartment fin = new FinanceDepartment();
                 fin.show();
                 dispose();
                 return "true";
                 }
+                else if(logas.equalsIgnoreCase("Finance Department")&& company.equalsIgnoreCase("AllState"))    {
+                FinanceDepartmentAllState fin = new FinanceDepartmentAllState();
+                fin.show();
+                dispose();
+                return "true";
+                }
+                else if(logas.equalsIgnoreCase("Finance Department")&& company.equalsIgnoreCase("Progressive"))    {
+                FinanceDepartmentProgressive fin = new FinanceDepartmentProgressive();
+                fin.show();
+                dispose();
+                return "true";
+                }
+                
+                
                 else 
                 JOptionPane.showMessageDialog(this,
                 "Please enter a valid username and password",

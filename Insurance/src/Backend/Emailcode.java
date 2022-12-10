@@ -4,8 +4,13 @@
  */
 package Backend;
 
+<<<<<<< HEAD
+//import java.lang.System.Logger;
+//import java.lang.System.Logger.Level;
+=======
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+>>>>>>> ab2e6590ab50a5be9737cf238a0096aeefabbce3
 //import java.net.Authenticator;
 import java.util.Properties;
 import javax.mail.Authenticator;

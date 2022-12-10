@@ -4,19 +4,126 @@
  */
 package FrontEnd;
 
+import BackEnd.Login;
+import SystemAdminPages.SystemAdminCompany;
+import SystemAdminPages.SystemAdminHomePage;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
  */
 public class SystemAdminHome extends javax.swing.JFrame {
-
+      Connection conn;
+    PreparedStatement pst,pst1;
+    ResultSet rs;
+    ArrayList<Login> log = new ArrayList<>();
+    
     /**
      * Creates new form SystemAdminHome
      */
     public SystemAdminHome() {
         initComponents();
     }
-
+    public String LoginIfValid(){
+        String logas = jComboBox1.getSelectedItem().toString();
+        
+        String user = jTextField1.getText();
+        char[] pass = jPasswordField1.getPassword();
+        String passw = new String(pass);
+        
+    
+        
+        try {
+            
+            Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT  loginas, username, password, companyname FROM ValidationLogin");
+            
+            rs = pst.executeQuery();
+            while(rs.next()){
+                String loginas = rs.getString(1);
+                String username = rs.getString(2);
+                String password = rs.getString(3);
+                String cname = rs.getString(4);
+                
+                log.add(new Login(loginas, username, password,cname));
+                }
+                for (int i =0; i < log.size();i++){
+                System.out.println(log.get(i).getUsername()+user);
+                if( log.get(i).getLoginas().equalsIgnoreCase(logas) && log.get(i).getUsername().equals(user) && log.get(i).getPassword().equals(passw)  ){
+                
+                SystemAdminHomePage ss = new SystemAdminHomePage();
+                ss.show();
+                dispose();
+                return "true";
+             
+              }
+                
+                }     
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyLoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "false";   
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    public String LoginCompanyIfValid(){
+        String logas = jComboBox1.getSelectedItem().toString();
+        
+        String user = jTextField1.getText();
+        char[] pass = jPasswordField1.getPassword();
+        String passw = new String(pass);
+        
+    
+        
+        try {
+            
+            Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT  loginas, username, password, companyname FROM ValidationLogin");
+            
+            rs = pst.executeQuery();
+            while(rs.next()){
+                String loginas = rs.getString(1);
+                String username = rs.getString(2);
+                String password = rs.getString(3);
+                String cname = rs.getString(4);
+                
+                log.add(new Login(loginas, username, password,cname));
+                }
+                for (int i =0; i < log.size();i++){
+                System.out.println(log.get(i).getUsername()+user);
+                if( log.get(i).getLoginas().equalsIgnoreCase(logas) && log.get(i).getUsername().equals(user) && log.get(i).getPassword().equals(passw)  ){
+                
+                SystemAdminCompany ss = new SystemAdminCompany();
+                ss.show();
+                dispose();
+                return "true";
+             
+              }
+                
+                }     
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyLoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "false";   
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,10 +140,10 @@ public class SystemAdminHome extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +183,11 @@ public class SystemAdminHome extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Admin", "Sales Admin", "Customer Registration" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +198,8 @@ public class SystemAdminHome extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Manage Role");
+
+        jPasswordField1.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -106,9 +220,9 @@ public class SystemAdminHome extends javax.swing.JFrame {
                         .addGap(26, 26, 26)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField1)
-                    .addComponent(jTextField2)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, 0, 201, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, 0, 201, Short.MAX_VALUE)
+                    .addComponent(jPasswordField1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -125,8 +239,8 @@ public class SystemAdminHome extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 55, Short.MAX_VALUE))
@@ -168,6 +282,28 @@ public class SystemAdminHome extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       String sys = jComboBox1.getSelectedItem().toString();
+       
+       String user = jTextField1.getText();
+        char[] pass = jPasswordField1.getPassword();
+        String passw = new String(pass);
+        if ( sys.equalsIgnoreCase("Sales Admin") && LoginIfValid().equalsIgnoreCase("true")){
+             JOptionPane.showMessageDialog(this, " Login Successfully !!! ");
+        }
+        else if ( sys.equalsIgnoreCase("Company Admin") && LoginCompanyIfValid().equalsIgnoreCase("true")){
+             JOptionPane.showMessageDialog(this, " Login Successfully !!! ");
+        }
+        else {
+                JOptionPane.showMessageDialog(this,
+                "Please enter a valid username/password/companyname/role",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+        }   
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,7 +350,7 @@ public class SystemAdminHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

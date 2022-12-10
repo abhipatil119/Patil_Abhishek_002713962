@@ -150,7 +150,11 @@ public class ManagerRegistration extends javax.swing.JFrame {
         jLabel14.setText("Password");
 
         jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+<<<<<<< HEAD
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager", "Marketing Head", "Finance Department" }));
+=======
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Manager ", "Finance Head", "Marketing Manager" }));
+>>>>>>> ab2e6590ab50a5be9737cf238a0096aeefabbce3
         jComboBox1.setToolTipText("");
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
