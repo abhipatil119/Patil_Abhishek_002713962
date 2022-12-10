@@ -2,13 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package FrontEnd;
+package FinanaceDepartment;
 
-import Backend.ClaimInfo;
 import Backend.CustomerData;
 import Backend.HealthPricing;
 import Backend.JdbcConnection;
-import Backend.ManagePolicies;
 import Backend.SalesCommison;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,22 +19,20 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author HP
+ * @author patil
  */
-public class FinanceDepartment extends javax.swing.JFrame {
-     Connection conn;
+public class FinanceDepartmentAllState extends javax.swing.JFrame {
+ Connection conn;
     PreparedStatement pst,pst1,pst2,pst3;
     ResultSet rs;
     ArrayList<SalesCommison> sal = new ArrayList<>();
      
     ArrayList<CustomerData> cus = new ArrayList<>();
     ArrayList<HealthPricing> healthP = new ArrayList<>();
-//    ArrayList<Finance> manage = new ArrayList<>();
-    
     /**
-     * Creates new form FinanceDepartment
+     * Creates new form FinanceDepartmentAllState
      */
-    public FinanceDepartment() {
+    public FinanceDepartmentAllState() {
         initComponents();
     }
 
@@ -102,7 +98,7 @@ public class FinanceDepartment extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1309, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,7 +139,7 @@ public class FinanceDepartment extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,76 +158,62 @@ public class FinanceDepartment extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         String cust_id = jTextField1.getText();
-        
+        String cust_id = jTextField1.getText();
+
         try {
             DefaultTableModel health = (DefaultTableModel) healthfin.getModel();
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name = 'Geico'");
-            
+            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name = 'AllState'");
+
             rs = pst.executeQuery();
             while(rs.next())
             {
-                
-                
-               String cust =  rs.getString("c.cust_id");
-               String Fname = rs.getString("r.fname");
-               String lname = rs.getString("r.lname");
-               String reason = rs.getString("c.reason");
-               String descc = rs.getString("c.detailed_desc");
-               String bpremium = rs.getString("health_premium");
-               String sales_id = rs.getString("m.sales_id");
-               
-               
-               
-               
-               health.addRow(new Object[]{cust,Fname,lname,reason,descc,bpremium,sales_id});
-               
-               
+
+                String cust =  rs.getString("c.cust_id");
+                String Fname = rs.getString("r.fname");
+                String lname = rs.getString("r.lname");
+                String reason = rs.getString("c.reason");
+                String descc = rs.getString("c.detailed_desc");
+                String bpremium = rs.getString("health_premium");
+                String sales_id = rs.getString("m.sales_id");
+
+                health.addRow(new Object[]{cust,Fname,lname,reason,descc,bpremium,sales_id});
+
             }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-        
-       
-        
+        } catch (SQLException ex) {
+            Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-       String customer_id = jTextField1.getText();
-        
-        
-        
+        String customer_id = jTextField1.getText();
+
         try {
             DefaultTableModel health = (DefaultTableModel) healthfin.getModel();
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason,c.detailed_desc,m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.cust_id = ? c.company_name = 'Geico'");
+            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason,c.detailed_desc,m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.cust_id = ? c.company_name = 'AllState'");
             pst.setString(1,customer_id);
             rs = pst.executeQuery();
-            
+
             while(rs.next())
             {
-               String cust =  rs.getString("c.cust_id");
-               String premium = rs.getString("health_premium");
-               String sale_id = rs.getString("m.sales_id");
-               int final_premium = Integer.parseInt(premium.substring(1));
-               
-               sal.add(new SalesCommison(cust,sale_id,final_premium));
-               
-               
-               
-               
-               
-               
+                String cust =  rs.getString("c.cust_id");
+                String premium = rs.getString("health_premium");
+                String sale_id = rs.getString("m.sales_id");
+                int final_premium = Integer.parseInt(premium.substring(1));
+
+                sal.add(new SalesCommison(cust,sale_id,final_premium));
+
             }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        } catch (SQLException ex) {
+            Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(sal.get(0).getCust_id());
         try {
             JdbcConnection jdbc = new JdbcConnection();
@@ -245,11 +227,10 @@ public class FinanceDepartment extends javax.swing.JFrame {
             pst2.execute();
             pst3.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(FinanceDepartment.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }     
-        
-        
+            Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -269,20 +250,20 @@ public class FinanceDepartment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FinanceDepartment().setVisible(true);
+                new FinanceDepartmentAllState().setVisible(true);
             }
         });
     }

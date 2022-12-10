@@ -6,6 +6,9 @@ package FrontEnd;
 
 import BackEnd.Login;
 import Backend.JdbcConnection;
+import Manager.ManagerHomeAllState;
+import Manager.ManagerHomeProgressive;
+import Manager.ManagerHomeStateFarm;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -76,19 +79,70 @@ public class CompanyLoginPage extends javax.swing.JFrame {
                 for (int i =0; i < log.size();i++){
                 System.out.println(log.get(i).getUsername()+user);
                 if( log.get(i).getLoginas().equals(logas)&& log.get(i).getUsername().equals(user) && log.get(i).getPassword().equals(passw)  ){
-                if (logas.equalsIgnoreCase("Manager")){
+                if (logas.equalsIgnoreCase("Manager") && company.equalsIgnoreCase("Geico")){
                 ManagerHome managehome = new ManagerHome();
                 managehome.show(); 
                 dispose();
                 return "true";
                 
                 }
-                else if(logas.equalsIgnoreCase("Marketing Head")){
+                
+                else if(logas.equalsIgnoreCase("Manager") && company.equalsIgnoreCase("AllState")){
+                ManagerHomeAllState mas = new ManagerHomeAllState();
+                mas.show();
+                dispose();
+                return "true";
+                }  
+                
+                else if(logas.equalsIgnoreCase("Manager")&& company.equalsIgnoreCase("Progressive")){
+                ManagerHomeProgressive mp = new ManagerHomeProgressive();
+                mp.show();
+                dispose();
+                return "true";
+                }  
+                
+                
+                else if(logas.equalsIgnoreCase("Manager")&& company.equalsIgnoreCase("StateFarm")){
+                ManagerHomeStateFarm marketing = new ManagerHomeStateFarm();
+                marketing.show();
+                dispose();
+                return "true";
+                }  
+                
+                
+                
+ 
+                
+                
+                else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("Geico")){
                 MarketingHome marketing = new MarketingHome();
                 marketing.show();
                 dispose();
                 return "true";
-                }   
+                } 
+                
+                
+                else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("AllState")){
+                MarketingHome marketing = new MarketingHome();
+                marketing.show();
+                dispose();
+                return "true";
+                } 
+                
+                
+                else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("Progressive")){
+                MarketingHome marketing = new MarketingHome();
+                marketing.show();
+                dispose();
+                return "true";
+                } 
+                
+                else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("StateFarm")){
+                MarketingHome marketing = new MarketingHome();
+                marketing.show();
+                dispose();
+                return "true";
+                } 
                 else if(logas.equalsIgnoreCase("Finance Department"))    {
                 FinanceDepartment fin = new FinanceDepartment();
                 fin.show();
