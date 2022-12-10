@@ -121,7 +121,10 @@ use insurance;
 -- age_9plus_years int,
 -- company varchar(30)
 -- );  
-
+-- insert into PetPricing values(500,600,500,100,75,90,100,110,120,130,140,150,"Geico");
+-- insert into PetPricing values(550,600,500,100,75,90,110,110,120,130,140,150,"AllState");
+-- insert into PetPricing values(500,600,550,100,75,90,100,110,120,130,140,150,"Progessive");
+-- insert into PetPricing values(550,600,500,100,75,90,100,110,120,130,140,150,"StateFarm");
 -- Health pricing-
 -- drop table HealthPricing;
 -- create table HealthPricing(
@@ -200,7 +203,8 @@ use insurance;
 -- );
 
 
--- select * from CustomerRegistration;
+ -- select * from CustomerRegistration;
+--  select * from ValidationLogin;
 -- delete  from ValidationLogin where username = "d";
 
 -- select * from HealthPricing;
@@ -223,7 +227,7 @@ use insurance;
 -- select * from claimtable
  -- select * from managepolicies;
 -- drop table claimtable;
--- create table Financemiddle (cust_id varchar(20),reason varchar(200),detailed_desc varchar(500),company_name varchar(70));
+-- create table claimtable (cust_id varchar(20),reason varchar(200),detailed_desc varchar(500),company_name varchar(70));
 --  select * from claimtable;
 -- create table inform(cust_id varchar(20),reason varchar(200))
 -- select * from inform;
@@ -239,5 +243,82 @@ use insurance;
 -- create table SalesCommission (cust_id varchar(30),sales_id varchar(30), premium int);
 -- select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id
 
--- select * from SalesCommission
+-- select * from SalesCommission;
 -- SELECT sum(premium) as commission from SalesCommission where sales_id = 's11'  group by sales_id;
+
+-- delete  from managepolicies;
+-- create table ManagePetPolicies(
+-- custID varchar(20),
+-- petname varchar(30),
+-- species varchar(5),
+-- sex varchar(6),
+-- breed varchar(40),
+-- age varchar(20),
+-- zip_code varchar(30),
+-- premium varchar(15),
+-- salesbroker_id varchar(30),
+-- company varchar(30)
+-- );
+
+
+
+select * from ManagePetPolicies;
+
+
+-- drop table CarPrice;
+-- create table CarPrice(
+-- company varchar(30),
+-- base_premium int,
+-- Y2022_21 int,
+-- Y2020_19 int,
+-- Y2018_15 int,
+-- Y2014_10 int,
+-- Y2010_and_Below int,
+-- BMW int,
+-- Audi int,
+-- Toyota int,
+-- Tesla int,
+--  X1 int,
+--  M3 int,
+--  X3 int,
+--  X5 int,
+--  A3 int,
+--  A4 int,
+--  A6 int,
+--  Q3 int,
+--  Y3 int,
+--  Y int,
+-- S int,
+-- X int,
+--  Corolla int,
+--  Prius int,
+--  HighlanderHybrid int,
+--  Y4_Runner int
+-- );
+
+-- select * from managecarpolicies;
+-- create table managecarpolicies(
+-- company varchar(30),
+-- cust_id varchar(30),
+-- model_year varchar(30),
+-- make varchar(30),
+-- model varchar(30),
+-- owner varchar(30),
+-- purpose varchar(30),
+-- current_insurance varchar(30),
+-- six_months varchar(30),
+-- vin varchar(30),
+-- liscense_state varchar(30),
+-- sales_id varchar(30),
+-- premium varchar(30)
+-- );
+
+-- update ManagePetPolicies SET company = 'Progressive' where custID = 'C2';
+-- delete from managecarpolicies
+-- select * from CarPrice;
+ -- insert into CarPrice values("Geico",200,30,40,80,100,120,30,30,60,15,20,20,30,40,50,50,70,40,30,30,30,40,60,60,80,60);
+ -- select * from managecarpolicies;
+-- select custID , premium as health_premium , salesbroker_id from ManagePetPolicies where custID = "C2" and company = 'Progressive'
+ 
+ 
+ 

@@ -10,7 +10,7 @@ package Backend;
  */
 public class Commission {
 
-    public Commission(int commission) {
+    public Commission(String sales_id,int commission) {
         this.commission = commission;
     }
 
@@ -18,8 +18,17 @@ public class Commission {
         this.commission = commission;
     }
 
+    public String getSales_id() {
+        return sales_id;
+    }
+
     public int getCommission() {
         return commission;
     }
     int commission;
+
+    public void setSales_id(String sales_id) {
+        this.sales_id = sales_id;
+    }
+    String sales_id;
 }

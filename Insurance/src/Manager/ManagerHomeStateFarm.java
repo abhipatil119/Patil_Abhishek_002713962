@@ -2,43 +2,42 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package FrontEnd;
+package Manager;
+
 
 import Backend.ClaimInfo;
-import Backend.CustomerData;
-import Backend.HealthPricing;
 import Backend.JdbcConnection;
 import Backend.ManagePolicies;
 import Backend.SalesCommison;
+import FrontEnd.Appointment;
+import FrontEnd.CompanyLoginPage;
+import FrontEnd.HealthClaim;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
- * @author HP
+ * @author patil
  */
-public class ManagerHome extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ManagerHome
-     */
-     Connection conn;
+public class ManagerHomeStateFarm extends javax.swing.JFrame {
+    Connection conn;
     PreparedStatement pst,pst1,pst2,pst3;
     ResultSet rs;
     ArrayList<ClaimInfo> ci = new ArrayList<>();
     ArrayList<ManagePolicies> manage = new ArrayList<>();
+   
     ArrayList<SalesCommison> sal = new ArrayList<>();
-//    ArrayList<ClaimInfo> claim = new ArrayList<>();
-    public ManagerHome() {
-        initComponents();  
+    /**
+     * Creates new form ManagerHomeStateFarm
+     */
+    public ManagerHomeStateFarm() {
+        initComponents();
     }
 
     /**
@@ -174,6 +173,11 @@ public class ManagerHome extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton5.setText("Log Out");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setText("Insurance Claim Table");
@@ -298,25 +302,10 @@ public class ManagerHome extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(392, 392, 392)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(386, 386, 386)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel7))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,12 +315,24 @@ public class ManagerHome extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 937, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 933, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 933, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addGap(370, 370, 370)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(386, 386, 386)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -342,14 +343,15 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -375,20 +377,22 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(27, 27, 27)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(27, 27, 27)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(40, 40, 40)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel6))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -414,7 +418,7 @@ public class ManagerHome extends javax.swing.JFrame {
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
+                        .addGap(52, 52, 52)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -438,32 +442,193 @@ public class ManagerHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void healthtableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_healthtableFocusLost
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_healthtableFocusLost
+        String cit = jTextField1.getText();
+        try {
 
-    private void healthtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_healthtableMouseClicked
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT cust_id ,reason, detailed_desc,company_name FROM claimtable where cust_id = ?");
+            pst.setString(1,cit);
+
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String cust =  rs.getString("cust_id");
+                String reason =  rs.getString("reason");
+                String deatiled_desc =  rs.getString("detailed_desc");
+                String company_name = rs.getString("company_name");
+
+                ci.add(new ClaimInfo(cust, reason, deatiled_desc,company_name));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println(ci.get(0).getCust_id());
+        try{
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+
+            pst= conn.prepareStatement("INSERT INTO Financemiddle(cust_id,reason,detailed_desc,company_name)VALUES(?,?,?,?)");
+
+            pst.setString(1,ci.get(0).getCust_id());
+            pst.setString(2,ci.get(0).getReason());
+            pst.setString(3, ci.get(0).getDetailed_desc());
+            pst.setString(4,ci.get(0).getCompany_name());
+
+            int k = pst.executeUpdate();
+            if (k==1){
+                JOptionPane.showMessageDialog(this, "Approved and sent to finance department !!!");
+
+                //                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
+                //                SystemPatient sp = new SystemPatient();
+                //                sp.patient_reg(pd);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeProgressive.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        DefaultTableModel model = (DefaultTableModel) approval.getModel();
+        int row = approval.getSelectedRow();
+        model.removeRow(row);
+        try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+
+            pst1 = conn.prepareStatement("DELETE FROM claimtable where cust_id = ?");
+            pst1.setString(1,cit);
+
+            System.out.println(pst1);
+
+            int k = pst1.executeUpdate();
+            if (k==1){
+
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        try {
+            DefaultTableModel pet = (DefaultTableModel) pettable.getModel();
+            pet.setRowCount(0);
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT company,petname,species,sex,breed,age,zip_code,premium,salesbroker_id,custID FROM ManagePetPolicies where company = 'StateFarm'");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String com =  rs.getString("company");
+                String pett = rs.getString("petname");
+                String species = rs.getString("species");
+                String sex = rs.getString("sex");
+                String breed = rs.getString("breed");
+                String age = rs.getString("age");
+                String zipcode = rs.getString("zip_code");
+                String premium = rs.getString("premium");
+                String sales_id = rs.getString("salesbroker_id");
+                String cid = rs.getString("custID");
+
+                pet.addRow(new Object[]{cid,pett,species,sex,breed,age,zipcode,premium,sales_id,com});
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeProgressive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
+            health.setRowCount(0);
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT company,cust_id,gender,DOB,tobacco,preg_child,chronic,annual,height,weight,premium,sales_id FROM managepolicies where company = 'StateFarm'");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String com =  rs.getString("company");
+                String  cus = rs.getString("cust_id");
+                String gender = rs.getString("gender");
+                String sDate = rs.getString("DOB");
+                String tobacco = rs.getString("tobacco");
+                String preg_child = rs.getString("preg_child");
+                String chronic = rs.getString("chronic");
+                String annual = rs.getString("annual");
+                String height = rs.getString("height");
+                String weight = rs.getString("weight");
+                String premium = rs.getString("premium");
+                String sales_id = rs.getString("sales_id");
+                health.addRow(new Object[]{com,cus,gender,sDate,tobacco,preg_child,chronic,annual,height,weight,premium,sales_id});
+
+            }
+        }
+
+        catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeProgressive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            DefaultTableModel car = (DefaultTableModel) Car.getModel();
+            car.setRowCount(0);
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT * FROM managecarpolicies where company = 'StateFarm'");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String com =  rs.getString("company");
+                String cust_id =  rs.getString("cust_id");
+                String model_year = rs.getString("model_year");
+                String make = rs.getString("make");
+                String model = rs.getString("model");
+                String owner = rs.getString("owner");
+                String purpose = rs.getString("purpose");
+                String current_insurance = rs.getString("current_insurance");
+                String six_months = rs.getString("six_months");
+                String vin = rs.getString("vin");
+                String liscense_state = rs.getString("liscense_state");
+                String sales_id = rs.getString("sales_id");
+                String premium = rs.getString("premium");
+                car.addRow(new Object[]{com,cust_id,model_year,make,model,owner,purpose,current_insurance,six_months,vin,liscense_state,sales_id,premium});
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeProgressive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        //         DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
-        //
-        //        String company = health.getValueAt(healthtable.getSelectedRow(), 0).toString();
-        //        String cust_id = health.getValueAt(healthtable.getSelectedRow(), 1).toString();
-        //        String gender = health.getValueAt(healthtable.getSelectedRow(), 2).toString();
-        //
-        //        String DOB = health.getValueAt(healthtable.getSelectedRow(), 4).toString();
-        //        String tobacco = health.getValueAt(healthtable.getSelectedRow(), 5).toString();
-        //        String preg_child = health.getValueAt(healthtable.getSelectedRow(), 6).toString();
-        //        String chronic = health.getValueAt(healthtable.getSelectedRow(), 7).toString();
-        //        String annual = health.getValueAt(healthtable.getSelectedRow(), 8).toString();
-        //        String height = health.getValueAt(healthtable.getSelectedRow(), 9).toString();
-        //        String weight = health.getValueAt(healthtable.getSelectedRow(), 10).toString();
-        //        String premium = health.getValueAt(healthtable.getSelectedRow(), 11).toString();
-        //        String sales_id = health.getValueAt(healthtable.getSelectedRow(), 12).toString();
-        //
-        //
 
-    }//GEN-LAST:event_healthtableMouseClicked
+        try {
+
+            DefaultTableModel claim = (DefaultTableModel) approval.getModel();
+            claim.setRowCount(0);
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT cust_id,reason,detailed_desc,company_name FROM claimtable where company_name = 'StateFarm'");
+
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String cust =  rs.getString("cust_id");
+                String  reason = rs.getString("reason");
+                String desc = rs.getString("detailed_desc");
+                String com = rs.getString("company_name");
+
+                claim.addRow(new Object[]{cust,reason,desc,com});
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeProgressive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -472,250 +637,55 @@ public class ManagerHome extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-    try {
-            DefaultTableModel pet = (DefaultTableModel) pettable.getModel();
-            pet.setRowCount(0);
-            JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("SELECT company,petname,species,sex,breed,age,zip_code,premium,salesbroker_id,custID FROM ManagePetPolicies");
-            rs = pst.executeQuery();
-            while(rs.next())
-            {
-               String com =  rs.getString("company");
-               String pett = rs.getString("petname");
-               String species = rs.getString("species");
-               String sex = rs.getString("sex");
-               String breed = rs.getString("breed");
-               String age = rs.getString("age");
-               String zipcode = rs.getString("zip_code");
-               String premium = rs.getString("premium");  
-               String sales_id = rs.getString("salesbroker_id");
-               String cid = rs.getString("custID");
-               
-               pet.addRow(new Object[]{cid,pett,species,sex,breed,age,zipcode,premium,sales_id,com});
-              
-              
-                
-            }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }            
-        
-    try {
-            DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
-            health.setRowCount(0);
-            JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("SELECT company,cust_id,gender,DOB,tobacco,preg_child,chronic,annual,height,weight,premium,sales_id FROM managepolicies");
-            rs = pst.executeQuery();
-            while(rs.next())
-            {
-               String com =  rs.getString("company");
-               String  cus = rs.getString("cust_id");
-               String gender = rs.getString("gender");
-               String sDate = rs.getString("DOB");
-               String tobacco = rs.getString("tobacco");
-               String preg_child = rs.getString("preg_child");
-               String chronic = rs.getString("chronic");
-               String annual = rs.getString("annual");  
-               String height = rs.getString("height");
-               String weight = rs.getString("weight");
-               String premium = rs.getString("premium");
-               String sales_id = rs.getString("sales_id");
-               health.addRow(new Object[]{com,cus,gender,sDate,tobacco,preg_child,chronic,annual,height,weight,premium,sales_id});
-              
-              
-                
-            }
-            } 
-    
-            catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }            
-        
-        try {
-            DefaultTableModel car = (DefaultTableModel) Car.getModel();
-            car.setRowCount(0);
-            JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("SELECT * FROM managecarpolicies");
-            rs = pst.executeQuery();
-            while(rs.next())
-            {
-               String com =  rs.getString("company");
-               String cust_id =  rs.getString("cust_id");
-               String model_year = rs.getString("model_year");
-               String make = rs.getString("make");
-               String model = rs.getString("model");
-               String owner = rs.getString("owner");
-               String purpose = rs.getString("purpose");
-               String current_insurance = rs.getString("current_insurance");
-               String six_months = rs.getString("six_months");  
-               String vin = rs.getString("vin");
-               String liscense_state = rs.getString("liscense_state");
-               String sales_id = rs.getString("sales_id");
-               String premium = rs.getString("premium");
-               car.addRow(new Object[]{com,cust_id,model_year,make,model,owner,purpose,current_insurance,six_months,vin,liscense_state,sales_id,premium});
-              
-              
-                
-            }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }            
-        
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-       
-         try {
-            
-            DefaultTableModel claim = (DefaultTableModel) approval.getModel();
-            claim.setRowCount(0);
-            JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("SELECT cust_id,reason,detailed_desc,company_name FROM claimtable ");
-            
-            rs = pst.executeQuery();
-            while(rs.next())
-            {
-               String cust =  rs.getString("cust_id");
-               String  reason = rs.getString("reason");
-               String desc = rs.getString("detailed_desc");
-               String com = rs.getString("company_name");
-               
-               claim.addRow(new Object[]{cust,reason,desc,com});
-              
-              
-                
-            }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }            
-   
-       
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        String cit = jTextField1.getText();
-        try {
-            
-            JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("SELECT cust_id ,reason, detailed_desc,company_name FROM claimtable where cust_id = ?");
-            pst.setString(1,cit);
-            
-            rs = pst.executeQuery();
-            while(rs.next())
-            {
-               String cust =  rs.getString("cust_id");
-               String reason =  rs.getString("reason");
-               String deatiled_desc =  rs.getString("detailed_desc");
-               String company_name = rs.getString("company_name");
-               
-               ci.add(new ClaimInfo(cust, reason, deatiled_desc,company_name));
-            }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        System.out.println(ci.get(0).getCust_id());
-             try{
-         JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();    
-                
-    
-            pst= conn.prepareStatement("INSERT INTO Financemiddle(cust_id,reason,detailed_desc,company_name)VALUES(?,?,?,?)");
-
-            pst.setString(1,ci.get(0).getCust_id());
-            pst.setString(2,ci.get(0).getReason());
-            pst.setString(3, ci.get(0).getDetailed_desc());
-            pst.setString(4,ci.get(0).getCompany_name());
-            
-            int k = pst.executeUpdate();
-            if (k==1){
-                JOptionPane.showMessageDialog(this, "Approved and sent to finance department !!!");
-                
-//                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
-//                SystemPatient sp = new SystemPatient();
-//                sp.patient_reg(pd);
-            }
-            
-            } catch (SQLException ex) {
-            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) approval.getModel();
-        int row = approval.getSelectedRow();
-            model.removeRow(row);
-        try {
-            JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();    
-                
-                
-            pst1 = conn.prepareStatement("DELETE FROM claimtable where cust_id = ?");
-            pst1.setString(1,cit);
-                        
-            
-            System.out.println(pst1);
-            
-            
-            int k = pst1.executeUpdate();
-            if (k==1){
-                
-            
-               
-            }   
-            }catch (SQLException ex) {
-            Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-               
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        CompanyLoginPage cp = new CompanyLoginPage();
+        cp.show();
+        dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void healthtableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_healthtableFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_healthtableFocusLost
+
+    private void healthtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_healthtableMouseClicked
+        
+    }//GEN-LAST:event_healthtableMouseClicked
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         String custo = jTextField2.getText();
-        
-        
-           
+
         try {
             DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select cust_id , premium as health_premium , sales_id from managepolicies where cust_id = ?");
+            pst = conn.prepareStatement("select cust_id , premium as health_premium , sales_id from managecarpolicies where cust_id = ? and company = 'StateFarm'");
             pst.setString(1,custo);
             rs = pst.executeQuery();
-            
+
             while(rs.next())
             {
-               String cust =  rs.getString("cust_id");
-               String premium = rs.getString("health_premium");
-               String sale_id = rs.getString("sales_id");
-               int final_premium = Integer.parseInt(premium.substring(1));
-               
-               sal.add(new SalesCommison(cust,sale_id,final_premium));
-               
-               
-               
-               
-               
-               
+                String cust =  rs.getString("cust_id");
+                String premium = rs.getString("health_premium");
+                String sale_id = rs.getString("sales_id");
+                int final_premium = Integer.parseInt(premium.substring(1));
+
+                sal.add(new SalesCommison(cust,sale_id,final_premium));
+
             }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(sal.get(0).getCust_id());
         try {
             JdbcConnection jdbc = new JdbcConnection();
@@ -724,45 +694,41 @@ public class ManagerHome extends javax.swing.JFrame {
             pst2.setString(1,sal.get(0).getCust_id());
             pst2.setString(2,sal.get(0).getSales_id());
             pst2.setInt(3,sal.get(0).getPremium());
-            
+
             pst2.execute();
-            
+
         } catch (SQLException ex) {
-            Logger.getLogger(FinanceDepartment.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }     
-        
-        
+            Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         String custo = jTextField3.getText();
-        
-        
-           
+
         try {
             DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select custID , premium as health_premium , salesbroker_id from ManagePetPolicies where custID = ?");
+            pst = conn.prepareStatement("select cust_id , premium as health_premium , sales_id from managepolicies where cust_id = ? and company = 'StateFarm' ");
             pst.setString(1,custo);
             rs = pst.executeQuery();
-            
+
             while(rs.next())
             {
-               String cust =  rs.getString("cust_id");
-               String premium = rs.getString("health_premium");
-               String sale_id = rs.getString("salesbroker_id");
-               int final_premium = Integer.parseInt(premium.substring(1));
-               
-               sal.add(new SalesCommison(cust,sale_id,final_premium));  
+                String cust =  rs.getString("cust_id");
+                String premium = rs.getString("health_premium");
+                String sale_id = rs.getString("sales_id");
+                int final_premium = Integer.parseInt(premium.substring(1));
+
+                sal.add(new SalesCommison(cust,sale_id,final_premium));
             }
-            } catch (SQLException ex) {
-            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-        System.out.println(sal.get(0).getCust_id());
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
         try {
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
@@ -770,23 +736,14 @@ public class ManagerHome extends javax.swing.JFrame {
             pst2.setString(1,sal.get(0).getCust_id());
             pst2.setString(2,sal.get(0).getSales_id());
             pst2.setInt(3,sal.get(0).getPremium());
-            
-            pst2.execute();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(FinanceDepartment.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }     
-        
-        
-    }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-    }//GEN-LAST:event_jTextField2ActionPerformed
+            pst2.execute();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
@@ -798,6 +755,46 @@ public class ManagerHome extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        String custo = jTextField3.getText();
+
+        try {
+            DefaultTableModel health = (DefaultTableModel) healthtable.getModel();
+            health.setRowCount(0);
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("select custID , premium as health_premium , salesbroker_id from ManagePetPolicies where custID = ? and company = 'StateFarm' ");
+            pst.setString(1,custo);
+            rs = pst.executeQuery();
+
+            while(rs.next())
+            {
+                String cust =  rs.getString("custID");
+                String premium = rs.getString("health_premium");
+                String sale_id = rs.getString("salesbroker_id");
+                int final_premium = Integer.parseInt(premium.substring(1));
+
+                sal.add(new SalesCommison(cust,sale_id,final_premium));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst2 = conn.prepareStatement("INSERT INTO SalesCommission(cust_id,sales_id,premium)VALUES(?,?,?)");
+            pst2.setString(1,sal.get(0).getCust_id());
+            pst2.setString(2,sal.get(0).getSales_id());
+            pst2.setInt(3,sal.get(0).getPremium());
+
+            pst2.execute();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHomeAllState.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
@@ -817,20 +814,20 @@ public class ManagerHome extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHomeStateFarm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHomeStateFarm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHomeStateFarm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHomeStateFarm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManagerHome().setVisible(true);
+                new ManagerHomeStateFarm().setVisible(true);
             }
         });
     }
