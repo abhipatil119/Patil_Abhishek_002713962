@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FinanaceDepartment;
-
 import Backend.CustomerData;
 import Backend.HealthPricing;
 import Backend.JdbcConnection;
@@ -21,7 +20,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author patil
  */
-public class FinanceDepartmentAllState extends javax.swing.JFrame {
+public class FinanceDepartmentProgressive extends javax.swing.JFrame {
+
+    /**
+     * Creates new form FinanceDepartmentProgressive
+     */
+    public FinanceDepartmentProgressive() {
+        initComponents();
+    }
  Connection conn;
     PreparedStatement pst,pst1,pst2,pst3;
     ResultSet rs;
@@ -29,13 +35,6 @@ public class FinanceDepartmentAllState extends javax.swing.JFrame {
      
     ArrayList<CustomerData> cus = new ArrayList<>();
     ArrayList<HealthPricing> healthP = new ArrayList<>();
-    /**
-     * Creates new form FinanceDepartmentAllState
-     */
-    public FinanceDepartmentAllState() {
-        initComponents();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -165,7 +164,7 @@ public class FinanceDepartmentAllState extends javax.swing.JFrame {
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name = 'AllState'");
+            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name = 'company_name = 'Progressive''");
 
             rs = pst.executeQuery();
             while(rs.next())
@@ -183,7 +182,7 @@ public class FinanceDepartmentAllState extends javax.swing.JFrame {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FinanceDepartmentProgressive.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -197,7 +196,7 @@ public class FinanceDepartmentAllState extends javax.swing.JFrame {
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason,c.detailed_desc,m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.cust_id = ? and c.company_name = 'AllState'");
+            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason,c.detailed_desc,m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.cust_id = ? c.company_name = 'Progressive'");
             pst.setString(1,customer_id);
             rs = pst.executeQuery();
 
@@ -212,7 +211,7 @@ public class FinanceDepartmentAllState extends javax.swing.JFrame {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FinanceDepartmentProgressive.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(sal.get(0).getCust_id());
         try {
@@ -222,12 +221,12 @@ public class FinanceDepartmentAllState extends javax.swing.JFrame {
             pst2.setString(1,sal.get(0).getCust_id());
             pst2.setString(2,sal.get(0).getSales_id());
             pst2.setInt(3,sal.get(0).getPremium());
-            pst3 = conn.prepareStatement("DELETE from Financemiddle where cust_id = ? and company_name = 'AllState'");
+            pst3 = conn.prepareStatement("DELETE from Financemiddle where cust_id = ? and company_name = 'Progressive' ");
             pst3.setString(1,customer_id);
             pst2.execute();
             pst3.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FinanceDepartmentProgressive.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 
@@ -250,20 +249,20 @@ public class FinanceDepartmentAllState extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentProgressive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentProgressive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentProgressive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FinanceDepartmentAllState.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinanceDepartmentProgressive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FinanceDepartmentAllState().setVisible(true);
+                new FinanceDepartmentProgressive().setVisible(true);
             }
         });
     }
