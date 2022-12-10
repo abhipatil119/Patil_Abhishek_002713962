@@ -6,10 +6,10 @@ package Backend;
 
 /**
  *
- * @author patil
+ * @author mayuribashirabadkar
  */
-public class Customer {
-    String cust_id ; 
+public class Manager {
+    String manager_id ; 
     String fname;
     String lname;
     String street_address;
@@ -20,18 +20,13 @@ public class Customer {
     String dob;
     String phone;
     String email;
-            
 
-    public Customer(String cust_id) {
-        this.cust_id = cust_id;
+    public String getManager_id() {
+        return manager_id;
     }
 
-    public String getCust_id() {
-        return cust_id;
-    }
-
-    public void setCust_id(String cust_id) {
-        this.cust_id = cust_id;
+    public void setManager_id(String manager_id) {
+        this.manager_id = manager_id;
     }
 
     public String getFname() {
@@ -114,8 +109,8 @@ public class Customer {
         this.email = email;
     }
 
-    public Customer(String cust_id, String fname, String lname, String street_address, String state, String city, String zip_code, String gender, String dob, String phone) {
-        this.cust_id = cust_id;
+    public Manager(String manager_id, String fname, String lname, String street_address, String state, String city, String zip_code, String gender, String dob, String phone, String email) {
+        this.manager_id = manager_id;
         this.fname = fname;
         this.lname = lname;
         this.street_address = street_address;
@@ -125,6 +120,7 @@ public class Customer {
         this.gender = gender;
         this.dob = dob;
         this.phone = phone;
+        this.email = email;
     }
     
     

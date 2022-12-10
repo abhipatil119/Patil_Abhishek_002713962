@@ -48,6 +48,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -149,7 +150,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
         jLabel14.setText("Password");
 
         jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Manager ", "Finance Head", "Marketing Manager", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Manager ", "Finance Head", "Marketing Manager" }));
         jComboBox1.setToolTipText("");
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -158,9 +159,11 @@ public class ManagerRegistration extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Gender");
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jRadioButton1.setText("Male");
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jRadioButton2.setText("Female");
 
@@ -362,7 +365,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
             {
                 gender = "Male";
             }
-             if(jRadioButton1.isSelected() == true){
+            else{
                 gender = "Female";
 
             }
@@ -477,6 +480,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
             pst.setString(13,username);
             pst.setString(14,password);
             pst.setString(15,email);
+            //System.out.println(gender);
             
             
             
@@ -547,6 +551,9 @@ public class ManagerRegistration extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ManagerRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -557,6 +564,7 @@ public class ManagerRegistration extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;

@@ -1,5 +1,7 @@
 package Backend;
 
+import java.util.logging.Logger;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -23,7 +25,8 @@ public class PetPricing {
     int age_5_7_years;
     int age_7_9_years;
     int age_9plus_years;
-
+    String company;
+    
     public void setBase_premium(int base_premium) {
         this.base_premium = base_premium;
     }
@@ -67,9 +70,9 @@ public class PetPricing {
     public void setAge_9plus_years(int age_9plus_years) {
         this.age_9plus_years = age_9plus_years;
     }
+    private static final Logger LOG = Logger.getLogger(PetPricing.class.getName());
 
-    public PetPricing(int base_premium, int pet_dog,int pet_cat, int female, int male, int age_0_6_months, int age_6_12_months, int age_1_3_years, int age_3_5_years, int age_5_7_years, int age_7_9_years, int age_9plus_years)
-    {
+    public PetPricing(int base_premium, int pet_dog, int pet_cat, int female, int male, int age_0_6_months, int age_6_12_months, int age_1_3_years, int age_3_5_years, int age_5_7_years, int age_7_9_years, int age_9plus_years, String company) {
         this.base_premium = base_premium;
         this.pet_dog = pet_dog;
         this.pet_cat = pet_cat;
@@ -82,7 +85,10 @@ public class PetPricing {
         this.age_5_7_years = age_5_7_years;
         this.age_7_9_years = age_7_9_years;
         this.age_9plus_years = age_9plus_years;
+        this.company = company;
     }
+
+    
 
     public int getBase_premium() {
         return base_premium;
@@ -130,6 +136,14 @@ public class PetPricing {
 
     public int getAge_9plus_years() {
         return age_9plus_years;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
     
     
