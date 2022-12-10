@@ -6,9 +6,25 @@ package FrontEnd;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import org.jfree.data.general.DefaultPieDataset;
+
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import java.awt.Frame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -101,7 +117,22 @@ public class PieChart extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Frame frames = new Frame();
+        String s1 = "sales_man1";
         
+        DefaultPieDataset pieDataSet = new DefaultPieDataset();
+        pieDataSet.setValue("sales_man2", 20);
+        pieDataSet.setValue("", 40);
+        
+        JFreeChart charts = ChartFactory.createPieChart("Pie Chart", pieDataSet, true, true, true);
+
+        ChartPanel chartPanel = new ChartPanel(charts);
+        frames.add(chartPanel);
+
+        frames.pack();
+        frames.setVisible(true);
+        chartPanel.setSize(1000, 1000);
+        chartPanel.setVisible(true);
         
         
         
