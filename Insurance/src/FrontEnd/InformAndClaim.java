@@ -84,7 +84,7 @@ public class InformAndClaim extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("Please select your plan you want to Inform?");
+        jLabel1.setText("Please select your plan you want to Inform?Ok");
 
         jButton4.setBackground(new java.awt.Color(242, 242, 242));
         jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
