@@ -1026,7 +1026,7 @@ public class HealthClaim extends javax.swing.JFrame {
 
         }
     for (int i =0; i < app.size();i++) {
-            if (app.get(i).getCompany().equalsIgnoreCase(company) && app.get(i).getDate_of_app().equalsIgnoreCase(app_date) && app.get(i).getTime().equalsIgnoreCase(time))
+            if ( app.get(i).getDate_of_app().equalsIgnoreCase(app_date) && app.get(i).getTime().equalsIgnoreCase(time))
             {
 
                 JOptionPane.showMessageDialog(this,
@@ -1034,9 +1034,9 @@ public class HealthClaim extends javax.swing.JFrame {
                     "Try again",
                     JOptionPane.ERROR_MESSAGE);
                 
-            }
+            }}
             
-        }
+        
         
     try{
          JdbcConnection jdbc = new JdbcConnection();
@@ -1061,8 +1061,8 @@ public class HealthClaim extends javax.swing.JFrame {
             
             } catch (SQLException ex) {
             Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
+            }
+        
     }
     
     

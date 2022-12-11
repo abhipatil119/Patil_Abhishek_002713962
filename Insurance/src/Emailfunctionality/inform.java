@@ -43,7 +43,7 @@ public class inform {
             Message message = new MimeMessage (session);
             message.setFrom(new InternetAddress (myAccountEmail));
             message. setRecipient (Message.RecipientType.TO, new InternetAddress (recepient));
-            message.setSubject("Claim approved");
+            message.setSubject("Insurance Update");
             message. setText ("Dear user, thank you for informing. Take care!");
         return message;
         } catch (Exception ex) {
