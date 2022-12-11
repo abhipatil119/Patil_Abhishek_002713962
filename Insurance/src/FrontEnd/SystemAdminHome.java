@@ -6,6 +6,7 @@ package FrontEnd;
 import Backend.JdbcConnection;
 import BackEnd.Login;
 import SystemAdminPages.SystemAdminCompany;
+import SystemAdminPages.SystemAdminCustomer;
 import SystemAdminPages.SystemAdminHomePage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -124,6 +125,50 @@ public class SystemAdminHome extends javax.swing.JFrame {
     }
     
     
+     public String LoginCustomerIfValid(){
+        String logas = jComboBox1.getSelectedItem().toString();
+        
+        String user = jTextField1.getText();
+        char[] pass = jPasswordField1.getPassword();
+        String passw = new String(pass);
+        
+    
+        
+        try {
+            
+            JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT  loginas, username, password, companyname FROM ValidationLogin");
+            
+            rs = pst.executeQuery();
+            while(rs.next()){
+                String loginas = rs.getString(1);
+                String username = rs.getString(2);
+                String password = rs.getString(3);
+                String cname = rs.getString(4);
+                
+                log.add(new Login(loginas, username, password,cname));
+                }
+                for (int i =0; i < log.size();i++){
+                System.out.println(log.get(i).getUsername()+user);
+                if( log.get(i).getLoginas().equalsIgnoreCase(logas) && log.get(i).getUsername().equals(user) && log.get(i).getPassword().equals(passw)  ){
+                
+                SystemAdminCustomer ss = new SystemAdminCustomer();
+                ss.show();
+                dispose();
+                return "true";
+             
+              }
+                
+                }     
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyLoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "false";   
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,7 +236,7 @@ public class SystemAdminHome extends javax.swing.JFrame {
         });
 
         jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Admin", "Sales Admin", "Customer Registration" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Admin", "Sales Admin", "Customer Admin" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -314,6 +359,9 @@ public class SystemAdminHome extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(this, " Login Successfully !!! ");
         }
         else if ( sys.equalsIgnoreCase("Company Admin") && LoginCompanyIfValid().equalsIgnoreCase("true")){
+             JOptionPane.showMessageDialog(this, " Login Successfully !!! ");
+        }
+        else if ( sys.equalsIgnoreCase("Customer Admin") && LoginCustomerIfValid().equalsIgnoreCase("true")){
              JOptionPane.showMessageDialog(this, " Login Successfully !!! ");
         }
         else {

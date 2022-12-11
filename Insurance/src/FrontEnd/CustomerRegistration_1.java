@@ -42,7 +42,65 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
     public CustomerRegistration_1() {
         initComponents();
     }
-
+    
+    
+    
+    
+    
+    public int customer_id(){
+        String Fname = jTextField1.getText();
+            String Lname = jTextField2.getText();
+        try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+            pst = conn.prepareStatement("SELECT person_id,FirstName,LastName FROM Person");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               Integer person_id =  rs.getInt("person_id");
+               String FirstName = rs.getString("FirstName");
+               String LastName = rs.getString("LastName");
+               
+               
+               person.add(new Person(person_id,FirstName ,LastName));
+           
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+            int per;
+            String cust_id;
+         if (person.isEmpty()){
+             per = 1;
+             cust_id = "C1";
+         }
+         else{    
+         int m = (person.size()-1);
+              per = person.get(m).getPerson_id()+1;
+              cust_id = "C"+per;
+              System.out.println(cust_id);
+         }
+            try {
+                JdbcConnection jdbc = new JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName)VALUES(?,?,?)");
+            pst2.setInt(1,per);
+            pst2.setString(2,Fname);
+            pst2.setString(3,Lname);
+             
+            pst2.execute();
+            
+            
+         }catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return per;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,6 +144,7 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jTextField11 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,9 +160,25 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Full Name");
 
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField2FocusLost(evt);
             }
         });
 
@@ -124,6 +199,17 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("State");
+
+        jTextField6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField6FocusLost(evt);
+            }
+        });
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Zip Code");
 
@@ -169,17 +255,25 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel16.setText("DOB");
 
+        jDateChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateChooser1MouseClicked(evt);
+            }
+        });
+
         jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel17.setText("Your Customer ID is ");
+
+        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(236, 236, 236))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +304,7 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
                                         .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(296, 296, 296)
+                                .addGap(506, 506, 506)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +324,7 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
                                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 196, Short.MAX_VALUE))))
+                        .addGap(0, 384, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -239,16 +333,22 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(293, 293, 293)
                         .addComponent(jLabel17)
-                        .addGap(42, 42, 42)
+                        .addGap(27, 27, 27)
+                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel18)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(363, 363, 363)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,11 +402,12 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jLabel18))
-                .addGap(26, 26, 26)
+                    .addComponent(jLabel18)
+                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -315,7 +416,10 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +454,7 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
             String username = jTextField9.getText();
             String password = jTextField10.getText();
             String email = jTextField8.getText();
-            
+            String cust_id = jTextField11.getText();
             Date DOB = (Date)jDateChooser1.getDate();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             final String stringDate = dateFormat.format(DOB);
@@ -432,27 +536,7 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
                 return;
             }
         }
-            try {
-                JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();    
-                
-            pst = conn.prepareStatement("SELECT person_id,FirstName,LastName FROM Person");
-            rs = pst.executeQuery();
-            while(rs.next())
-            {
-               Integer person_id =  rs.getInt("person_id");
-               String FirstName = rs.getString("FirstName");
-               String LastName = rs.getString("LastName");
-               
-               
-               person.add(new Person(person_id,FirstName ,LastName));
-           
-              
-                
-            }
-            } catch (SQLException ex) {
-            Logger.getLogger(CustomerRegistration_1.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            
             try {
                 JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();    
@@ -460,25 +544,10 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
             pst1.setString(1,logas);
             pst1.setString(2,username);
             pst1.setString(3,password);
-            int per;
-            String cust_id;
-         if (person.isEmpty()){
-             per = 1;
-             cust_id = "C1";
-         }
-         else{    
-         int m = (person.size()-1);
-              per = person.get(m).getPerson_id()+1;
-              cust_id = "C"+per;
-              System.out.println(cust_id);
-         }
+            
+            
          
-            pst2 = conn.prepareStatement("INSERT INTO Person(person_id,FirstName,LastName)VALUES(?,?,?)");
-            pst2.setInt(1,per);
-            pst2.setString(2,Fname);
-            pst2.setString(3,Lname);
-             
-            pst2.execute();
+            
                 
                 
             pst= conn.prepareStatement("INSERT INTO CustomerRegistration(cust_id,fname,lname,street_address,state,zip_code,city,gender,dob,phone, username,pass,email)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -500,7 +569,7 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
             int k1 = pst1.executeUpdate();
             int k = pst.executeUpdate();
             if (k==1){
-                JOptionPane.showMessageDialog(this, "You have been registered succesfully. Welcome to WeCare!");
+                JOptionPane.showMessageDialog(this, "You have been registered succesfully.  Welcome to WeCare! ");
                 jTextField1.setText("");
                 jTextField2.setText("");
                 
@@ -536,10 +605,48 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField11ActionPerformed
+
+    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+        // TODO add your handling code here:
+        
+      
+    }//GEN-LAST:event_jTextField2FocusLost
+
+    private void jTextField6FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField6FocusLost
+        // TODO add your handling code here:
+         
+        
+    }//GEN-LAST:event_jTextField6FocusLost
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jDateChooser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1MouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jDateChooser1MouseClicked
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1FocusLost
+
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        // TODO add your handling code here:
+         int person =  customer_id();
+        String cus = cus = "C" + person;
+        jTextField11.setText(cus);
+        
+    }//GEN-LAST:event_jTextField1MouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -599,6 +706,7 @@ public class CustomerRegistration_1 extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

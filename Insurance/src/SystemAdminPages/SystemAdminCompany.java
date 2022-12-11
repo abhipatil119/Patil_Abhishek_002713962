@@ -6,7 +6,7 @@ package SystemAdminPages;
 
 import FrontEnd.ManageCompanyEmployee;
 import FrontEnd.ManageCompanyEmployee_1;
-import FrontEnd.ManagerRegistration;
+import FrontEnd.ManagerRegistration1;
 import FrontEnd.ManagerRegistration1;
 import FrontEnd.SystemAdminHome;
 
