@@ -756,7 +756,7 @@ public class ManagerHomeStateFarm extends javax.swing.JFrame {
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select cust_id , premium as health_premium , sales_id from managepolicies where cust_id = ?");
+            pst = conn.prepareStatement("select cust_id , premium as health_premium , sales_id from managepolicies where cust_id = ? and company = 'StateFarm'");
             pst.setString(1,custo);
             rs = pst.executeQuery();
 
@@ -799,7 +799,7 @@ public class ManagerHomeStateFarm extends javax.swing.JFrame {
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select custID , premium as health_premium , salesbroker_id from ManagePetPolicies where custID = ? ");
+            pst = conn.prepareStatement("select custID , premium as health_premium , salesbroker_id from ManagePetPolicies where custID = ? and company = 'StateFarm'");
             pst.setString(1,custo);
             rs = pst.executeQuery();
 

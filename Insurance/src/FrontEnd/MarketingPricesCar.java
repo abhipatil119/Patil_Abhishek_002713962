@@ -4,12 +4,26 @@
  */
 package FrontEnd;
 
+import Backend.CarPricing;
+import Backend.HealthPricing;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mayuribashirabadkar
  */
 public class MarketingPricesCar extends javax.swing.JFrame {
-
+    Connection conn;
+    PreparedStatement pst,pst1,pst2;
+    ResultSet rs;
+    ArrayList<CarPricing> car = new ArrayList<>();
     /**
      * Creates new form MarketingPricesCar
      */
@@ -90,6 +104,7 @@ public class MarketingPricesCar extends javax.swing.JFrame {
         jTextField26 = new javax.swing.JTextField();
         jTextField27 = new javax.swing.JTextField();
         jTextField28 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,25 +146,30 @@ public class MarketingPricesCar extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setText("Model year");
 
-        jTextField2.setText("100$");
+        jTextField2.setText("100");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
 
-        jTextField3.setText("200$");
+        jTextField3.setText("200");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
-        jTextField4.setText("300$");
+        jTextField4.setText("300");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
         });
 
-        jTextField5.setText("400$");
+        jTextField5.setText("400");
 
-        jTextField6.setText("500$");
+        jTextField6.setText("500");
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setText("Make");
@@ -166,23 +186,23 @@ public class MarketingPricesCar extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setText("Tesla");
 
-        jTextField7.setText("150$");
+        jTextField7.setText("150");
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField7ActionPerformed(evt);
             }
         });
 
-        jTextField8.setText("75$");
+        jTextField8.setText("75");
 
-        jTextField9.setText("50$");
+        jTextField9.setText("50");
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField9ActionPerformed(evt);
             }
         });
 
-        jTextField10.setText("100$");
+        jTextField10.setText("100");
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel15.setText("Model");
@@ -257,14 +277,14 @@ public class MarketingPricesCar extends javax.swing.JFrame {
             }
         });
 
-        jTextField12.setText("150$");
+        jTextField12.setText("150");
         jTextField12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField12ActionPerformed(evt);
             }
         });
 
-        jTextField13.setText("175$");
+        jTextField13.setText("175");
         jTextField13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField13ActionPerformed(evt);
@@ -278,84 +298,84 @@ public class MarketingPricesCar extends javax.swing.JFrame {
             }
         });
 
-        jTextField15.setText("200$");
+        jTextField15.setText("200");
         jTextField15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField15ActionPerformed(evt);
             }
         });
 
-        jTextField16.setText("175$");
+        jTextField16.setText("175");
         jTextField16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField16ActionPerformed(evt);
             }
         });
 
-        jTextField17.setText("200$");
+        jTextField17.setText("200");
         jTextField17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField17ActionPerformed(evt);
             }
         });
 
-        jTextField18.setText("150$");
+        jTextField18.setText("150");
         jTextField18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField18ActionPerformed(evt);
             }
         });
 
-        jTextField19.setText("200$");
+        jTextField19.setText("200");
         jTextField19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField19ActionPerformed(evt);
             }
         });
 
-        jTextField20.setText("100$");
+        jTextField20.setText("100");
         jTextField20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField20ActionPerformed(evt);
             }
         });
 
-        jTextField21.setText("150$");
+        jTextField21.setText("150");
         jTextField21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField21ActionPerformed(evt);
             }
         });
 
-        jTextField22.setText("175$");
+        jTextField22.setText("175");
         jTextField22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField22ActionPerformed(evt);
             }
         });
 
-        jTextField23.setText("125$");
+        jTextField23.setText("125");
         jTextField23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField23ActionPerformed(evt);
             }
         });
 
-        jTextField24.setText("125$");
+        jTextField24.setText("125");
         jTextField24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField24ActionPerformed(evt);
             }
         });
 
-        jTextField26.setText("150$");
+        jTextField26.setText("150");
         jTextField26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField26ActionPerformed(evt);
             }
         });
 
-        jTextField27.setText("175$");
+        jTextField27.setText("175");
         jTextField27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField27ActionPerformed(evt);
@@ -366,6 +386,14 @@ public class MarketingPricesCar extends javax.swing.JFrame {
         jTextField28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField28ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton2.setText("View");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -432,7 +460,7 @@ public class MarketingPricesCar extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addGap(470, 470, 470))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel23)
                                 .addGap(47, 47, 47)
@@ -445,6 +473,35 @@ public class MarketingPricesCar extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(429, 429, 429)
                                 .addComponent(jLabel1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(554, 554, 554)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel31)
+                                    .addComponent(jLabel30)
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel28))
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(170, 170, 170)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel34)
+                                            .addComponent(jLabel35)
+                                            .addComponent(jLabel36)
+                                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(529, 529, 529)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -478,35 +535,10 @@ public class MarketingPricesCar extends javax.swing.JFrame {
                                                         .addComponent(jLabel12)
                                                         .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(554, 554, 554)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel31)
-                                            .addComponent(jLabel30)
-                                            .addComponent(jLabel29)
-                                            .addComponent(jLabel28)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(50, 50, 50)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(170, 170, 170)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel34)
-                                            .addComponent(jLabel35)
-                                            .addComponent(jLabel36)
-                                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(541, 541, 541)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(441, 441, 441)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
@@ -647,8 +679,10 @@ public class MarketingPricesCar extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(58, 58, 58))))
         );
 
@@ -752,7 +786,165 @@ public class MarketingPricesCar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String company = "Geico";
+          
+        
+        
+        
+        String base =  jTextField1.getText();
+        int base_premium=Integer.parseInt(base);  
+        
+        String Y2022_21 =  jTextField2.getText();
+        int tobacco_yes=Integer.parseInt(Y2022_21);
+        String Y2020_19 =  jTextField3.getText();
+        int preg_child_no =Integer.parseInt(Y2020_19);
+        String Y2018_15 =  jTextField4.getText();
+        int preg_child_yes =Integer.parseInt(Y2018_15);
+        String Y2014_10 =  jTextField5.getText();
+        int cancer=Integer.parseInt(Y2014_10);
+        String Y2010_and_Below =  jTextField6.getText();
+        int heartpatient=Integer.parseInt(Y2010_and_Below);
+        
+//        
+//        String aidshiv =  jTextField6.getText();
+//        int aids=Integer.parseInt(aidshiv);
+//        
+//        String renalFailure = jTextField7.getText();
+//        int renalF = Integer.parseInt(renalFailure);
+//        String bipolarDisorder = jTextField8.getText();
+//        int bipolar = Integer.parseInt(bipolarDisorder);
+//        String B1 =  jTextField10.getText();
+        
+        
+         try {
+            Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst1 = conn.prepareStatement("update CarPrice set base_premium = ?,Y2022_21 =?,Y2020_19 = ?, Y2018_15 = ?, Y2014_10 = ?,Y2010_and_Below = ? WHERE company = 'Geico'");
+            pst1.setInt(1,base_premium);
+            pst1.setInt(2,tobacco_yes);
+            pst1.setInt(3,preg_child_no);
+            pst1.setInt(4,preg_child_yes);
+            pst1.setInt(5,cancer);
+            pst1.setInt(6,cancer);
+           
+            
+            
+            
+            int k = pst1.executeUpdate();
+            if (k==1){
+                
+             JOptionPane.showMessageDialog(this, "Prices updated successfully !");
+                jTextField1.setText("");
+                jTextField2.setText("");
+                
+                jTextField3.setText("");
+                jTextField4.setText("");
+                jTextField5.setText("");
+                
+                jTextField6.setText("");
+                jTextField7.setText("");
+                jTextField8.setText("");
+                jTextField9.setText("");
+                jTextField10.setText("");
+                
+            }
+           
+            //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
+            //            String ps = rs.getString(1);
+            //            System.out.println(ps);
+            
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+                Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+            pst = conn.prepareStatement("SELECT company,base_premium, Y2022_21, Y2020_19,Y2018_15,Y2014_10,Y2010_and_Below,BMW,Audi, Toyota, Tesla, X1,M3,X3,X5,A3,A4,A6,Q3,Y3,Y,X,S,Corolla,Prius,HighlanderHybrid,Y4_Runner FROM CarPrice where company = 'Geico'");
+            rs = pst.executeQuery();
+            while(rs.next())
+            {
+               String company_name =  rs.getString("company");
+               int base_premium =  rs.getInt("base_premium");
+               int Y2022_21 =  rs.getInt("Y2022_21");
+               int Y2020_19 =  rs.getInt("Y2020_19");
+               int Y2018_15 =  rs.getInt("Y2018_15");
+               int Y2014_10 =  rs.getInt("Y2014_10");
+               int Y2010_and_Below =  rs.getInt("Y2010_and_Below");
+               int BMW =  rs.getInt("BMW");
+               int Audi =  rs.getInt("Audi");
+               int Toyota =  rs.getInt("Toyota");
+               int Tesla =  rs.getInt("Tesla");
+               int X1 =  rs.getInt("X1");
+               int M3 =  rs.getInt("M3");
+               int X3 =  rs.getInt("X3");
+               int X5 =  rs.getInt("X5");
+               int A3 =  rs.getInt("A3");
+               int A4 =  rs.getInt("A4");
+               int A6 =  rs.getInt("A6");
+               int Q3 =  rs.getInt("Q3");
+               int Y3 =  rs.getInt("Y3");
+               int Y =  rs.getInt("Y");
+               int X =  rs.getInt("X");
+               int S =  rs.getInt("S");
+               int Corolla =  rs.getInt("Corolla");
+               int Prius =  rs.getInt("Prius");
+               int HighlanderHybrid =  rs.getInt("HighlanderHybrid");
+                int Y4_Runner =  rs.getInt("Y4_Runner");
+               car.add(new CarPricing(company_name,base_premium, Y2022_21, Y2020_19,Y2018_15,Y2014_10,Y2010_and_Below,BMW,Audi, Toyota, Tesla, X1,M3,X3,X5,A3,A4,A6,Q3,Y3,Y,X,S,Corolla,Prius,HighlanderHybrid,Y4_Runner));
+           
+              
+                
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Integer.toString(car.get(0).getBase_premium());
+        
+        
+//        jTextField10.setText(Integer.toString(car.get(0).getBase_premium()));
+        jTextField1.setText(Integer.toString(car.get(0).getBase_premium()));
+        jTextField2.setText(Integer.toString(car.get(0).getY2022_21()));
+        jTextField3.setText(Integer.toString(car.get(0).getY2020_19()));
+        jTextField4.setText(Integer.toString(car.get(0).getY2018_15()));
+        jTextField5.setText(Integer.toString(car.get(0).getY2014_10()));
+        jTextField6.setText(Integer.toString(car.get(0).getY2010_and_Below()));
+        jTextField7.setText(Integer.toString(car.get(0).getBMW()));
+        jTextField8.setText(Integer.toString(car.get(0).getAudi()));
+        jTextField9.setText(Integer.toString(car.get(0).getToyota()));
+        jTextField11.setText(Integer.toString(car.get(0).getTesla()));
+        jTextField12.setText(Integer.toString(car.get(0).getX1()));
+        jTextField13.setText(Integer.toString(car.get(0).getM3()));
+        jTextField14.setText(Integer.toString(car.get(0).getX5()));
+        jTextField15.setText(Integer.toString(car.get(0).getA3()));
+        jTextField16.setText(Integer.toString(car.get(0).getA4()));
+        jTextField17.setText(Integer.toString(car.get(0).getA6()));
+        
+        
+        
+        
+        JOptionPane.showMessageDialog(this, "These are the current prices");
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -791,6 +983,7 @@ public class MarketingPricesCar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
