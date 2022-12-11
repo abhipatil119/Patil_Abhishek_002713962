@@ -5,6 +5,7 @@
 package SystemAdminPages;
 
 import FrontEnd.ManageSalesAdmin;
+import FrontEnd.ManageSalesAdmin_1;
 import FrontEnd.SalesRegistration;
 import FrontEnd.SystemAdminHome;
 
@@ -174,7 +175,7 @@ public class SystemAdminHomePage extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        ManageSalesAdmin sp2 = new ManageSalesAdmin();
+        ManageSalesAdmin_1 sp2 = new ManageSalesAdmin_1();
         sp2.show();
         sp2.setVisible(true);
         dispose();

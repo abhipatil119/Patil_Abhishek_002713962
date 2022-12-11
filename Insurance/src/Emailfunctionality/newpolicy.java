@@ -38,11 +38,11 @@ public class newpolicy {
         //System.out.println("Message sent successfully");
     }
     private static Message prepareMessage (Session session, String myAccountEmail, String recepient) {
-        try{
+        try{    
             Message message = new MimeMessage (session);
             message.setFrom(new InternetAddress (myAccountEmail));
             message. setRecipient (Message.RecipientType.TO, new InternetAddress (recepient));
-            message.setSubject("Claim approved");
+            message.setSubject("Insurance Policy Purchased");
             message. setText ("Congratulations! You have purchased the policy successfully");
         return message;
         } catch (Exception ex) {

@@ -8,9 +8,13 @@ import BackEnd.Login;
 import Backend.JdbcConnection;
 import FinanaceDepartment.FinanceDepartmentAllState;
 import FinanaceDepartment.FinanceDepartmentProgressive;
+import FinanaceDepartment.FinanceDepartmentStateFarm;
 import Manager.ManagerHomeAllState;
 import Manager.ManagerHomeProgressive;
 import Manager.ManagerHomeStateFarm;
+import MarketingDepartment.ViewPlanAllState;
+import MarketingDepartment.ViewPlanProgressive;
+import MarketingDepartment.ViewPlanStateFarm;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -117,15 +121,15 @@ public class CompanyLoginPage extends javax.swing.JFrame {
                 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("Geico")){
-                MarketingPricesHealth market= new MarketingPricesHealth();
-                market.show();
+                ViewPlan plan= new ViewPlan();
+                plan.show();
                 dispose();
                 return "true";
                 } 
                 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("AllState")){
-                MarketingPricesHealth_AllState marketing = new MarketingPricesHealth_AllState();
+                ViewPlanAllState marketing = new ViewPlanAllState();
                 marketing.show();
                 dispose();
                 return "true";
@@ -133,14 +137,14 @@ public class CompanyLoginPage extends javax.swing.JFrame {
                 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("Progressive")){
-                MarketingPricesHealth_Progressive marketing = new MarketingPricesHealth_Progressive();
+                ViewPlanProgressive marketing = new ViewPlanProgressive();
                 marketing.show();
                 dispose();
                 return "true";
                 } 
                 
                 else if(logas.equalsIgnoreCase("Marketing Head")&& company.equalsIgnoreCase("StateFarm")){
-                MarketingPricesHealth_StateFarm marketing = new MarketingPricesHealth_StateFarm();
+                ViewPlanStateFarm marketing = new ViewPlanStateFarm();
                 marketing.show();
                 dispose();
                 return "true";
@@ -159,6 +163,12 @@ public class CompanyLoginPage extends javax.swing.JFrame {
                 }
                 else if(logas.equalsIgnoreCase("Finance Department")&& company.equalsIgnoreCase("Progressive"))    {
                 FinanceDepartmentProgressive fin = new FinanceDepartmentProgressive();
+                fin.show();
+                dispose();
+                return "true";
+                }
+                else if(logas.equalsIgnoreCase("Finance Department")&& company.equalsIgnoreCase("StateFarm"))    {
+                FinanceDepartmentStateFarm fin = new FinanceDepartmentStateFarm();
                 fin.show();
                 dispose();
                 return "true";
@@ -405,6 +415,11 @@ public class CompanyLoginPage extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(242, 242, 242));
         jButton6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton6.setText("Back");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -504,6 +519,13 @@ public class CompanyLoginPage extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        WelcomePage we = new WelcomePage();
+        we.show();
+        dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

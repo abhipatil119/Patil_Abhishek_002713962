@@ -496,8 +496,8 @@ public class InformAndClaim extends javax.swing.JFrame {
         String reason = jComboBox1.getSelectedItem().toString();
         String detailD = jTextArea1.getText();
         Date DOB = (Date)jDateChooser3.getDate();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            final String stringDate = dateFormat.format(DOB);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String stringDate = dateFormat.format(DOB);
         String  tm =   jComboBox2.getSelectedItem().toString();
         String comp_nam = jComboBox3.getSelectedItem().toString();
         
@@ -506,7 +506,7 @@ public class InformAndClaim extends javax.swing.JFrame {
             Connection conn = jdbc.Connect();    
                 
                 
-            pst1 = conn.prepareStatement("SELECT cust_id ,gender, dob  from CustomerRegistration where cust_id = ?");
+            pst1 = conn.prepareStatement("SELECT cust_id ,gender, dob  from managepolicies where cust_id = ?");
             pst1.setString(1,cust_id);
             rs = pst1.executeQuery();
             

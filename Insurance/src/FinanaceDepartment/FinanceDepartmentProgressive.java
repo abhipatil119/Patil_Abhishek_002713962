@@ -183,7 +183,7 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name =  'Progressive''");
+            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name =  'Progressive'");
 
             rs = pst.executeQuery();
             while(rs.next())
