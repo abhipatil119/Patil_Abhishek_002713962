@@ -10,8 +10,8 @@ package Backend;
  */
 public class Appointment {
 
-    public Appointment(String company, String cust_id, String r, String date_of_app, String time) {
-        this.company = company;
+    public Appointment(String cust_id, String r, String date_of_app, String time) {
+        
         this.cust_id = cust_id;
         this.r = r;
         this.date_of_app = date_of_app;

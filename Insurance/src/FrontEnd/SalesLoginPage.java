@@ -4,6 +4,16 @@
  */
 package FrontEnd;
 
+import BackEnd.Login;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
@@ -13,10 +23,59 @@ public class SalesLoginPage extends javax.swing.JFrame {
     /**
      * Creates new form SalesLoginPage
      */
+    Connection conn;
+    PreparedStatement pst,pst1;
+    ResultSet rs;
+    ArrayList<Login> log = new ArrayList<>();
+    
+    
     public SalesLoginPage() {
         initComponents();
     }
-
+    
+      
+    public String LoginIfValid(){
+        
+        String logas = "customer";
+        String user = jTextField1.getText();
+        char[] pass = jPasswordField1.getPassword();
+        String passw = new String(pass);
+        
+    
+        
+        try {
+            
+            Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            Connection conn = jdbc.Connect();
+            pst = conn.prepareStatement("SELECT  loginas, username, password, companyname FROM ValidationLogin");
+            
+            rs = pst.executeQuery();
+            while(rs.next()){
+                String loginas = rs.getString(1);
+                String username = rs.getString(2);
+                String password = rs.getString(3);
+                String cname = rs.getString(4);
+                
+                log.add(new Login(loginas, username, password,cname));
+                }
+                for (int i =0; i < log.size();i++){
+                System.out.println(log.get(i).getUsername()+user);
+                if( log.get(i).getLoginas().equalsIgnoreCase(logas) && log.get(i).getUsername().equals(user) && log.get(i).getPassword().equals(passw)  ){
+                
+                InformAndClaim iac = new InformAndClaim();
+                iac.show(); 
+                dispose();
+                return "true";
+             
+              }
+                
+                }     
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyLoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "false";   
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,9 +94,9 @@ public class SalesLoginPage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +163,8 @@ public class SalesLoginPage extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FrontEnd/teamwork (1).png"))); // NOI18N
         jLabel6.setText("Welcome Sales Person!");
 
+        jPasswordField1.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -117,9 +178,9 @@ public class SalesLoginPage extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(75, 75, 75)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(jPasswordField1)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jLabel3)))
@@ -143,13 +204,13 @@ public class SalesLoginPage extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(jPasswordField1))
                 .addGap(48, 48, 48)
                 .addComponent(jButton2)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(402, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -169,6 +230,15 @@ public class SalesLoginPage extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if ( LoginIfValid().equalsIgnoreCase("true")){
+             JOptionPane.showMessageDialog(this, " Login Successfully !!! ");
+        }
+        else {
+                JOptionPane.showMessageDialog(this,
+                "Please enter a valid username/password/companyname/role",
+                "Try again",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -218,7 +288,7 @@ public class SalesLoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
