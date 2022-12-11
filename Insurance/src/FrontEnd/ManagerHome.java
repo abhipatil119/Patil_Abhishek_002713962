@@ -636,7 +636,7 @@ public class ManagerHome extends javax.swing.JFrame {
             claim.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("SELECT cust_id,reason,detailed_desc,company_name FROM claimtable ");
+            pst = conn.prepareStatement("SELECT cust_id,reason,detailed_desc,company_name FROM claimtable where company_name = 'Geico'");
             
             rs = pst.executeQuery();
             while(rs.next())
@@ -665,7 +665,7 @@ public class ManagerHome extends javax.swing.JFrame {
             
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("SELECT cust_id ,reason, detailed_desc,company_name FROM claimtable where cust_id = ?");
+            pst = conn.prepareStatement("SELECT cust_id ,reason, detailed_desc,company_name FROM claimtable where cust_id = ? and company_name = 'AllState'");
             pst.setString(1,cit);
             
             rs = pst.executeQuery();
