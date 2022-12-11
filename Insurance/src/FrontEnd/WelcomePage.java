@@ -52,7 +52,7 @@ public class WelcomePage extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe Script", 3, 36)); // NOI18N
         jLabel2.setText("We Ensure Your Insurance");
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButton1.setBackground(new java.awt.Color(242, 242, 242));
