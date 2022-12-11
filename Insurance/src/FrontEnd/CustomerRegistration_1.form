@@ -27,7 +27,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -47,11 +51,6 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="568" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -87,7 +86,7 @@
                                       </Group>
                                       <Component id="jTextField1" alignment="0" min="-2" pref="314" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="296" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="506" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
@@ -115,7 +114,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="196" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="384" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -128,20 +127,27 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="293" max="-2" attributes="0"/>
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jTextField11" min="-2" pref="221" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="363" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="568" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="58" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="27" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="24" max="-2" attributes="0"/>
@@ -207,12 +213,13 @@
                       <Component id="jTextField8" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="jTextField10" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                  <EmptySpace pref="120" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextField11" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
@@ -249,10 +256,15 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField1">
           <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField1FocusLost"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField1MouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField2">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField2FocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -309,6 +321,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField6">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField6FocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField6ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -414,6 +430,9 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jDateChooser1MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
@@ -424,6 +443,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextField11">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField11ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
