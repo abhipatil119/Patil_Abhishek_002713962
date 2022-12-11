@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
-
+import Backend.JdbcConnection;
 import BackEnd.Login;
 import SystemAdminPages.SystemAdminCompany;
 import SystemAdminPages.SystemAdminHomePage;
@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author HP
  */
 public class SystemAdminHome extends javax.swing.JFrame {
-      Connection conn;
+    Connection conn;
     PreparedStatement pst,pst1;
     ResultSet rs;
     ArrayList<Login> log = new ArrayList<>();
@@ -43,7 +43,7 @@ public class SystemAdminHome extends javax.swing.JFrame {
         
         try {
             
-            Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             pst = conn.prepareStatement("SELECT  loginas, username, password, companyname FROM ValidationLogin");
             
@@ -92,7 +92,7 @@ public class SystemAdminHome extends javax.swing.JFrame {
         
         try {
             
-            Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
             pst = conn.prepareStatement("SELECT  loginas, username, password, companyname FROM ValidationLogin");
             
@@ -144,6 +144,7 @@ public class SystemAdminHome extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -250,21 +251,35 @@ public class SystemAdminHome extends javax.swing.JFrame {
                 .addGap(55, 55, 55))
         );
 
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(415, 415, 415)
+                .addGap(573, 573, 573)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(876, Short.MAX_VALUE))
+                .addContainerGap(718, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(193, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -310,6 +325,13 @@ public class SystemAdminHome extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        WelcomePage we = new WelcomePage();
+        we.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,6 +369,7 @@ public class SystemAdminHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
