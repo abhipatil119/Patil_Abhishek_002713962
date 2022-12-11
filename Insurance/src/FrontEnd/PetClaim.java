@@ -6,6 +6,7 @@ package FrontEnd;
 
 import Backend.Appointment;
 import Backend.CustomerData;
+import Backend.Email;
 import Backend.HealthPricing;
 import Backend.JdbcConnection;
 import Backend.PetPricing;
@@ -37,6 +38,7 @@ public class PetClaim extends javax.swing.JFrame {
     ArrayList<PetPricing> petP = new ArrayList<>();
     ArrayList<CustomerData> cus = new ArrayList<>();
     ArrayList<Appointment> app = new ArrayList<>();
+    ArrayList<Email> e = new ArrayList<>();
     public PetClaim() {
         initComponents();
     }
@@ -897,12 +899,30 @@ public class PetClaim extends javax.swing.JFrame {
             
             int k = pst.executeUpdate();
             if (k==1){
-                JOptionPane.showMessageDialog(this, "Policy bought Successfully !");
+                JOptionPane.showMessageDialog(this, "Policy bought successfully !");
                 
 //                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
 //                SystemPatient sp = new SystemPatient();
 //                sp.patient_reg(pd);
+
+            String email="" ;
+            
+            pst2 = conn.prepareStatement("SELECT email from CustomerRegistration where cust_id = ?");
+
+            pst2.setString(1,cust_id);
+            rs = pst2.executeQuery();
+            
+            while(rs.next())
+            {
+               email = rs.getString("email");
             }
+                try {
+                    Emailfunctionality.newpolicy.sendMail(email);
+                } catch (Exception ex) {
+                    Logger.getLogger(PetClaim.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            
+            } 
                 }}
             catch (SQLException ex) {
             Logger.getLogger(PetClaim.class.getName()).log(Level.SEVERE, null, ex);
@@ -957,6 +977,12 @@ public class PetClaim extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PetClaim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

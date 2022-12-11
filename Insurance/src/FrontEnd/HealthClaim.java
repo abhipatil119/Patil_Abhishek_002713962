@@ -1132,11 +1132,28 @@ public class HealthClaim extends javax.swing.JFrame {
             
             int k = pst.executeUpdate();
             if (k==1){
-                JOptionPane.showMessageDialog(this, "Policy Subscribed!!!");
+                JOptionPane.showMessageDialog(this, "Policy bought succesfully!");
                 
 //                pd.add(new PatientDirectory(Fname,Lname,patient_id,gender,date1,blood_group,address,zipcode,city,username,passw));
 //                SystemPatient sp = new SystemPatient();
 //                sp.patient_reg(pd);
+
+                String email="" ;
+            
+            pst2 = conn.prepareStatement("SELECT email from CustomerRegistration where cust_id = ?");
+
+            pst2.setString(1,cust_id);
+            rs = pst2.executeQuery();
+            
+            while(rs.next())
+            {
+               email = rs.getString("email");
+            }
+                try {
+                    Emailfunctionality.newpolicy.sendMail(email);
+                } catch (Exception ex) {
+                    Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
+                } 
             }
             
             } catch (SQLException ex) {
@@ -1220,6 +1237,9 @@ public class HealthClaim extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HealthClaim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
