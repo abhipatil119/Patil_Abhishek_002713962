@@ -1013,7 +1013,7 @@ public class HealthClaim extends javax.swing.JFrame {
                 String r = rs.getString("reason");
                 String date_of_app =  rs.getString("date_of_app");
                 String t = rs.getString("time");
-                app.add(new Appointment(comp,cust_id,r,date_of_app,t));
+                app.add(new Appointment(cust_id,r,date_of_app,t));
                 
                 
 
