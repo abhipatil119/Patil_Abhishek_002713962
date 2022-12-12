@@ -726,7 +726,22 @@ public class ManagerHome extends javax.swing.JFrame {
             
             int k = pst1.executeUpdate();
             if (k==1){
-                
+                String email="" ;
+            
+            pst2 = conn.prepareStatement("SELECT email from CustomerRegistration where cust_id = ?");
+
+            pst2.setString(1,cit);
+            rs = pst2.executeQuery();
+            
+            while(rs.next())
+            {
+               email = rs.getString("email");
+            }
+                try {
+                    Emailfunctionality.managerapproved.sendMail(email);
+                } catch (Exception ex) {
+                    Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
+                } 
             
                
             }   

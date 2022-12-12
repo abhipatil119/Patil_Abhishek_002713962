@@ -4,6 +4,7 @@
  */
 package FrontEnd;
 import BackEnd.Login;
+import Backend.BestCustomer;
 import Backend.CustomerData;
 import Backend.Person;
 import Backend.SalesPie;
@@ -46,7 +47,7 @@ public class PieChart extends javax.swing.JFrame {
     ResultSet rs;
     ArrayList<Login> log = new ArrayList<>();
     ArrayList<SalesPie> sales = new ArrayList<>();
-    
+    ArrayList<BestCustomer> bc = new ArrayList<>();
     /**
      * Creates new form PieChart
      */
@@ -70,6 +71,8 @@ public class PieChart extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,16 +108,21 @@ public class PieChart extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jButton4.setText("Show");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setText("Customer's which  invest high in  Policy");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jLabel1)
-                .addGap(242, 242, 242)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(304, 304, 304)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,6 +133,20 @@ public class PieChart extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(87, 87, 87))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(jLabel1)
+                        .addGap(242, 242, 242)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(605, 605, 605)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(457, 457, 457)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +161,11 @@ public class PieChart extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
-                .addContainerGap(410, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(57, 57, 57)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -234,7 +260,7 @@ public class PieChart extends javax.swing.JFrame {
             Connection conn = jdbc.Connect();    
                 
                 
-            pst = conn.prepareStatement("select custID as cust_id, count(custID) as counter from ManagePetPolicies group by custID union select cust_id, count(cust_id) as counter from managepolicies group by cust_id");
+            pst = conn.prepareStatement("select cust_id, count(cust_id) as counter from managepolicies group by cust_id  order by counter desc LIMIT 2");
             
             rs = pst.executeQuery();
             
@@ -243,7 +269,7 @@ public class PieChart extends javax.swing.JFrame {
                 String c_id = rs.getString("cust_id");
                 int counter =  rs.getInt("counter");
                               
-                sales.add(new SalesPie(c_id, counter));
+                bc.add(new BestCustomer(c_id, counter));
                 
 
             }
@@ -253,19 +279,19 @@ public class PieChart extends javax.swing.JFrame {
 
         }    
         Frame frames = new Frame();
-        String s1 = sales.get(0).getSales_id();
-        int i = sales.get(0).getComm();
+        String c1 = bc.get(0).getCust_id();
+        int i = bc.get(0).getCounter();
         
-        String s2 = sales.get(1).getSales_id();
-        int j = sales.get(1).getComm();
+        String c2 = bc.get(1).getCust_id();
+        int j = bc.get(1).getCounter();
         
         
-        
+        System.out.println(c1+","+i+","+c2+","+j);
         
         
         DefaultPieDataset pieDataSet = new DefaultPieDataset();
-        pieDataSet.setValue(s1, i);
-        pieDataSet.setValue(s2, j);
+        pieDataSet.setValue(bc.get(0).getCust_id(), i);
+        pieDataSet.setValue(bc.get(1).getCust_id(), j);
   
         JFreeChart charts = ChartFactory.createPieChart("Pie Chart", pieDataSet, true, true, true);
 
@@ -288,6 +314,60 @@ public class PieChart extends javax.swing.JFrame {
         wel.show();
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try {
+            Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
+            Connection conn = jdbc.Connect();    
+                
+                
+            pst = conn.prepareStatement("select company, count(company) as counter from managepolicies group by company  order by counter desc LIMIT 2");
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next())
+            {
+                String com = rs.getString("company");
+                int counter =  rs.getInt("counter");
+                              
+                bc.add(new BestCustomer(com, counter));
+                
+
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
+
+        }    
+        Frame frames = new Frame();
+        String company1 = bc.get(0).getCust_id();
+        int i = bc.get(0).getCounter();
+        
+        String company2 = bc.get(1).getCust_id();
+        int j = bc.get(1).getCounter();
+        
+        
+        System.out.println(company1+","+i+","+company2+","+j);
+        
+        
+        DefaultPieDataset pieDataSet = new DefaultPieDataset();
+        pieDataSet.setValue(bc.get(0).getCust_id(), i);
+        pieDataSet.setValue(bc.get(1).getCust_id(), j);
+  
+        JFreeChart charts = ChartFactory.createPieChart("Pie Chart", pieDataSet, true, true, true);
+
+        ChartPanel chartPanel = new ChartPanel(charts);
+        frames.add(chartPanel);
+
+        frames.pack();
+        frames.setVisible(true);
+        chartPanel.setSize(1000, 1000);
+        chartPanel.setVisible(true);
+        
+        
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,8 +408,10 @@ public class PieChart extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
