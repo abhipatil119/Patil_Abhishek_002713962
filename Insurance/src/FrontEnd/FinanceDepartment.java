@@ -70,7 +70,7 @@ public class FinanceDepartment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "cust_id", "Fname", "LastName", "reason", "Describtion", "premium", "sales_id"
+                "cust_id", "Fname", "LastName", "reason", "Describtion", "health_premium", "car_premium", "pet_premium", "sales_id"
             }
         ));
         jScrollPane1.setViewportView(healthfin);
@@ -190,7 +190,7 @@ public class FinanceDepartment extends javax.swing.JFrame {
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name = 'Geico' ");
+            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , mc.premium as car_premium,mp.premium as pet_premium, m.sales_id from Financemiddle c left join CustomerRegistration r on c.cust_id = r.cust_id left join managepolicies m on c.cust_id = m.cust_id left join managecarpolicies mc on c.cust_id = mc.cust_id left join ManagePetPolicies mp on c.cust_id = mp.custID where c.company_name = 'Geico' ");
             
             rs = pst.executeQuery();
             while(rs.next())
@@ -202,13 +202,15 @@ public class FinanceDepartment extends javax.swing.JFrame {
                String lname = rs.getString("r.lname");
                String reason = rs.getString("c.reason");
                String descc = rs.getString("c.detailed_desc");
-               String bpremium = rs.getString("health_premium");
+               String hpremium = rs.getString("health_premium");
+               String cpremium = rs.getString("car_premium");
+               String ppremium = rs.getString("pet_premium");
                String sales_id = rs.getString("m.sales_id");
                
                
                
                
-               health.addRow(new Object[]{cust,Fname,lname,reason,descc,bpremium,sales_id});
+               health.addRow(new Object[]{cust,Fname,lname,reason,descc,hpremium,cpremium,ppremium,sales_id});
                
                
             }

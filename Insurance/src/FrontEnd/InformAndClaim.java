@@ -501,31 +501,8 @@ public class InformAndClaim extends javax.swing.JFrame {
         String  tm =   jComboBox2.getSelectedItem().toString();
         String comp_nam = jComboBox3.getSelectedItem().toString();
         
-        try {
-            JdbcConnection jdbc = new JdbcConnection();
-            Connection conn = jdbc.Connect();    
-                
-                
-            pst1 = conn.prepareStatement("SELECT cust_id ,gender, dob  from managepolicies where cust_id = ?");
-            pst1.setString(1,cust_id);
-            rs = pst1.executeQuery();
-            
-            while(rs.next())
-            {
-                String customer = rs.getString("cust_id");
-                String gender =  rs.getString("gender");
-                String dob = rs.getString("dob");               
-                cus.add(new CustomerData(customer, gender, dob));
-                
-
-            }
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(CustomerRegistration.class.getName()).log(Level.SEVERE, null, ex);
-
-        }    
-         for (int i =0; i < cus.size();i++){
-        if (cus.get(i).getCust_id().equalsIgnoreCase(cust_id)){
+        
+       
         
        try {
                 JdbcConnection jdbc = new JdbcConnection();
@@ -575,20 +552,13 @@ public class InformAndClaim extends javax.swing.JFrame {
             } catch (SQLException ex) {
             Logger.getLogger(HealthClaim.class.getName()).log(Level.SEVERE, null, ex);
             
-        }
+        
        
     }
-        else {
-        JOptionPane.showMessageDialog(this,
-                " Sorry You haven't Taken any policy we can't claim your request.",
-                "Try again",
-                JOptionPane.ERROR_MESSAGE);
         
         
-        }
        
-       
-         }
+         
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

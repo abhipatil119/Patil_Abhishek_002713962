@@ -475,6 +475,7 @@ public class SalesRegistration_1 extends javax.swing.JFrame {
             pst1.setString(1,logas);
             pst1.setString(2,username);
             pst1.setString(3,password);
+            pst1.execute();
             int per;
             String sales_id;
          if (person.isEmpty()){

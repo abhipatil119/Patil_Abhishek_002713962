@@ -46,8 +46,6 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        healthfin = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -55,20 +53,12 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        healthfin = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-
-        healthfin.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "cust_id", "Fname", "LastName", "reason", "Describtion", "premium", "sales_id"
-            }
-        ));
-        jScrollPane1.setViewportView(healthfin);
 
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setText("View");
@@ -102,6 +92,16 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
             }
         });
 
+        healthfin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "cust_id", "Fname", "LastName", "reason", "Describtion", "health_premium", "car_premium", "pet_premium", "sales_id"
+            }
+        ));
+        jScrollPane1.setViewportView(healthfin);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,10 +110,6 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
                 .addGap(0, 825, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(893, 893, 893))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -133,6 +129,10 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(238, 238, 238))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(296, 296, 296)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,9 +146,9 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addComponent(jButton3)))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,21 +183,23 @@ public class FinanceDepartmentProgressive extends javax.swing.JFrame {
             health.setRowCount(0);
             JdbcConnection jdbc = new JdbcConnection();
             Connection conn = jdbc.Connect();
-            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , m.sales_id from Financemiddle c inner join CustomerRegistration r on c.cust_id = r.cust_id inner join managepolicies m on c.cust_id = m.cust_id where c.company_name =  'Progressive'");
+            pst = conn.prepareStatement("select c.cust_id, r.fname, r.lname, c.reason, c.detailed_desc, m.premium as health_premium , mc.premium as car_premium,mp.premium as pet_premium, m.sales_id from Financemiddle c left join CustomerRegistration r on c.cust_id = r.cust_id left join managepolicies m on c.cust_id = m.cust_id left join managecarpolicies mc on c.cust_id = mc.cust_id left join ManagePetPolicies mp on c.cust_id = mp.custID where c.company_name = 'Progressive'");
 
             rs = pst.executeQuery();
             while(rs.next())
             {
 
-                String cust =  rs.getString("c.cust_id");
-                String Fname = rs.getString("r.fname");
-                String lname = rs.getString("r.lname");
-                String reason = rs.getString("c.reason");
-                String descc = rs.getString("c.detailed_desc");
-                String bpremium = rs.getString("health_premium");
-                String sales_id = rs.getString("m.sales_id");
+               String cust =  rs.getString("c.cust_id");
+               String Fname = rs.getString("r.fname");
+               String lname = rs.getString("r.lname");
+               String reason = rs.getString("c.reason");
+               String descc = rs.getString("c.detailed_desc");
+               String hpremium = rs.getString("health_premium");
+               String cpremium = rs.getString("car_premium");
+               String ppremium = rs.getString("pet_premium");
+               String sales_id = rs.getString("m.sales_id");
 
-                health.addRow(new Object[]{cust,Fname,lname,reason,descc,bpremium,sales_id});
+                health.addRow(new Object[]{cust,Fname,lname,reason,descc,hpremium,cpremium,ppremium,sales_id});
 
             }
         } catch (SQLException ex) {

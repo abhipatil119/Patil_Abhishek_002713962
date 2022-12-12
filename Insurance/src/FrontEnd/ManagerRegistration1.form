@@ -406,13 +406,16 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Company Manager "/>
-                <StringItem index="1" value="Finance Head"/>
-                <StringItem index="2" value="Marketing Manager"/>
+                <StringItem index="0" value="Manager "/>
+                <StringItem index="1" value="Finance Department"/>
+                <StringItem index="2" value="Marketing Head"/>
                 <StringItem index="3" value=" "/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
