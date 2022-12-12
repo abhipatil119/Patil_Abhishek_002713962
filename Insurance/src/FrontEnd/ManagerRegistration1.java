@@ -142,7 +142,12 @@ public class ManagerRegistration1 extends javax.swing.JFrame {
         jLabel14.setText("Password");
 
         jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Company Manager ", "Finance Head", "Marketing Manager", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager ", "Finance Department", "Marketing Head", " " }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel15.setText("Register as");
@@ -374,7 +379,7 @@ public class ManagerRegistration1 extends javax.swing.JFrame {
             String  state = jTextField5.getText();
             String  zipcode = jTextField6.getText();
             String gender = "";
-            String logas = "customer";
+            
            if(jRadioButton1.isSelected() == true)
             {
                 gender = "Male";
@@ -398,7 +403,7 @@ public class ManagerRegistration1 extends javax.swing.JFrame {
                 
                 
             pst1 = conn.prepareStatement("SELECT username, password  from ValidationLogin where loginas = ?");
-            pst1.setString(1,logas);
+            pst1.setString(1,emp_role);
             rs = pst1.executeQuery();
             //            DefaultTableModel model = (DefaultTableModel) encountertable.getModel();
             //            String ps = rs.getString(1);
@@ -407,9 +412,9 @@ public class ManagerRegistration1 extends javax.swing.JFrame {
             {
                 String user_name =  rs.getString("username");
                 String passi = rs.getString("password");               
-                String loginas = "customer";
+                
                 String companyname = "";
-                log.add(new Login(loginas ,companyname,user_name, passi));
+                log.add(new Login(emp_role ,companyname,user_name, passi));
 
             }
         }
@@ -452,10 +457,11 @@ public class ManagerRegistration1 extends javax.swing.JFrame {
             try {
                 Backend.JdbcConnection jdbc = new Backend.JdbcConnection();
             Connection conn = jdbc.Connect();    
-            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,username,password)VALUES(?,?,?)");
-            pst1.setString(1,logas);
-            pst1.setString(2,username);
-            pst1.setString(3,password);
+            pst1 = conn.prepareStatement("INSERT INTO ValidationLogin(loginas,companyname,username,password)VALUES(?,?,?,?)");
+            pst1.setString(1,emp_role);
+            pst1.setString(2,company);
+            pst1.setString(3,username);
+            pst1.setString(4,password);
             int per;
             String manager_id;
          if (person.isEmpty()){
@@ -536,6 +542,10 @@ public class ManagerRegistration1 extends javax.swing.JFrame {
         sp.show();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

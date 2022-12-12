@@ -3,6 +3,7 @@ package FrontEnd;
 import Backend.JdbcConnection;
 import Backend.Manager;
 import Backend.SalesAgent;
+import SystemAdminPages.SystemAdminCompany;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -717,6 +718,9 @@ public class ManageCompanyEmployee_1 extends javax.swing.JFrame {
 */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        SystemAdminCompany sp = new SystemAdminCompany();
+        sp.show();
+        dispose();
         
         
         
